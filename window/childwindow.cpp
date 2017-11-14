@@ -50,7 +50,7 @@ void childWindow::addMyToolBar(){
     openObj=new QToolButton(this);
     //openObj->setCheckable(true);
     openObj->setToolTip(tr("打开文件"));
-    openObj->setIcon(QPixmap("../draw/icon/openobj.png"));
+    openObj->setIcon(QPixmap("./icon/openobj.png"));
     openObj->setMinimumHeight(45);
     openObj->setMinimumWidth(45);
     ui->toolBar->addWidget(openObj);
@@ -59,7 +59,7 @@ void childWindow::addMyToolBar(){
     showFiveView=new QToolButton(this);
     //showFiveView->setCheckable(true);
     showFiveView->setToolTip(tr("切换视图"));
-    showFiveView->setIcon(QPixmap("../draw/icon/5.png"));
+    showFiveView->setIcon(QPixmap("./icon/5.png"));
     showFiveView->setMinimumHeight(45);
     showFiveView->setMinimumWidth(45);
     ui->toolBar->addWidget(showFiveView);
@@ -67,7 +67,7 @@ void childWindow::addMyToolBar(){
     xy=new QToolButton(this);
     // xy->setCheckable(true);
     xy->setToolTip(tr("xy方向贴图"));
-    xy->setIcon(QPixmap("../draw/icon/xy.png"));
+    xy->setIcon(QPixmap("./icon/xy.png"));
     xy->setMinimumHeight(45);
     xy->setMinimumWidth(45);
     ui->toolBar->addWidget(xy);
@@ -76,7 +76,7 @@ void childWindow::addMyToolBar(){
     yz=new QToolButton(this);
     // yz->setCheckable(true);
     yz->setToolTip(tr("yz方向贴图"));
-    yz->setIcon(QPixmap("../draw/icon/yz.png"));
+    yz->setIcon(QPixmap("./icon/yz.png"));
     yz->setMinimumHeight(45);
     yz->setMinimumWidth(45);
     ui->toolBar->addWidget(yz);
@@ -85,7 +85,7 @@ void childWindow::addMyToolBar(){
     xz=new QToolButton(this);
     // xz->setCheckable(true);
     xz->setToolTip(tr("xz方向贴图"));
-    xz->setIcon(QPixmap("../draw/icon/xz.png"));
+    xz->setIcon(QPixmap("./icon/xz.png"));
     xz->setMinimumHeight(45);
     xz->setMinimumWidth(45);
     ui->toolBar->addWidget(xz);
@@ -94,7 +94,7 @@ void childWindow::addMyToolBar(){
     line=new QToolButton(this);
    // line->setCheckable(true);
     line->setToolTip(tr("线性贴图"));
-    line->setIcon(QPixmap("../draw/icon/line.png"));
+    line->setIcon(QPixmap("./icon/line.png"));
     line->setMinimumHeight(45);
     line->setMinimumWidth(45);
     ui->toolBar->addWidget(line);
@@ -103,7 +103,7 @@ void childWindow::addMyToolBar(){
     cube=new QToolButton(this);
   //  cube->setCheckable(true);
     cube->setToolTip(tr("立方体贴图"));
-    cube->setIcon(QPixmap("../draw/icon/cube.png"));
+    cube->setIcon(QPixmap("./icon/cube.png"));
     cube->setMinimumHeight(45);
     cube->setMinimumWidth(45);
     ui->toolBar->addWidget(cube);
@@ -112,7 +112,7 @@ void childWindow::addMyToolBar(){
     sphere=new QToolButton(this);
    // sphere->setCheckable(true);
     sphere->setToolTip(tr("球体贴图"));
-    sphere->setIcon(QPixmap("../draw/icon/sphere.png"));
+    sphere->setIcon(QPixmap("./icon/sphere.png"));
     sphere->setMinimumHeight(45);
     sphere->setMinimumWidth(45);
     ui->toolBar->addWidget(sphere);
@@ -121,7 +121,7 @@ void childWindow::addMyToolBar(){
     fiveImage=new QToolButton(this);
    // fiveImage->setCheckable(true);
     fiveImage->setToolTip(tr("清空贴图"));
-    fiveImage->setIcon(QPixmap("../draw/icon/empty.png"));
+    fiveImage->setIcon(QPixmap("./icon/empty.png"));
     fiveImage->setMinimumHeight(45);
     fiveImage->setMinimumWidth(45);
     ui->toolBar->addWidget(fiveImage);
@@ -130,7 +130,7 @@ void childWindow::addMyToolBar(){
     changeback=new QToolButton(this);
    // sphere->setCheckable(true);
     changeback->setToolTip(tr("选择背景"));
-    changeback->setIcon(QPixmap("../draw/icon/changeBack.png"));
+    changeback->setIcon(QPixmap("./icon/changeBack.png"));
     changeback->setMinimumHeight(45);
     changeback->setMinimumWidth(45);
     ui->toolBar->addWidget(changeback);
@@ -139,7 +139,7 @@ void childWindow::addMyToolBar(){
     planeFlag=new QToolButton(this);
    // sphere->setCheckable(true);
     planeFlag->setToolTip(tr("显示/显示平面格"));
-    planeFlag->setIcon(QPixmap("../draw/icon/plane.png"));
+    planeFlag->setIcon(QPixmap("./icon/plane.png"));
     planeFlag->setMinimumHeight(45);
     planeFlag->setMinimumWidth(45);
     ui->toolBar->addWidget(planeFlag);
@@ -148,7 +148,7 @@ void childWindow::addMyToolBar(){
     boxFlag=new QToolButton(this);
    // sphere->setCheckable(true);
     boxFlag->setToolTip(tr("显示/显示包围盒"));
-    boxFlag->setIcon(QPixmap("../draw/icon/box.png"));
+    boxFlag->setIcon(QPixmap("./icon/box.png"));
     boxFlag->setMinimumHeight(45);
     boxFlag->setMinimumWidth(45);
     ui->toolBar->addWidget(boxFlag);

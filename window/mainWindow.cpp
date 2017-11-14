@@ -264,6 +264,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction *fivefram=group4->addAction(tr("五面贴图界面"));
     ui->menuT->addAction(fivefram);
     connect(fivefram,SIGNAL(triggered()),this,SLOT(fiveOpenS()));
+    QAction *keyshotfram=group4->addAction(tr("keyshot贴图界面"));
+    ui->menuT->addAction(keyshotfram);
+    connect(keyshotfram,SIGNAL(triggered()),this,SLOT(keyshotS()));
 
     QActionGroup *group5=new QActionGroup(this);
     QAction *colper=group5->addAction(tr("颜色比设置"));
@@ -1432,6 +1435,8 @@ void MainWindow::updateSizeShow(){
     drawY=this->l;
     drawZ=this->h;
     this->update();
+    centralDraw->clear();
+    centralDraw->update();
 }
 void MainWindow::setSize(int l,int w,int h){
     this->l=l;
@@ -1452,11 +1457,10 @@ void MainWindow::setColors(vector<QColor> cls, vector<int> rls)
     childWidget->setSize(this->l,this->w,this->h);
     childWidget->setColors(cls,rls);
     childWidget->createDigitMap();
-    childWidget->setHandleState(Widget::NORMAL);
+    childWidget->setHandleState(Widget::MOVEDIGIT);
     childWidget->show();
     this->updateSizeShow();
-    centralDraw->clear();
-    centralDraw->update();
+
 }
 //-----------------自动生成数码迷彩------------------
 void MainWindow::autoDigital(){
@@ -1464,22 +1468,22 @@ void MainWindow::autoDigital(){
     sizedg=new setSizeDialog(this);
     connect(sizedg,SIGNAL(sendSize(int,int,int)),this,SLOT(setSize(int,int,int)));
     sizedg->show();
-    //    if(fileName == ""){
-    //       QMessageBox::about(NULL, "Warning", "请打开图片!!!!");
-    //    }else{
-    //        windowScale=centralDraw->getWindowScale();
-    //        if(fabs(windowScale-1)<0.001){
-    //            if(AutoCADFlag){
-    //                clearAll();
-    //                //数码迷彩斑点绘制
-    //                centralDraw->getCanvasPointSTestByControl(100,100);
-    //                //数码迷彩斑点颜色按比例填充 45:30:25：5
-    //                autoColorByControl();
-    //                //不显示斑点边缘线
-    //                //centralDraw->showSpotEdge(1);
-    //            }
-    //        }
-    //    }
+//    if(fileName == ""){
+//        QMessageBox::about(NULL, "Warning", "请打开图片!!!!");
+//    }else{
+//        windowScale=centralDraw->getWindowScale();
+//        if(fabs(windowScale-1)<0.001){
+//            if(AutoCADFlag){
+//                clearAll();
+//                //数码迷彩斑点绘制
+//                centralDraw->getCanvasPointSTestByControl(100,100);
+//                //数码迷彩斑点颜色按比例填充 45:30:25：5
+//                autoColorByControl();
+//                //不显示斑点边缘线
+//                //centralDraw->showSpotEdge(1);
+//            }
+//        }
+//    }
 }
 //-----------------------------------------------------------------------------------------------
 //--------------xiaotian    计算颜色矩阵
@@ -2229,7 +2233,7 @@ void MainWindow::addMyToolBar(){
     toolBtn = new QToolButton(this);
     toolBtn->setToolTip(tr("画笔"));
     toolBtn->setCheckable(true);
-    toolBtn->setIcon(QPixmap("../draw/icon/pen.png"));
+    toolBtn->setIcon(QPixmap("./icon/pen.png"));
     toolBtn->setMinimumHeight(35);
     ui->mainToolBar->addWidget(toolBtn);
     connect(toolBtn,SIGNAL(clicked()),this,SLOT(setDrawFlag()));
@@ -2239,7 +2243,7 @@ void MainWindow::addMyToolBar(){
 
     deleteAll = new QToolButton(this);
     deleteAll->setToolTip(tr("清空"));
-    deleteAll->setIcon(QPixmap("../draw/icon/xiangpi.png"));
+    deleteAll->setIcon(QPixmap("./icon/xiangpi.png"));
     //toolBtn->setText(tr("颜色"));
     deleteAll->setMinimumHeight(35);
     ui->mainToolBar->addWidget(deleteAll);
@@ -2247,14 +2251,14 @@ void MainWindow::addMyToolBar(){
 
     backWard = new QToolButton(this);
     backWard->setToolTip(tr("回退"));
-    backWard->setIcon(QPixmap("../draw/icon/backWard.png"));
+    backWard->setIcon(QPixmap("./icon/backWard.png"));
     //toolBtn->setText(tr("颜色"));
     backWard->setMinimumHeight(35);
     /*ui->*/mainToolBar->addWidget(backWard);
 
     forWard = new QToolButton(this);
     forWard->setToolTip(tr("前进"));
-    forWard->setIcon(QPixmap("../draw/icon/forWard.png"));
+    forWard->setIcon(QPixmap("./icon/forWard.png"));
     //toolBtn->setText(tr("颜色"));
     forWard->setMinimumHeight(35);
     /*ui->*/mainToolBar->addWidget(forWard);
@@ -2319,14 +2323,14 @@ void MainWindow::addMyToolBar(){
     //QPixmap *pix=new QPixmap(600,600);
     spotComboBox->setFixedHeight(22);
     spotComboBox->setFixedWidth(200);
-    //    spotComboBox->setItemIcon(0,QIcon("../draw/0.jpg"));
-    //    spotComboBox->setItemIcon(1,QIcon("../draw/1.jpg"));
-    //    spotComboBox->setItemIcon(2,QIcon("../draw/2.jpg"));
-    //    spotComboBox->setItemIcon(3,QIcon("../draw/3.jpg"));
-    //    spotComboBox->setItemIcon(4,QIcon("../draw/4.jpg"));
-    //    spotComboBox->setItemIcon(5,QIcon("../draw/5.jpg"));
-    //    spotComboBox->setItemIcon(6,QIcon("../draw/6.jpg"));
-    //    spotComboBox->setItemIcon(7,QIcon("../draw/7.jpg"));
+    //    spotComboBox->setItemIcon(0,QIcon("./0.jpg"));
+    //    spotComboBox->setItemIcon(1,QIcon("./1.jpg"));
+    //    spotComboBox->setItemIcon(2,QIcon("./2.jpg"));
+    //    spotComboBox->setItemIcon(3,QIcon("./3.jpg"));
+    //    spotComboBox->setItemIcon(4,QIcon("./4.jpg"));
+    //    spotComboBox->setItemIcon(5,QIcon("./5.jpg"));
+    //    spotComboBox->setItemIcon(6,QIcon("./6.jpg"));
+    //    spotComboBox->setItemIcon(7,QIcon("./7.jpg"));
 
     for(int i=1;i<31+addColorNum;i++){
         pix[i]=tempPix;
@@ -2409,14 +2413,14 @@ void MainWindow::addMyToolBar(){
 
     backgroundComboBox->setFixedHeight(22);
     backgroundComboBox->setFixedWidth(200);
-    //    backgroundComboBox->setItemIcon(0,QIcon("../draw/0.jpg"));
-    //    backgroundComboBox->setItemIcon(1,QIcon("../draw/1.jpg"));
-    //    backgroundComboBox->setItemIcon(2,QIcon("../draw/2.jpg"));
-    //    backgroundComboBox->setItemIcon(3,QIcon("../draw/3.jpg"));
-    //    backgroundComboBox->setItemIcon(4,QIcon("../draw/4.jpg"));
-    //    backgroundComboBox->setItemIcon(5,QIcon("../draw/5.jpg"));
-    //    backgroundComboBox->setItemIcon(6,QIcon("../draw/6.jpg"));
-    //    backgroundComboBox->setItemIcon(7,QIcon("../draw/7.jpg"));
+    //    backgroundComboBox->setItemIcon(0,QIcon("./0.jpg"));
+    //    backgroundComboBox->setItemIcon(1,QIcon("./1.jpg"));
+    //    backgroundComboBox->setItemIcon(2,QIcon("./2.jpg"));
+    //    backgroundComboBox->setItemIcon(3,QIcon("./3.jpg"));
+    //    backgroundComboBox->setItemIcon(4,QIcon("./4.jpg"));
+    //    backgroundComboBox->setItemIcon(5,QIcon("./5.jpg"));
+    //    backgroundComboBox->setItemIcon(6,QIcon("./6.jpg"));
+    //    backgroundComboBox->setItemIcon(7,QIcon("./7.jpg"));
     for(int i=1;i<31+addColorNum;i++){
         pix[i]=tempPix;
         //qDebug1("%d",i);
@@ -2437,21 +2441,21 @@ void MainWindow::addMyToolBar(){
 
     saveProject = new QToolButton(this);//spotMapping->setChecked();
     saveProject->setToolTip(tr("保存工程"));
-    saveProject->setIcon(QPixmap("../draw/icon/saveProject.png"));
+    saveProject->setIcon(QPixmap("./icon/saveProject.png"));
     saveProject->setMinimumHeight(35);
     ui->mainToolBar->addWidget(saveProject);
     connect(saveProject,SIGNAL(clicked()),this,SLOT(saveCanvasF()));
 
     readProject = new QToolButton(this);//spotMapping->setChecked();
     readProject->setToolTip(tr("打开已保存工程"));
-    readProject->setIcon(QPixmap("../draw/icon/readProject.png"));
+    readProject->setIcon(QPixmap("./icon/readProject.png"));
     readProject->setMinimumHeight(35);
     ui->mainToolBar->addWidget(readProject);
     connect(readProject,SIGNAL(clicked()),this,SLOT(readCanvasF()));
 
     spotMoveB = new QToolButton(this);
     spotMoveB->setToolTip(tr("移动"));
-    spotMoveB->setIcon(QPixmap("../draw/icon/Move.png"));
+    spotMoveB->setIcon(QPixmap("./icon/Move.png"));
     //toolBtn->setText(tr("颜色"));
     spotMoveB->setMinimumHeight(35);
     ui->mainToolBar->addWidget(spotMoveB);
@@ -2461,7 +2465,7 @@ void MainWindow::addMyToolBar(){
 
     spotRotation = new QToolButton(this);
     spotRotation->setToolTip(tr("旋转"));
-    spotRotation->setIcon(QPixmap("../draw/icon/Rotate.png"));
+    spotRotation->setIcon(QPixmap("./icon/Rotate.png"));
     //toolBtn->setText(tr("颜色"));
     spotRotation->setMinimumHeight(35);
     ui->mainToolBar->addWidget(spotRotation);
@@ -2470,7 +2474,7 @@ void MainWindow::addMyToolBar(){
 
     spotZoom = new QToolButton(this);
     spotZoom->setToolTip(tr("缩放"));
-    spotZoom->setIcon(QPixmap("../draw/icon/big.png"));
+    spotZoom->setIcon(QPixmap("./icon/big.png"));
     //toolBtn->setText(tr("颜色"));
     spotZoom->setMinimumHeight(35);
     ui->mainToolBar->addWidget(spotZoom);
@@ -2482,14 +2486,14 @@ void MainWindow::addMyToolBar(){
     toolBtnR = new QToolButton(this);
     toolBtnR->setToolTip(tr("检测曲率半径"));
     toolBtnR->setCheckable(true);
-    toolBtnR->setIcon(QPixmap("../draw/icon/check.png"));
+    toolBtnR->setIcon(QPixmap("./icon/check.png"));
     toolBtnR->setMinimumHeight(35);
     ui->mainToolBar->addWidget(toolBtnR);
     connect(toolBtnR,SIGNAL(clicked()),this,SLOT(setRadiusFlag()));
 
     autoSpot = new QToolButton(this);//spotMapping->setChecked();
     autoSpot->setToolTip(tr("自动生成一个斑点"));
-    autoSpot->setIcon(QPixmap("../draw/icon/autoS.png"));
+    autoSpot->setIcon(QPixmap("./icon/autoS.png"));
     //toolBtn->setText(tr("颜色"));
     autoSpot->setMinimumHeight(35);
     ui->mainToolBar->addWidget(autoSpot);
@@ -2498,14 +2502,14 @@ void MainWindow::addMyToolBar(){
     //自动生成大斑点
     //    autoSpotBig = new QToolButton(this);//spotMapping->setChecked();
     //    autoSpotBig->setToolTip(tr("自动生成一个大斑点"));
-    //    autoSpotBig->setIcon(QPixmap("../draw/icon/bigSpot.png"));
+    //    autoSpotBig->setIcon(QPixmap("./icon/bigSpot.png"));
     //    //toolBtn->setText(tr("颜色"));
     //    autoSpotBig->setMinimumHeight(35);
     //    /*ui->*/mainToolBar->addWidget(autoSpotBig);
 
     autoCanvas = new QToolButton(this);//spotMapping->setChecked();
     autoCanvas->setToolTip(tr("自动生成一画布斑点"));
-    autoCanvas->setIcon(QPixmap("../draw/icon/autoC.png"));
+    autoCanvas->setIcon(QPixmap("./icon/autoC.png"));
     //toolBtn->setText(tr("颜色"));
     autoCanvas->setMinimumHeight(35);
     ui->mainToolBar->addWidget(autoCanvas);
@@ -2525,7 +2529,7 @@ void MainWindow::addMyToolBar(){
 
     spotMapping = new QToolButton(this);//spotMapping->setChecked();
     spotMapping->setToolTip(tr("立体贴图"));
-    spotMapping->setIcon(QPixmap("../draw/icon/Paint.png"));
+    spotMapping->setIcon(QPixmap("./icon/Paint.png"));
     //toolBtn->setText(tr("颜色"));
     spotMapping->setMinimumHeight(35);
     ui->mainToolBar->addWidget(spotMapping);
@@ -2536,7 +2540,7 @@ void MainWindow::addMyToolBar(){
 
     //    AutoCAD = new QToolButton(this);//spotMapping->setChecked();
     //    AutoCAD->setToolTip(tr("生成AutoCAD图纸"));
-    //    AutoCAD->setIcon(QPixmap("../draw/icon/autoSpot.png"));
+    //    AutoCAD->setIcon(QPixmap("./icon/autoSpot.png"));
     //    //toolBtn->setText(tr("颜色"));
     //    AutoCAD->setMinimumHeight(45);
     //    ui->mainToolBar->addWidget(AutoCAD);
@@ -2544,7 +2548,7 @@ void MainWindow::addMyToolBar(){
 
     fiveOpen=new QToolButton(this);
     fiveOpen->setToolTip(tr("五视图展示"));
-    fiveOpen->setIcon(QPixmap("../draw/icon/five.png"));
+    fiveOpen->setIcon(QPixmap("./icon/five.png"));
     fiveOpen->setMinimumHeight(35);
     ui->mainToolBar->addWidget(fiveOpen);
     connect(fiveOpen,SIGNAL(clicked()),this,SLOT(fiveOpenS()));
@@ -2552,7 +2556,7 @@ void MainWindow::addMyToolBar(){
 
     AutoCADL = new QToolButton(this);//spotMapping->setChecked();
     AutoCADL->setToolTip(tr("获取左视图斑点信息"));
-    AutoCADL->setIcon(QPixmap("../draw/icon/l.png"));
+    AutoCADL->setIcon(QPixmap("./icon/l.png"));
     //toolBtn->setText(tr("颜色"));
     AutoCADL->setMinimumHeight(35);
     ui->mainToolBar->addWidget(AutoCADL);
@@ -2560,7 +2564,7 @@ void MainWindow::addMyToolBar(){
 
     AutoCADR = new QToolButton(this);//spotMapping->setChecked();
     AutoCADR->setToolTip(tr("获取右视图斑点信息"));
-    AutoCADR->setIcon(QPixmap("../draw/icon/r.png"));
+    AutoCADR->setIcon(QPixmap("./icon/r.png"));
     //toolBtn->setText(tr("颜色"));
     AutoCADR->setMinimumHeight(35);
     ui->mainToolBar->addWidget(AutoCADR);
@@ -2568,7 +2572,7 @@ void MainWindow::addMyToolBar(){
 
     AutoCADM = new QToolButton(this);//spotMapping->setChecked();
     AutoCADM->setToolTip(tr("获取中间视图斑点信息"));
-    AutoCADM->setIcon(QPixmap("../draw/icon/m.png"));
+    AutoCADM->setIcon(QPixmap("./icon/m.png"));
     //toolBtn->setText(tr("颜色"));
     AutoCADM->setMinimumHeight(35);
     ui->mainToolBar->addWidget(AutoCADM);
@@ -2576,7 +2580,7 @@ void MainWindow::addMyToolBar(){
 
     AutoCADU = new QToolButton(this);//spotMapping->setChecked();
     AutoCADU->setToolTip(tr("获取前视图斑点信息"));
-    AutoCADU->setIcon(QPixmap("../draw/icon/u.png"));
+    AutoCADU->setIcon(QPixmap("./icon/u.png"));
     //toolBtn->setText(tr("颜色"));
     AutoCADU->setMinimumHeight(35);
     ui->mainToolBar->addWidget(AutoCADU);
@@ -2584,7 +2588,7 @@ void MainWindow::addMyToolBar(){
 
     AutoCADD = new QToolButton(this);//spotMapping->setChecked();
     AutoCADD->setToolTip(tr("获取后视图斑点信息"));
-    AutoCADD->setIcon(QPixmap("../draw/icon/d.png"));
+    AutoCADD->setIcon(QPixmap("./icon/d.png"));
     //toolBtn->setText(tr("颜色"));
     AutoCADD->setMinimumHeight(35);
     ui->mainToolBar->addWidget(AutoCADD);
@@ -2594,7 +2598,7 @@ void MainWindow::addMyToolBar(){
     //加个全部的
     AutoCADA = new QToolButton(this);//spotMapping->setChecked();
     AutoCADA->setToolTip(tr("获取全部视图斑点信息"));
-    AutoCADA->setIcon(QPixmap("../draw/icon/all.png"));
+    AutoCADA->setIcon(QPixmap("./icon/all.png"));
     //toolBtn->setText(tr("颜色"));
     AutoCADA->setMinimumHeight(35);
     ui->mainToolBar->addWidget(AutoCADA);
@@ -2603,7 +2607,7 @@ void MainWindow::addMyToolBar(){
     //添加一种颜色
     addOneColor = new QToolButton(this);//spotMapping->setChecked();
     addOneColor->setToolTip(tr("添加一种颜色"));
-    addOneColor->setIcon(QPixmap("../draw/icon/color.png"));
+    addOneColor->setIcon(QPixmap("./icon/color.png"));
     //toolBtn->setText(tr("颜色"));
     addOneColor->setMinimumHeight(35);
     ui->mainToolBar->addWidget(addOneColor);
@@ -2612,7 +2616,7 @@ void MainWindow::addMyToolBar(){
     //删除一种颜色
     deleteOneColor = new QToolButton(this);//spotMapping->setChecked();
     deleteOneColor->setToolTip(tr("删除一种颜色"));
-    deleteOneColor->setIcon(QPixmap("../draw/icon/deleteOne.png"));
+    deleteOneColor->setIcon(QPixmap("./icon/deleteOne.png"));
     //toolBtn->setText(tr("颜色"));
     deleteOneColor->setMinimumHeight(35);
     ui->mainToolBar->addWidget(deleteOneColor);
@@ -2622,7 +2626,7 @@ void MainWindow::addMyToolBar(){
     //    //clearOneSpot现在当做随机一画布大斑点用
     //    clearOneSpot = new QToolButton(this);//spotMapping->setChecked();
     //    clearOneSpot->setToolTip(tr("删除一个斑点"));
-    //    clearOneSpot->setIcon(QPixmap("../draw/icon/deleteOne.png"));
+    //    clearOneSpot->setIcon(QPixmap("./icon/deleteOne.png"));
     //    //toolBtn->setText(tr("颜色"));
     //    clearOneSpot->setMinimumHeight(45);
     //    ui->mainToolBar->addWidget(clearOneSpot);
@@ -2630,7 +2634,7 @@ void MainWindow::addMyToolBar(){
     setOPoint = new QToolButton(this);
     setOPoint->setToolTip(tr("显示关键点"));
     setOPoint->setCheckable(true);
-    setOPoint->setIcon(QPixmap("../draw/icon/showKeyPoint.png"));
+    setOPoint->setIcon(QPixmap("./icon/showKeyPoint.png"));
     setOPoint->setMinimumHeight(35);
     /*ui->*/mainToolBar->addWidget(setOPoint);
     connect(setOPoint,SIGNAL(clicked()),this,SLOT(setOPointFlag()));
@@ -2860,8 +2864,10 @@ void MainWindow::caculateColorProportion(){
 
 void MainWindow::clearAll(){
     if(childWidget){
+        cout<<"进入清空程序"<<endl;
         childWidget->hide();
-        delete childWidget;
+        childWidget=NULL;
+//        delete childWidget;
     }
     centralDraw->clear();
     centralDraw->update();
@@ -3514,22 +3520,42 @@ void MainWindow::leftDockWidgetChanged(){
     //    addDockWidget(Qt::LeftDockWidgetArea,leftDock);
 }
 
-
+//-----------------------gyf-----------------------
 void MainWindow::mapping()
 {
     //    childWindow *child=new childWindow;
     //    child->setBaseSize(800,300);
     //    child->show();
+    cout<<"开始贴图"<<endl;
+    if(childWidget){
+        centralDraw->gyflag=true;
+        childWidget->createPicture();
+        QFile::remove("./image/1.png");
+        QFile::remove("./image/2.png");
+        QFile::remove("./image/3.png");
+        QFile::remove("./image/4.png");
+        QFile::remove("./image/5.png");
+        QFile::copy("side_u.png","./image/1.png");
+        QFile::copy("side_l.png","./image/2.png");
+        QFile::copy("side_c.png","./image/3.png");
+        QFile::copy("side_r.png","./image/4.png");
+        QFile::copy("side_d.png","./image/5.png");
+        QFile::remove("side_u.png");
+        QFile::remove("side_l.png");
+        QFile::remove("side_c.png");
+        QFile::remove("side_r.png");
+        QFile::remove("side_d.png");
+    }
     centralDraw->mapping();
+    centralDraw->gyflag=false;
     /////////
 
 }
 
 void MainWindow::paintEvent(QPaintEvent *){
     if(childWidget){
-        childWidget->setGeometry(width()/6,height()/6,width()*2/3,height()*11/14);
+        childWidget->setGeometry(300,140,width()-580,height()-170);
     }
-    //qDebug1("@@@@@@@@@:%d  %d",width()-leftDock->width()-rightDock->width()-33,height());
 }
 void MainWindow::refreshAreaRatio_s(){
     windowScale=centralDraw->getWindowScale();
@@ -3544,17 +3570,40 @@ void MainWindow::refreshAreaRatio_s(){
         msgBox.exec();
     }
 }
-
+//-----------------------------gyf---------------
 void MainWindow::readCanvasF(){
 
     QString fileName = QFileDialog::getOpenFileName(
                 this,
                 tr("Open Document"),
                 QDir::currentPath(),
-                "Document files (*.spot)");
+                "Document files (*.spot);*.dmc");
     if (!fileName.isNull()) { //用户选择了文件
         // 处理文件
-        centralDraw->readCanvasF(fileName);
+        string filename=fileName.toStdString();
+        cout<<filename<<endl;
+        if (filename[filename.size()-1]!='t') {
+            fileHandle=new FileHandle(filename);
+            fileHandle->read();
+            DigitMananger dm=fileHandle->getDigitManager();
+            //设置childWidget显示数据
+            delete childWidget;
+            childWidget=new Widget(this);
+            childWidget->setGeometry(300,height()/6,width()-600,height()*11/14);
+            childWidget->dm=dm;
+            fileHandle->getSize(l,w,h);
+            childWidget->setSize(l,w,h);
+            fileHandle->getColorList(cls,rls);
+            childWidget->setColors(cls,rls);
+            childWidget->show();
+            delete fileHandle;
+            updateSizeShow();
+        } else {
+            centralDraw->readCanvasF(fileName);
+        }
+
+
+
     } else {// 用户取消选择
     }
     //centralDraw->readCanvasF();
@@ -4449,6 +4498,9 @@ void MainWindow::showStretch(){
     }
 }
 
+void MainWindow::keyshotS(){
+    system("keyshot6.bat");
+}
 
 void MainWindow::fiveOpenS(){
     windowScale=centralDraw->getWindowScale();
@@ -4461,6 +4513,25 @@ void MainWindow::fiveOpenS(){
         wm->setWindowTitle(str);//QObject::tr(""));
         if(wm->flag==1)
             return;
+        if(childWidget){
+            childWidget->createPicture();
+            QFile::remove("./image/1.png");
+            QFile::remove("./image/2.png");
+            QFile::remove("./image/3.png");
+            QFile::remove("./image/4.png");
+            QFile::remove("./image/5.png");
+            QFile::copy("side_u.png","./image/1.png");
+            QFile::copy("side_l.png","./image/2.png");
+            QFile::copy("side_c.png","./image/3.png");
+            QFile::copy("side_r.png","./image/4.png");
+            QFile::copy("side_d.png","./image/5.png");
+            QFile::remove("side_u.png");
+            QFile::remove("side_l.png");
+            QFile::remove("side_c.png");
+            QFile::remove("side_r.png");
+            QFile::remove("side_d.png");
+        }
+
         wm->showMaximized();
         qDebug("streth streth streth %f",modelStretch);
         wm->show();

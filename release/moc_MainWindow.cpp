@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'MainWindow.h'
 **
-** Created: Sun Nov 12 19:25:43 2017
+** Created: Mon Nov 13 21:59:49 2017
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      63,   14, // methods
+      64,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -93,7 +93,8 @@ static const uint qt_meta_data_MainWindow[] = {
      994,   11,   11,   11, 0x08,
     1005,   11,   11,   11, 0x08,
     1016,   11,   11,   11, 0x08,
-    1029,   11,   11,   11, 0x08,
+    1027,   11,   11,   11, 0x08,
+    1040,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -126,8 +127,9 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "setRadiusFlag()\0setDrawFlag()\0"
     "setOPointFlag()\0setSpotMoveFlag()\0"
     "setRoationFlag()\0setStretchFlag()\0"
-    "spotSelected()\0fiveOpenS()\0rightCpy()\0"
-    "rightCut()\0rightPaste()\0rightDelete()\0"
+    "spotSelected()\0fiveOpenS()\0keyshotS()\0"
+    "rightCpy()\0rightCut()\0rightPaste()\0"
+    "rightDelete()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -218,13 +220,14 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 56: setStretchFlag(); break;
         case 57: spotSelected(); break;
         case 58: fiveOpenS(); break;
-        case 59: rightCpy(); break;
-        case 60: rightCut(); break;
-        case 61: rightPaste(); break;
-        case 62: rightDelete(); break;
+        case 59: keyshotS(); break;
+        case 60: rightCpy(); break;
+        case 61: rightCut(); break;
+        case 62: rightPaste(); break;
+        case 63: rightDelete(); break;
         default: ;
         }
-        _id -= 63;
+        _id -= 64;
     }
     return _id;
 }

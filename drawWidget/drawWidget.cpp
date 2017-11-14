@@ -5,7 +5,7 @@ DrawWidget::DrawWidget(QWidget *parent) :
     QWidget(parent)
 {
     //allColor.flag=11;
-
+    gyflag=false;
     areaGet=1;//斑点该随机到哪个区域赋值
     //setAutoFillBackground(true);
     //add
@@ -93,8 +93,8 @@ DrawWidget::DrawWidget(QWidget *parent) :
     //keyPointSize=8;
     spotColor.setRgb(255,255,255);
 
-//    widthChange=0;
-//    heightChange=0;
+    //    widthChange=0;
+    //    heightChange=0;
     firstFlag=0;//为了说明是drawCanvas中还没有将    widthChange=0;    heightChange=0;置0
     eventStyle=0;//与父窗口交互的变量，重新设画布的时候可以设为0
     addColorNum=0;
@@ -125,29 +125,29 @@ void DrawWidget::addCtrlSpot(){
     list<int>::iterator oP=spotSelectedCtrl.begin();
     int flag=0;
     for(;oP!=spotSelectedCtrl.end();){
-            if((*oP)==spotSelectedNum){
-                    spotSelectedCtrl.erase(oP);
-                    flag=1;
-                    ctrlSize--;
-                    //qDebug("MMMMMMMMM%d",ctrlSize);
-                    break;
-            }
-            else if((*oP)>spotSelectedNum){//对斑点进行从大到小排序，如果选中点比当前点小，则插入到当前点前边
-                    spotSelectedCtrl.insert(oP,spotSelectedNum);
-                    flag=1;
-                    ctrlSize++;
-                    //qDebug("AAAAAAAAA%d",ctrlSize);
-                    break;
-            }
-            else{
-                    oP++;
-            }
+        if((*oP)==spotSelectedNum){
+            spotSelectedCtrl.erase(oP);
+            flag=1;
+            ctrlSize--;
+            //qDebug("MMMMMMMMM%d",ctrlSize);
+            break;
+        }
+        else if((*oP)>spotSelectedNum){//对斑点进行从大到小排序，如果选中点比当前点小，则插入到当前点前边
+            spotSelectedCtrl.insert(oP,spotSelectedNum);
+            flag=1;
+            ctrlSize++;
+            //qDebug("AAAAAAAAA%d",ctrlSize);
+            break;
+        }
+        else{
+            oP++;
+        }
     }
 
     if(!flag){
-            spotSelectedCtrl.push_back(spotSelectedNum);
-            ctrlSize++;
-            //qDebug("AAAAAAAAAfter%d",ctrlSize);
+        spotSelectedCtrl.push_back(spotSelectedNum);
+        ctrlSize++;
+        //qDebug("AAAAAAAAAfter%d",ctrlSize);
     }
 
     //qDebug("~~~~~%d",ctrlSize);
@@ -156,75 +156,75 @@ void DrawWidget::addAreaSpot(){
     list<int>::iterator oP=spotSelectedCtrl.begin();
     int flag=0;
     for(;oP!=spotSelectedCtrl.end();){
-            if((*oP)==spotSelectedNum){
-                    //spotSelectedCtrl.erase(oP);
-                    flag=1;
-                    //ctrlSize--;
-                    break;
-            }
-            else if((*oP)>spotSelectedNum){
-                    spotSelectedCtrl.insert(oP,spotSelectedNum);
-                    flag=1;
-                    ctrlSize++;
-                    break;
-            }
-            else{
-                    oP++;
-            }
+        if((*oP)==spotSelectedNum){
+            //spotSelectedCtrl.erase(oP);
+            flag=1;
+            //ctrlSize--;
+            break;
+        }
+        else if((*oP)>spotSelectedNum){
+            spotSelectedCtrl.insert(oP,spotSelectedNum);
+            flag=1;
+            ctrlSize++;
+            break;
+        }
+        else{
+            oP++;
+        }
     }
 
     if(!flag){
-            spotSelectedCtrl.push_back(spotSelectedNum);
-            ctrlSize++;
+        spotSelectedCtrl.push_back(spotSelectedNum);
+        ctrlSize++;
     }
 }
 
 void DrawWidget::addImagePath(){
-//    list<QPointF*>::iterator oPTemp = oPointImageAll.begin();
-//    list<QPointF*>::iterator thePointTemp =thePointImageAll.begin();
-//    //list<QPainterPath*>pathImageAll;
-//    pathImageAll.clear();
-//    if(allPath.size()>0){
-//        for(int i=1;i<drawOk+1;i++){
-//            oPointImage.clear();
-//            thePointImage.clear();
-//            for(int j=1;j<spotNum[i]+1;j++){
-//                oPointImage.push_back(*oPTemp);
-//                ++oPTemp;
-//            }
-//            for(int j=1;j<2*spotNum[i]+1;j++){
-//                thePointImage.push_back(*thePointTemp);
-//                ++thePointTemp;
-//            }
+    //    list<QPointF*>::iterator oPTemp = oPointImageAll.begin();
+    //    list<QPointF*>::iterator thePointTemp =thePointImageAll.begin();
+    //    //list<QPainterPath*>pathImageAll;
+    //    pathImageAll.clear();
+    //    if(allPath.size()>0){
+    //        for(int i=1;i<drawOk+1;i++){
+    //            oPointImage.clear();
+    //            thePointImage.clear();
+    //            for(int j=1;j<spotNum[i]+1;j++){
+    //                oPointImage.push_back(*oPTemp);
+    //                ++oPTemp;
+    //            }
+    //            for(int j=1;j<2*spotNum[i]+1;j++){
+    //                thePointImage.push_back(*thePointTemp);
+    //                ++thePointTemp;
+    //            }
 
 
-//    pathImage=new(QPainterPath);
-//    list<QPointF*>::iterator oP = oPointImage.begin();
-//    list<QPointF*>::iterator midP =thePointImage.begin();
-//    list<QPointF*>::iterator midPNext;
-//    list<QPointF*>::iterator oPNext;
-//    //midP =thePoint.begin();
-//    pathImage->moveTo((**oP).x(),(**oP).y());
-//    ++oP;
-//    midPNext=++midP;
-//    midP--;
-//    oPNext=++oP;
-//    oP--;
-//    for(;oP!=oPointImage.end();++oPNext){
-//                              pathImage->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
-//                              midP++;
-//                              midP++;
-//                              midPNext=++midP;
-//                              midP--;
-//                              oP++;
-//            }
-//    oP=oPointImage.begin();
-//    pathImage->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
-//    //list<QPainterPath*>pathImageAll;
-//    pathImageAll.push_back(pathImage);
-//        }
-//    }
-//    delete pathImage;
+    //    pathImage=new(QPainterPath);
+    //    list<QPointF*>::iterator oP = oPointImage.begin();
+    //    list<QPointF*>::iterator midP =thePointImage.begin();
+    //    list<QPointF*>::iterator midPNext;
+    //    list<QPointF*>::iterator oPNext;
+    //    //midP =thePoint.begin();
+    //    pathImage->moveTo((**oP).x(),(**oP).y());
+    //    ++oP;
+    //    midPNext=++midP;
+    //    midP--;
+    //    oPNext=++oP;
+    //    oP--;
+    //    for(;oP!=oPointImage.end();++oPNext){
+    //                              pathImage->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
+    //                              midP++;
+    //                              midP++;
+    //                              midPNext=++midP;
+    //                              midP--;
+    //                              oP++;
+    //            }
+    //    oP=oPointImage.begin();
+    //    pathImage->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
+    //    //list<QPainterPath*>pathImageAll;
+    //    pathImageAll.push_back(pathImage);
+    //        }
+    //    }
+    //    delete pathImage;
 }
 void DrawWidget::addSpotOrigin(int drawOk){
     list<QPointF*>::iterator oP = oPoint.begin();
@@ -239,7 +239,7 @@ void DrawWidget::addSpotOrigin(int drawOk){
         spotOriginY[drawOk]+=(**oP).y();
         //qDebug("yyyy:%f",(**oP).y());
         count++;
-            }
+    }
     //qDebug("ping jun ge shu %d",count);
     spotOriginX[drawOk]=spotOriginX[drawOk]/count;
     spotOriginY[drawOk]=spotOriginY[drawOk]/count;
@@ -265,7 +265,7 @@ void DrawWidget::addSpotPoint(){
         (**oP).setY((**oP).y()-spotOriginY[drawOk]);
         oPointAll.push_back(*oP);
         //qDebug("%f  %f",(**oP).x(),(**oP).y());
-            }
+    }
     //qDebug(" ");
     //qDebug(" ");
     //saveSpotPoint();
@@ -327,13 +327,13 @@ void DrawWidget::addSpecialPath(){//spotMove用
 
 
     for(;oP1!=oPointTempAddSpecial.end();++oPNext){
-                              path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
-                              midP++;
-                              midP++;
-                              midPNext=++midP;
-                              midP--;
-                              oP1++;
-            }
+        path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
+        midP++;
+        midP++;
+        midPNext=++midP;
+        midP--;
+        oP1++;
+    }
     oP1=oPointTempAddSpecial.begin();
     path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
 
@@ -381,9 +381,9 @@ void DrawWidget::addHandlePath(){
                     //qDebug("sssssssss");
                     count=i;
                     break;
-                    }
-                oPHandle++;
                 }
+                oPHandle++;
+            }
             if(ok)
                 break;
         }
@@ -431,13 +431,13 @@ void DrawWidget::addHandlePath(){
         oP--;
 
         for(;oP!=oPointTemp.end();++oPNext){
-                                  path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
-                                  midP++;
-                                  midP++;
-                                  midPNext=++midP;
-                                  midP--;
-                                  oP++;
-                }
+            path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
+            midP++;
+            midP++;
+            midPNext=++midP;
+            midP--;
+            oP++;
+        }
         oP=oPointTemp.begin();
         path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
 
@@ -471,9 +471,9 @@ void DrawWidget::addHandlePath(){
                     ok=1;
                     count=i;
                     break;
-                    }
-                oPHandle++;
                 }
+                oPHandle++;
+            }
             if(ok)
                 break;
         }
@@ -519,13 +519,13 @@ void DrawWidget::addHandlePath(){
         oP--;
 
         for(;oP!=oPointTemp.end();++oPNext){
-                                  path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
-                                  midP++;
-                                  midP++;
-                                  midPNext=++midP;
-                                  midP--;
-                                  oP++;
-                }
+            path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
+            midP++;
+            midP++;
+            midPNext=++midP;
+            midP--;
+            oP++;
+        }
         oP=oPointTemp.begin();
         path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
 
@@ -557,13 +557,13 @@ void DrawWidget::areaSelected(){
     while(count>0){
         x=spotOriginX[count]*cos(rotation[count]/180*PI)*stretch[count]/windowScale-spotOriginY[count]*sin(rotation[count]/180*PI)*stretch[count]/windowScale;
         y=spotOriginX[count]*sin(rotation[count]/180*PI)*stretch[count]/windowScale+spotOriginY[count]*cos(rotation[count]/180*PI)*stretch[count]/windowScale;
-//        qDebug("xxxxxxxxxxxxx%f   %f",x,y);
+        //        qDebug("xxxxxxxxxxxxx%f   %f",x,y);
 
-//        x1=(xBegin-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(yBegin-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-//        y1=(xBegin-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(yBegin-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+        //        x1=(xBegin-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(yBegin-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+        //        y1=(xBegin-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(yBegin-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
 
-//        x2=(xEnd-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(yEnd-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-//        y2=(xEnd-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(yEnd-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+        //        x2=(xEnd-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(yEnd-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+        //        y2=(xEnd-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(yEnd-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
         QRectF tempRect(xBegin,yBegin,xEnd-xBegin,yEnd-yBegin);
         //QPointF tempPoint(spotOriginX[count],spotOriginY[count]);
         if(tempRect.contains(spotOriginX[count],spotOriginY[count])){
@@ -572,11 +572,11 @@ void DrawWidget::areaSelected(){
             flag=6;
             markFlag=4;
             spotSelectedNum=count;
-//            qDebug("zuo shang:%d  %d",xBegin,yBegin);
-//            qDebug("you   xia:%d  %d",xEnd,yEnd);
-//            qDebug("oo      o:%f  %f",x,y);
-//            qDebug("yuanlai : %f   %f",spotOriginX[count],spotOriginY[count]);
-//            qDebug("xian zai xuan zhong:%d",count);
+            //            qDebug("zuo shang:%d  %d",xBegin,yBegin);
+            //            qDebug("you   xia:%d  %d",xEnd,yEnd);
+            //            qDebug("oo      o:%f  %f",x,y);
+            //            qDebug("yuanlai : %f   %f",spotOriginX[count],spotOriginY[count]);
+            //            qDebug("xian zai xuan zhong:%d",count);
             //if(ctrlFlag){
             //addCtrlSpot();
             addAreaSpot();
@@ -642,43 +642,43 @@ void DrawWidget::readStation(){
     clear();
     float tempWidth=0,tempHeight=0;
     //qDebug(".......%d",nowPlace);
-        drawOk=backForward[nowPlace].getDrawOk();
-        backForward[nowPlace].getWidHei(tempWidth,tempHeight);
-        backForward[nowPlace].getSpotNum(spotNum);
-        backForward[nowPlace].getSpotOrigin(spotOriginX,spotOriginY,spotOriginOX,spotOriginOY,spotOriginPOX,spotOriginPOY);
-        backForward[nowPlace].getCenter(midWidth,midHeight,preMidWidth,preMidHeight);
-        backForward[nowPlace].getStretch(stretch);
-        backForward[nowPlace].getRotation(rotation);
-        backForward[nowPlace].getOpointAll(oPointAll);
-        //qDebug("neibu&&&,,,,,,:%d",handlePointAll.size());
-        backForward[nowPlace].getHandlePointAll(handlePointAll);
-        backForward[nowPlace].getAllColorIndex(allColor.index,backGroundColorIndex);
-        backForward[nowPlace].getAllPath(allPath);
-        backForward[nowPlace].getBackGroundColor(backGroundColor);
-        float x,y,z;
-        backForward[nowPlace].getCanvas(x,y,z);
-        //qDebug("***:  %f  %f  %f",x,y,z);
-        backForward[nowPlace].getWindowScale(windowScale);
-        //qDebug("neibu,,,,,,:%d",handlePointAll.size());
-        midWidth=tempWidth/2;
-        midHeight=tempHeight/2;
-        //通过index初始化颜色
-        for(int i=1;i<drawOk+1;i++){
-            allColor.myColor[i]=iconColor[allColor.index[i]+1];
-        }
-        backGroundColor=iconColor[backGroundColorIndex+1];
-        if(fabs(z)<0.001){
-            drawX=x;drawY=y;drawZ=0;
-            drawCanvasFlag=1;
-            AutoCADFlag=0;
-        }
-        else{
-            drawX=x;drawY=y;drawZ=z;
-            //qDebug("ssssssss");
-            AutoCADFlag=1;
-        }
-        this->setGeometry(0,0,tempWidth,tempHeight);
-        this->update();
+    drawOk=backForward[nowPlace].getDrawOk();
+    backForward[nowPlace].getWidHei(tempWidth,tempHeight);
+    backForward[nowPlace].getSpotNum(spotNum);
+    backForward[nowPlace].getSpotOrigin(spotOriginX,spotOriginY,spotOriginOX,spotOriginOY,spotOriginPOX,spotOriginPOY);
+    backForward[nowPlace].getCenter(midWidth,midHeight,preMidWidth,preMidHeight);
+    backForward[nowPlace].getStretch(stretch);
+    backForward[nowPlace].getRotation(rotation);
+    backForward[nowPlace].getOpointAll(oPointAll);
+    //qDebug("neibu&&&,,,,,,:%d",handlePointAll.size());
+    backForward[nowPlace].getHandlePointAll(handlePointAll);
+    backForward[nowPlace].getAllColorIndex(allColor.index,backGroundColorIndex);
+    backForward[nowPlace].getAllPath(allPath);
+    backForward[nowPlace].getBackGroundColor(backGroundColor);
+    float x,y,z;
+    backForward[nowPlace].getCanvas(x,y,z);
+    //qDebug("***:  %f  %f  %f",x,y,z);
+    backForward[nowPlace].getWindowScale(windowScale);
+    //qDebug("neibu,,,,,,:%d",handlePointAll.size());
+    midWidth=tempWidth/2;
+    midHeight=tempHeight/2;
+    //通过index初始化颜色
+    for(int i=1;i<drawOk+1;i++){
+        allColor.myColor[i]=iconColor[allColor.index[i]+1];
+    }
+    backGroundColor=iconColor[backGroundColorIndex+1];
+    if(fabs(z)<0.001){
+        drawX=x;drawY=y;drawZ=0;
+        drawCanvasFlag=1;
+        AutoCADFlag=0;
+    }
+    else{
+        drawX=x;drawY=y;drawZ=z;
+        //qDebug("ssssssss");
+        AutoCADFlag=1;
+    }
+    this->setGeometry(0,0,tempWidth,tempHeight);
+    this->update();
 }
 
 void DrawWidget::caculateCanvasPath(){
@@ -692,52 +692,52 @@ void DrawWidget::caculateCanvasPath(){
         list<QPointF*>oPointTempAddSpecial;
         list<QPointF*>thePointTempAdd;
 
-            //将移动斑点的原点压栈到计算链表
-            for(int j=1;j<spotNum[count]+1;j++){
-                oPointTempAddSpecial.push_back(*oP);
-                ++oP;
-            }
+        //将移动斑点的原点压栈到计算链表
+        for(int j=1;j<spotNum[count]+1;j++){
+            oPointTempAddSpecial.push_back(*oP);
+            ++oP;
+        }
 
 
-            //将移动斑点的控制点压栈到计算链表
-            for(int j=1;j<2*spotNum[count]+1;j++){
-                thePointTempAdd.push_back(*handleP);
-                ++handleP;
-            }
+        //将移动斑点的控制点压栈到计算链表
+        for(int j=1;j<2*spotNum[count]+1;j++){
+            thePointTempAdd.push_back(*handleP);
+            ++handleP;
+        }
 
 
 
-    //计算移动斑点的路径
-    path=new(QPainterPath);
-    list<QPointF*>::iterator oP1 = oPointTempAddSpecial.begin();
-    list<QPointF*>::iterator midP =thePointTempAdd.begin();
+        //计算移动斑点的路径
+        path=new(QPainterPath);
+        list<QPointF*>::iterator oP1 = oPointTempAddSpecial.begin();
+        list<QPointF*>::iterator midP =thePointTempAdd.begin();
 
-    list<QPointF*>::iterator midPNext;
-    list<QPointF*>::iterator oPNext;
+        list<QPointF*>::iterator midPNext;
+        list<QPointF*>::iterator oPNext;
 
-    path->moveTo((**oP1).x(),(**oP1).y());
-    ++oP1;
+        path->moveTo((**oP1).x(),(**oP1).y());
+        ++oP1;
 
-    midPNext=++midP;
-    midP--;
-    oPNext=++oP1;
-    oP1--;
-
-
-    for(;oP1!=oPointTempAddSpecial.end();++oPNext){
-                              path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
-                              midP++;
-                              midP++;
-                              midPNext=++midP;
-                              midP--;
-                              oP1++;
-            }
-    oP1=oPointTempAddSpecial.begin();
-    path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
+        midPNext=++midP;
+        midP--;
+        oPNext=++oP1;
+        oP1--;
 
 
-    //将移动斑点的路径在allPath中替换为移动之后的斑点路径
-    allPath.push_back(path);
+        for(;oP1!=oPointTempAddSpecial.end();++oPNext){
+            path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
+            midP++;
+            midP++;
+            midPNext=++midP;
+            midP--;
+            oP1++;
+        }
+        oP1=oPointTempAddSpecial.begin();
+        path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
+
+
+        //将移动斑点的路径在allPath中替换为移动之后的斑点路径
+        allPath.push_back(path);
     }
 
 }
@@ -761,7 +761,7 @@ void DrawWidget::caculateOneCurve(){
     list<QPointF*>::iterator oP1 = thePoint.begin();
     for(;oP1!=thePoint.end();++oP1){
         handlePointAll.push_back(*oP1);
-            }
+    }
 
     //计算出刚画出斑点的path
     list<QPointF*>::iterator oP;
@@ -779,25 +779,25 @@ void DrawWidget::caculateOneCurve(){
     oP--;
 
     for(;oP!=oPoint.end();++oPNext){
-                    if(saveGet.digitalFlag == 1){
-                        path->lineTo((**oP).x(),(**oP).y());
-                    }else{
-                        path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
-                    }
-        //path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
-                              midP++;
-                              midP++;
-                              midPNext=++midP;
-                              midP--;
-                              oP++;
-            }
-    oP=oPoint.begin();
-    //---------xiaotian  cubicTo  改成  lineTo
         if(saveGet.digitalFlag == 1){
             path->lineTo((**oP).x(),(**oP).y());
         }else{
             path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
         }
+        //path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
+        midP++;
+        midP++;
+        midPNext=++midP;
+        midP--;
+        oP++;
+    }
+    oP=oPoint.begin();
+    //---------xiaotian  cubicTo  改成  lineTo
+    if(saveGet.digitalFlag == 1){
+        path->lineTo((**oP).x(),(**oP).y());
+    }else{
+        path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
+    }
     //path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
     allPath.push_back(path);
     forAutoSpotP[drawOk]=path;
@@ -923,11 +923,11 @@ void DrawWidget::caculateAreaRatio(){
         }
     }
 
-        for(int a=1;a<drawOk+1;a++){
-            if(areaRatio[a]!=0);
-                //qDebug("di%dge:  %f",a,areaRatio[a]);
-        }
-        //qDebug(" ");
+    for(int a=1;a<drawOk+1;a++){
+        if(areaRatio[a]!=0);
+        //qDebug("di%dge:  %f",a,areaRatio[a]);
+    }
+    //qDebug(" ");
 }
 void DrawWidget::clear(){
     //在清除所有之前，保存起来，以便回退
@@ -1023,31 +1023,31 @@ int DrawWidget::collisonDetection(int num,float saveP[300][2]){
     int n;
     //for(int i=0;i<180;i+=18){
     int i=0;
-        for(n=1;n<num+1;n++){//对得到的斑点的所有点做检测
-            float x1=saveP[n][0]*cos(i/180*PI)*windowScale/4-saveP[n][1]*sin(i/180*PI)*windowScale/4;
-            float y1=saveP[n][0]*sin(i/180*PI)*windowScale/4+saveP[n][1]*cos(i/180*PI)*windowScale/4;
+    for(n=1;n<num+1;n++){//对得到的斑点的所有点做检测
+        float x1=saveP[n][0]*cos(i/180*PI)*windowScale/4-saveP[n][1]*sin(i/180*PI)*windowScale/4;
+        float y1=saveP[n][0]*sin(i/180*PI)*windowScale/4+saveP[n][1]*cos(i/180*PI)*windowScale/4;
 
-            x1+=+spotOriginX[drawOk];
-            y1+=+spotOriginY[drawOk];
-            //qDebug("x:%f  ,  y:%f",x1,y1);
+        x1+=+spotOriginX[drawOk];
+        y1+=+spotOriginY[drawOk];
+        //qDebug("x:%f  ,  y:%f",x1,y1);
 
-            for(int j=1;j<drawOk;j++){
-                float x=(x1-spotOriginX[j])*cos(-rotation[j]/180*PI)/stretch[j]-(y1-spotOriginY[j])*sin(-rotation[j]/180*PI)/stretch[j];
-                float y=(x1-spotOriginX[j])*sin(-rotation[j]/180*PI)/stretch[j]+(y1-spotOriginY[j])*cos(-rotation[j]/180*PI)/stretch[j];
-                //qDebug("x:%f  ,  y:%f",x,y);
-                tempPoint.setX(x);
-                tempPoint.setY(y);
-                    if(forAutoSpotP[j]->contains(tempPoint)){
-                        //break;
-                        //qDebug("被第%d个斑点包含",j);
-                        return 0;
-                    }
+        for(int j=1;j<drawOk;j++){
+            float x=(x1-spotOriginX[j])*cos(-rotation[j]/180*PI)/stretch[j]-(y1-spotOriginY[j])*sin(-rotation[j]/180*PI)/stretch[j];
+            float y=(x1-spotOriginX[j])*sin(-rotation[j]/180*PI)/stretch[j]+(y1-spotOriginY[j])*cos(-rotation[j]/180*PI)/stretch[j];
+            //qDebug("x:%f  ,  y:%f",x,y);
+            tempPoint.setX(x);
+            tempPoint.setY(y);
+            if(forAutoSpotP[j]->contains(tempPoint)){
+                //break;
+                //qDebug("被第%d个斑点包含",j);
+                return 0;
             }
         }
-        //if(n==num+1){
-            //qDebug("chenggong了");
-            return 1;
-        //}
+    }
+    //if(n==num+1){
+    //qDebug("chenggong了");
+    return 1;
+    //}
     //}
     return 0;
 }
@@ -1124,67 +1124,67 @@ void DrawWidget::deleteSpot(){
         this->update();
     }
     else if(spotSelectedNum){
-    saveStation();
-    //颜色，index
-    //找到移动斑点的原点所在区间
-    list<QPointF*>::iterator oP= oPointAll.begin();
-    list<QPointF*>::iterator handleP= handlePointAll.begin();
-    for(int j=1;j<spotNum[spotSelectedNum]+1;j++){
-        oP= oPointAll.begin();
-        for(int i=1;i<spotSelectedNum;i++){//spotSelectedNum
-            for(int j=1;j<spotNum[i]+1;j++){
-                ++oP;
+        saveStation();
+        //颜色，index
+        //找到移动斑点的原点所在区间
+        list<QPointF*>::iterator oP= oPointAll.begin();
+        list<QPointF*>::iterator handleP= handlePointAll.begin();
+        for(int j=1;j<spotNum[spotSelectedNum]+1;j++){
+            oP= oPointAll.begin();
+            for(int i=1;i<spotSelectedNum;i++){//spotSelectedNum
+                for(int j=1;j<spotNum[i]+1;j++){
+                    ++oP;
+                }
             }
+            oPointAll.erase(oP);
         }
-        oPointAll.erase(oP);
-    }
-    //将移动斑点的原点压栈到计算链表
+        //将移动斑点的原点压栈到计算链表
 
 
 
-    //找到移动斑点的控制点所在区间
-    for(int j=1;j<2*spotNum[spotSelectedNum]+1;j++){
-        handleP= handlePointAll.begin();
-        for(int i=1;i<spotSelectedNum;i++){
-            for(int j=1;j<2*spotNum[i]+1;j++){
-                ++handleP;
+        //找到移动斑点的控制点所在区间
+        for(int j=1;j<2*spotNum[spotSelectedNum]+1;j++){
+            handleP= handlePointAll.begin();
+            for(int i=1;i<spotSelectedNum;i++){
+                for(int j=1;j<2*spotNum[i]+1;j++){
+                    ++handleP;
+                }
             }
+            handlePointAll.erase(handleP);
         }
-        handlePointAll.erase(handleP);
-    }
 
 
-    //删除路径信息
-    list<QPainterPath*>::iterator tempPath;
-    QPainterPath *tempPathDelete;
-    tempPath=allPath.begin();
-    for(int j=1;j<spotSelectedNum;j++)
-        tempPath++;
-    tempPathDelete=*tempPath;
-    allPath.erase(tempPath);
-    //delete tempPathDelete;
+        //删除路径信息
+        list<QPainterPath*>::iterator tempPath;
+        QPainterPath *tempPathDelete;
+        tempPath=allPath.begin();
+        for(int j=1;j<spotSelectedNum;j++)
+            tempPath++;
+        tempPathDelete=*tempPath;
+        allPath.erase(tempPath);
+        //delete tempPathDelete;
 
 
-    //删除spot的其它信息
-    for(int i=spotSelectedNum;i<drawOk;i++){
-        spotNum[i]=spotNum[i+1];
-        stretch[i]=stretch[i+1];
-        rotation[i]=rotation[i+1];
-        allColor.myColor[i]=allColor.myColor[i+1];
-        allColor.index[i]=allColor.index[i+1];
-        spotOriginX[i]=spotOriginX[i+1];
-        spotOriginY[i]=spotOriginY[i+1];
-        //spotOriginXI[i]=spotOriginX[i+1];
-        //spotOriginYI[i]=spotOriginY[i+1];
-        spotOriginOX[i]=spotOriginOX[i+1];
-        spotOriginOY[i]=spotOriginOY[i+1];
-        spotOriginPOX[i]=spotOriginPOX[i+1];
-        spotOriginPOY[i]=spotOriginPOY[i+1];
-    }
-    spotSelectedNum=0;
-    markFlag=0;
-    drawOk--;
-    this->update();
+        //删除spot的其它信息
+        for(int i=spotSelectedNum;i<drawOk;i++){
+            spotNum[i]=spotNum[i+1];
+            stretch[i]=stretch[i+1];
+            rotation[i]=rotation[i+1];
+            allColor.myColor[i]=allColor.myColor[i+1];
+            allColor.index[i]=allColor.index[i+1];
+            spotOriginX[i]=spotOriginX[i+1];
+            spotOriginY[i]=spotOriginY[i+1];
+            //spotOriginXI[i]=spotOriginX[i+1];
+            //spotOriginYI[i]=spotOriginY[i+1];
+            spotOriginOX[i]=spotOriginOX[i+1];
+            spotOriginOY[i]=spotOriginOY[i+1];
+            spotOriginPOX[i]=spotOriginPOX[i+1];
+            spotOriginPOY[i]=spotOriginPOY[i+1];
+        }
+        spotSelectedNum=0;
+        markFlag=0;
+        drawOk--;
+        this->update();
     }
 }
 
@@ -1198,77 +1198,77 @@ void DrawWidget::drawOPoint(QPainter &p){
     list<QPointF*>::iterator oPAll;
 
     if(oPoint.size()>0){
-    oP = oPoint.begin();
-    for(;oP!=oPoint.end();++oP){
-         //p.drawEllipse((**oP).x()-keyPointSize/2,(**oP).y()-keyPointSize/2,keyPointSize,keyPointSize);
-        if(markFlag==1&&fabs((**oP).x()-selectedPoint->x())<0.001&&fabs((**oP).y()-selectedPoint->y())<0.001){
-                       p.setBrush(QBrush(QColor(255,0,0),Qt::Dense4Pattern));
-                       p.drawEllipse(selectedPoint->x()-25,selectedPoint->y()-25,50,50);
-                       p.drawEllipse((**oP).x()-keyPointSize/2,(**oP).y()-keyPointSize/2,keyPointSize,keyPointSize);
-                       //qDebug("-------sssssssssssss");
-                       p.setBrush(Qt::NoBrush);
-                   }
-        else{
-                       p.drawEllipse((**oP).x()-keyPointSize/2,(**oP).y()-keyPointSize/2,keyPointSize,keyPointSize);
+        oP = oPoint.begin();
+        for(;oP!=oPoint.end();++oP){
+            //p.drawEllipse((**oP).x()-keyPointSize/2,(**oP).y()-keyPointSize/2,keyPointSize,keyPointSize);
+            if(markFlag==1&&fabs((**oP).x()-selectedPoint->x())<0.001&&fabs((**oP).y()-selectedPoint->y())<0.001){
+                p.setBrush(QBrush(QColor(255,0,0),Qt::Dense4Pattern));
+                p.drawEllipse(selectedPoint->x()-25,selectedPoint->y()-25,50,50);
+                p.drawEllipse((**oP).x()-keyPointSize/2,(**oP).y()-keyPointSize/2,keyPointSize,keyPointSize);
+                //qDebug("-------sssssssssssss");
+                p.setBrush(Qt::NoBrush);
             }
-    }
+            else{
+                p.drawEllipse((**oP).x()-keyPointSize/2,(**oP).y()-keyPointSize/2,keyPointSize,keyPointSize);
+            }
+        }
     }
 
     if(drawOk){
-    oPAll=oPointAll.begin();
-    int t=1;
-    int n=1;
-    for(;t<drawOk+1;t++){
-         p.translate(spotOriginX[t],spotOriginY[t]);
-         p.rotate(rotation[t]);
-         p.scale(stretch[t],stretch[t]);
-//         p.translate(spotOriginX[t],spotOriginY[t]);
-//         p.rotate(90);
-//         p.scale(0.5,0.5);
-         n=1;
-        for(;n<spotNum[t]+1;n++){
-            //qDebug("%f   %f",(**oPAll).x(),(**oPAll).y());
-            //qDebug("--  %f   %f",spotOriginX[spotSelectedNum],spotOriginY[spotSelectedNum]);
-            //qDebug("cha1  %f   %f",(**oPAll).x()-(selectedPoint->x()-spotOriginX[spotSelectedNum]),(**oPAll).y()-(selectedPoint->y()-spotOriginY[spotSelectedNum]));
-            if(markFlag==1&&fabs((**oPAll).x()-(selectedPoint->x()-spotOriginX[spotSelectedNum]))<0.001&&fabs((**oPAll).y()-(selectedPoint->y()-spotOriginY[spotSelectedNum]))<0.001&&oPointJudge==t){
-                           p.setBrush(QBrush(QColor(255,0,0)));
-                           p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
-                           //p.drawEllipse(x-15,y-15,30,30);
-                           //p.drawEllipse(x1-5,y1-5,10,10);
-                           //qDebug("-------sssssssssssss");
-                           p.setBrush(Qt::NoBrush);
-                       }
-            else{
-                           p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
-                       }
-            oPAll++;
+        oPAll=oPointAll.begin();
+        int t=1;
+        int n=1;
+        for(;t<drawOk+1;t++){
+            p.translate(spotOriginX[t],spotOriginY[t]);
+            p.rotate(rotation[t]);
+            p.scale(stretch[t],stretch[t]);
+            //         p.translate(spotOriginX[t],spotOriginY[t]);
+            //         p.rotate(90);
+            //         p.scale(0.5,0.5);
+            n=1;
+            for(;n<spotNum[t]+1;n++){
+                //qDebug("%f   %f",(**oPAll).x(),(**oPAll).y());
+                //qDebug("--  %f   %f",spotOriginX[spotSelectedNum],spotOriginY[spotSelectedNum]);
+                //qDebug("cha1  %f   %f",(**oPAll).x()-(selectedPoint->x()-spotOriginX[spotSelectedNum]),(**oPAll).y()-(selectedPoint->y()-spotOriginY[spotSelectedNum]));
+                if(markFlag==1&&fabs((**oPAll).x()-(selectedPoint->x()-spotOriginX[spotSelectedNum]))<0.001&&fabs((**oPAll).y()-(selectedPoint->y()-spotOriginY[spotSelectedNum]))<0.001&&oPointJudge==t){
+                    p.setBrush(QBrush(QColor(255,0,0)));
+                    p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
+                    //p.drawEllipse(x-15,y-15,30,30);
+                    //p.drawEllipse(x1-5,y1-5,10,10);
+                    //qDebug("-------sssssssssssss");
+                    p.setBrush(Qt::NoBrush);
+                }
+                else{
+                    p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
+                }
+                oPAll++;
+            }
+
+            //        p.scale(0.5,0.5);
+            //        p.setBrush(QBrush(QColor(255,0,0)));
+            //        p.drawEllipse(200,200,30,30);
+            //        p.setBrush(Qt::NoBrush);
+            //        p.scale(2,2);
+            p.scale(1/stretch[t],1/stretch[t]);
+            p.rotate(-rotation[t]);
+            p.translate(-spotOriginX[t],-spotOriginY[t]);
+            //        p.translate(spotOriginX[t],spotOriginY[t]);
+            //        p.rotate(-90);
+            //        p.scale(2,2);
         }
 
-//        p.scale(0.5,0.5);
-//        p.setBrush(QBrush(QColor(255,0,0)));
-//        p.drawEllipse(200,200,30,30);
-//        p.setBrush(Qt::NoBrush);
-//        p.scale(2,2);
-        p.scale(1/stretch[t],1/stretch[t]);
-        p.rotate(-rotation[t]);
-        p.translate(-spotOriginX[t],-spotOriginY[t]);
-//        p.translate(spotOriginX[t],spotOriginY[t]);
-//        p.rotate(-90);
-//        p.scale(2,2);
+        //    for(;oPAll!=oPointAll.end();++oPAll){
+        //       if(markFlag==1&&(**oPAll).x()==selectedPoint->x()&&(**oPAll).y()==selectedPoint->y()){
+        //                      p.setBrush(QBrush(QColor(255,0,255),Qt::Dense4Pattern));
+        //                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
+        //                      p.setBrush(Qt::NoBrush);
+        //                  }
+        //       else{
+        //                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
+        //                  }
+        //        }
     }
-
-//    for(;oPAll!=oPointAll.end();++oPAll){
-//       if(markFlag==1&&(**oPAll).x()==selectedPoint->x()&&(**oPAll).y()==selectedPoint->y()){
-//                      p.setBrush(QBrush(QColor(255,0,255),Qt::Dense4Pattern));
-//                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
-//                      p.setBrush(Qt::NoBrush);
-//                  }
-//       else{
-//                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
-//                  }
-//        }
-    }
-//p.translate(-spotOriginX[drawOk],-spotOriginY[drawOk]);
+    //p.translate(-spotOriginX[drawOk],-spotOriginY[drawOk]);
 }
 
 void DrawWidget::drawScaleLine(QPainter &p){
@@ -1297,20 +1297,20 @@ void DrawWidget::drawScaleLine(QPainter &p){
         QRectF rect1(length,0,40,40);
         QString CM1 = QString("%1").arg(count);
         if(windowScale<0.25){
-                if(count%2<0.001)
-                    p.drawText(rect1,Qt::AlignLeft,CM1);
+            if(count%2<0.001)
+                p.drawText(rect1,Qt::AlignLeft,CM1);
         }
         else{
             p.drawText(rect1,Qt::AlignLeft,CM1);
         }
         if(windowScale>1.414){
-        for(int i=1;i<5;i++){
-            QRectF rect(length+20*i*windowScale,0,40,40);
-            float temp=0.2*i+count;
-            QString CM2 = QString("%1").arg(temp);
-            p.drawText(rect,Qt::AlignLeft,CM2);
-            p.drawLine(QPointF(length+4+20*i*windowScale,14),QPointF(length+4+20*i*windowScale,20));
-        }
+            for(int i=1;i<5;i++){
+                QRectF rect(length+20*i*windowScale,0,40,40);
+                float temp=0.2*i+count;
+                QString CM2 = QString("%1").arg(temp);
+                p.drawText(rect,Qt::AlignLeft,CM2);
+                p.drawLine(QPointF(length+4+20*i*windowScale,14),QPointF(length+4+20*i*windowScale,20));
+            }
         }
         length+=100*windowScale;
         count++;
@@ -1326,13 +1326,13 @@ void DrawWidget::drawScaleLine(QPainter &p){
         QString CM11 = QString("%1").arg(count1);
         p.drawText(rect11,Qt::AlignLeft,CM11);
         if(windowScale>1.414){
-        for(int i=1;i<5;i++){
-            QRectF rect1(10,length1+20*i*windowScale-3,40,40);
-            float temp1=0.2*i+count1;
-            QString CM21 = QString("%1").arg(temp1);
-            p.drawText(rect1,Qt::AlignLeft,CM21);
-            p.drawLine(QPointF(0,length1+4+20*i*windowScale),QPointF(8,length1+4+20*i*windowScale));
-        }
+            for(int i=1;i<5;i++){
+                QRectF rect1(10,length1+20*i*windowScale-3,40,40);
+                float temp1=0.2*i+count1;
+                QString CM21 = QString("%1").arg(temp1);
+                p.drawText(rect1,Qt::AlignLeft,CM21);
+                p.drawLine(QPointF(0,length1+4+20*i*windowScale),QPointF(8,length1+4+20*i*windowScale));
+            }
         }
         length1+=100*windowScale;
         count1++;
@@ -1346,13 +1346,13 @@ void DrawWidget::drawHandlePoint(QPainter &p){
 
 
 
-//    list<QPointF*>::iterator temp11;
-//    temp11=handlePointAll.begin();
-//    p.translate(spotOriginX[1],spotOriginY[1]);
-//    for(;temp11!=handlePointAll.end();temp11++){
-//        p.drawEllipse(**temp11,10,10);
-//    }
-//    p.translate(-spotOriginX[1],-spotOriginY[1]);
+    //    list<QPointF*>::iterator temp11;
+    //    temp11=handlePointAll.begin();
+    //    p.translate(spotOriginX[1],spotOriginY[1]);
+    //    for(;temp11!=handlePointAll.end();temp11++){
+    //        p.drawEllipse(**temp11,10,10);
+    //    }
+    //    p.translate(-spotOriginX[1],-spotOriginY[1]);
 
 
 
@@ -1363,115 +1363,115 @@ void DrawWidget::drawHandlePoint(QPainter &p){
             ++oP;
         }
 
-    p.translate(spotOriginX[i],spotOriginY[i]);
-    p.rotate(rotation[i]);
-    p.scale(stretch[i],stretch[i]);
-//        p.translate(spotOriginX[t],spotOriginY[t]);
-//        p.rotate(90);
-//        p.scale(0.5,0.5);
+        p.translate(spotOriginX[i],spotOriginY[i]);
+        p.rotate(rotation[i]);
+        p.scale(stretch[i],stretch[i]);
+        //        p.translate(spotOriginX[t],spotOriginY[t]);
+        //        p.rotate(90);
+        //        p.scale(0.5,0.5);
 
-    temp =thePointTempDraw.begin();
-    ++temp;
-    tempN =++temp;
-    temp--;
+        temp =thePointTempDraw.begin();
+        ++temp;
+        tempN =++temp;
+        temp--;
 
-    p.setBrush(Qt::NoBrush);
-    p.setPen(Qt::NoPen);
-    p.setPen(QPen(handlePointColor,1,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin));
-    for(;tempN!=thePointTempDraw.end();){
-        if(markFlag==2&&fabs((**temp).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**temp).y()-(selectedPoint->y()-spotOriginY[i]))<0.001){
-            //如果所遍历的点被选中，且为控制点中的A控制点
-            //qDebug("-----1111111111");
-            p.setBrush(QBrush(QColor(205,0,255)));//p.setBrush(QBrush(QColor(255,0,0),Qt::Dense4Pattern));
-            p.drawLine(**temp,**tempN);
-            p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
-            p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
-            p.setBrush(Qt::NoBrush);
-            ++tempN;
-            if(tempN!=thePointTempDraw.end())
-                ++temp;
-            else
-                break;
-            ++tempN;
-            if(tempN!=thePointTempDraw.end())
-                ++temp;
-            else
-                break;
+        p.setBrush(Qt::NoBrush);
+        p.setPen(Qt::NoPen);
+        p.setPen(QPen(handlePointColor,1,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin));
+        for(;tempN!=thePointTempDraw.end();){
+            if(markFlag==2&&fabs((**temp).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**temp).y()-(selectedPoint->y()-spotOriginY[i]))<0.001){
+                //如果所遍历的点被选中，且为控制点中的A控制点
+                //qDebug("-----1111111111");
+                p.setBrush(QBrush(QColor(205,0,255)));//p.setBrush(QBrush(QColor(255,0,0),Qt::Dense4Pattern));
+                p.drawLine(**temp,**tempN);
+                p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
+                p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
+                p.setBrush(Qt::NoBrush);
+                ++tempN;
+                if(tempN!=thePointTempDraw.end())
+                    ++temp;
+                else
+                    break;
+                ++tempN;
+                if(tempN!=thePointTempDraw.end())
+                    ++temp;
+                else
+                    break;
+            }
+            else if(markFlag==3&&fabs((**tempN).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**tempN).y()-(selectedPoint->y()-spotOriginY[i]))<.001){
+                //如果所遍历的点被选中，且为控制点中的B控制点
+                //qDebug("-----2222222222");
+                p.setBrush(QBrush(QColor(205,0,255)));
+                p.drawLine(**temp,**tempN);
+                p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
+                p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
+                p.setBrush(Qt::NoBrush);
+                ++tempN;
+                if(tempN!=thePointTempDraw.end())
+                    ++temp;
+                else
+                    break;
+                ++tempN;
+                if(tempN!=thePointTempDraw.end())
+                    ++temp;
+                else
+                    break;
+            }
+            else{//普通绘点
+                p.drawLine(**temp,**tempN);
+                //p.setBrush(QBrush(QColor(205,0,255)));
+                p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
+                p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
+                p.setBrush(Qt::NoBrush);
+                //p.setBrush(Qt::NoBrush);
+                ++tempN;
+                if(tempN!=thePointTempDraw.end())
+                    ++temp;
+                else
+                    break;
+                ++tempN;
+                if(tempN!=thePointTempDraw.end())
+                    ++temp;
+                else
+                    break;
+            }
         }
-        else if(markFlag==3&&fabs((**tempN).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**tempN).y()-(selectedPoint->y()-spotOriginY[i]))<.001){
-            //如果所遍历的点被选中，且为控制点中的B控制点
-            //qDebug("-----2222222222");
+
+        tempN=thePointTempDraw.begin();
+        temp=thePointTempDraw.end();
+        temp--;
+        p.setBrush(Qt::NoBrush);
+        p.setPen(Qt::NoPen);
+        p.setPen(QPen(handlePointColor,1,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin));
+        //如果最后一个控制点被选中
+        if(markFlag==2&&fabs((**temp).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**temp).y()-(selectedPoint->y()-spotOriginY[i]))<.001){
+            //qDebug("---------33333333333");
             p.setBrush(QBrush(QColor(205,0,255)));
             p.drawLine(**temp,**tempN);
             p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
             p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
             p.setBrush(Qt::NoBrush);
-            ++tempN;
-            if(tempN!=thePointTempDraw.end())
-                ++temp;
-            else
-                break;
-            ++tempN;
-            if(tempN!=thePointTempDraw.end())
-                ++temp;
-            else
-                break;
         }
-        else{//普通绘点
-        p.drawLine(**temp,**tempN);
-        //p.setBrush(QBrush(QColor(205,0,255)));
-        p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
-        p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
-        p.setBrush(Qt::NoBrush);
-        //p.setBrush(Qt::NoBrush);
-        ++tempN;
-        if(tempN!=thePointTempDraw.end())
-            ++temp;
-        else
-            break;
-        ++tempN;
-        if(tempN!=thePointTempDraw.end())
-            ++temp;
-        else
-            break;
+        else if(markFlag==3&&fabs((**tempN).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**tempN).y()-(selectedPoint->y()-spotOriginY[i]))<.001){
+            //qDebug("-------444444444444");
+            p.setBrush(QBrush(QColor(205,0,255)));
+            p.drawLine(**temp,**tempN);
+            p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
+            p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
+            p.setBrush(Qt::NoBrush);
+        }
+        else{
+            p.drawLine(**temp,**tempN);
+            p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
+            p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
+        }
+        p.scale(1/stretch[i],1/stretch[i]);
+        p.rotate(-rotation[i]);
+        p.translate(-spotOriginX[i],-spotOriginY[i]);
+        //      p.translate(spotOriginX[t],spotOriginY[t]);
+        //      p.rotate(-90);
+        //      p.scale(2,2);
     }
-    }
-
-    tempN=thePointTempDraw.begin();
-    temp=thePointTempDraw.end();
-    temp--;
-    p.setBrush(Qt::NoBrush);
-    p.setPen(Qt::NoPen);
-    p.setPen(QPen(handlePointColor,1,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin));
-    //如果最后一个控制点被选中
-    if(markFlag==2&&fabs((**temp).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**temp).y()-(selectedPoint->y()-spotOriginY[i]))<.001){
-        //qDebug("---------33333333333");
-        p.setBrush(QBrush(QColor(205,0,255)));
-        p.drawLine(**temp,**tempN);
-        p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
-        p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
-        p.setBrush(Qt::NoBrush);
-    }
-    else if(markFlag==3&&fabs((**tempN).x()-(selectedPoint->x()-spotOriginX[i]))<0.001&&fabs((**tempN).y()-(selectedPoint->y()-spotOriginY[i]))<.001){
-        //qDebug("-------444444444444");
-        p.setBrush(QBrush(QColor(205,0,255)));
-        p.drawLine(**temp,**tempN);
-        p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
-        p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
-        p.setBrush(Qt::NoBrush);
-    }
-    else{
-        p.drawLine(**temp,**tempN);
-        p.drawEllipse((**temp).x()-handlePointSize/2,(**temp).y()-handlePointSize/2,handlePointSize,handlePointSize);
-        p.drawEllipse((**tempN).x()-handlePointSize/2,(**tempN).y()-handlePointSize/2,handlePointSize,handlePointSize);
-    }
-    p.scale(1/stretch[i],1/stretch[i]);
-    p.rotate(-rotation[i]);
-    p.translate(-spotOriginX[i],-spotOriginY[i]);
-//      p.translate(spotOriginX[t],spotOriginY[t]);
-//      p.rotate(-90);
-//      p.scale(2,2);
-}
 
 }
 
@@ -1484,7 +1484,7 @@ void DrawWidget::drawProcessLine(QPainter &p){
     --oP;
     for(;oPN!=oPoint.end();++oPN,++oP){
         p.drawLine((**oP),(**oPN));
-            }
+    }
 }
 
 void DrawWidget::drawBackground(QPainter &p){
@@ -1552,15 +1552,15 @@ void DrawWidget::drawEdgeLine(QPainter &p){
     p.translate(midWidth,midHeight);
     p.scale(windowScale,windowScale);
     p.drawPath(*canvasPath);
-/////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
     p.drawLine(QPointF(-drawX/2,-drawY/2-drawZ),QPointF(drawX/2,-drawY/2-drawZ));
     p.drawLine(QPointF(-drawX/2,-drawY/2),QPointF(drawX/2,-drawY/2));
     p.drawLine(QPointF(-drawX/2,drawY/2),QPointF(drawX/2,drawY/2));
     p.drawLine(QPointF(-drawX/2,drawZ+drawY/2),QPointF(drawX/2,drawZ+drawY/2));
-/////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
     p.drawLine(QPointF(-drawX/2-drawZ,-drawY/2),QPointF(-drawX/2-drawZ,drawY/2));
     p.drawLine(QPointF(drawX/2+drawZ,-drawY/2),QPointF(drawX/2+drawZ,drawY/2));
-/////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
     p.drawLine(QPointF(-drawX/2,-drawY/2-drawZ),QPointF(-drawX/2,-drawY/2));
     p.drawLine(QPointF(drawX/2,-drawY/2-drawZ),QPointF(drawX/2,-drawY/2));
 
@@ -1679,110 +1679,110 @@ void DrawWidget::drawMark(QPainter &p1){
 
         //把点放到链表中
         for(int j=1;j<spotNum[i]+1;j++){
-        oPointTemp.push_back(*oP);
-        thePointTemp.push_back(*oPH);
-        oPH++;
-        thePointTemp.push_back(*oPH);
-        oPH++;
-        oP++;
+            oPointTemp.push_back(*oP);
+            thePointTemp.push_back(*oPH);
+            oPH++;
+            thePointTemp.push_back(*oPH);
+            oPH++;
+            oP++;
         }
 
 
-    oP1=oPointTemp.begin();
-    oPH1=thePointTemp.begin();
-    p1.translate(spotOriginX[i],spotOriginY[i]);
-    p1.rotate(rotation[i]);
-    p1.scale(stretch[i],stretch[i]);
+        oP1=oPointTemp.begin();
+        oPH1=thePointTemp.begin();
+        p1.translate(spotOriginX[i],spotOriginY[i]);
+        p1.rotate(rotation[i]);
+        p1.scale(stretch[i],stretch[i]);
 
-    //计算最后一个点之前的曲率半径
-    for(;oP1!=oPointTemp.end();++oP1){
-    p[0][0]=(**oP1).x();
-    p[0][1]=(**oP1).y();
-    ++oP1;
-    if(oP1==oPointTemp.end())
-        break;
-    p[3][0]=(**oP1).x();
-    p[3][1]=(**oP1).y();
+        //计算最后一个点之前的曲率半径
+        for(;oP1!=oPointTemp.end();++oP1){
+            p[0][0]=(**oP1).x();
+            p[0][1]=(**oP1).y();
+            ++oP1;
+            if(oP1==oPointTemp.end())
+                break;
+            p[3][0]=(**oP1).x();
+            p[3][1]=(**oP1).y();
 
-    p[1][0]=(**oPH1).x();
-    p[1][1]=(**oPH1).y();
-    ++oPH1;
-    p[2][0]=(**oPH1).x();
-    p[2][1]=(**oPH1).y();
-    ++oPH1;
-    --oP1;
+            p[1][0]=(**oPH1).x();
+            p[1][1]=(**oPH1).y();
+            ++oPH1;
+            p[2][0]=(**oPH1).x();
+            p[2][1]=(**oPH1).y();
+            ++oPH1;
+            --oP1;
 
 
-    for(float t=0;t<=1;t+=1.0/rate){
-        ta=(1-t)*(1-t)*(1-t);
-        tb=3*t*(1-t)*(1-t);
-        tc=3*t*t*(1-t);
-        td=t*t*t;
-        xt=p[0][0]*ta+p[1][0]*tb+p[2][0]*tc+p[3][0]*td;
-        yt=p[0][1]*ta+p[1][1]*tb+p[2][1]*tc+p[3][1]*td;
+            for(float t=0;t<=1;t+=1.0/rate){
+                ta=(1-t)*(1-t)*(1-t);
+                tb=3*t*(1-t)*(1-t);
+                tc=3*t*t*(1-t);
+                td=t*t*t;
+                xt=p[0][0]*ta+p[1][0]*tb+p[2][0]*tc+p[3][0]*td;
+                yt=p[0][1]*ta+p[1][1]*tb+p[2][1]*tc+p[3][1]*td;
 
-        CurvatureX1=3*(p[1][0]-p[0][0])*(1-t)*(1-t)+6*(p[2][0]-p[1][0])*t*(1-t)+3*(p[3][0]-p[2][0])*t*t;
-        CurvatureY1=3*(p[1][1]-p[0][1])*(1-t)*(1-t)+6*(p[2][1]-p[1][1])*t*(1-t)+3*(p[3][1]-p[2][1])*t*t;
-        CurvatureX2=6*(p[2][0]-2*p[1][0]+p[0][0])*(1-t)+6*(p[3][0]-2*p[2][0]+p[1][0])*t;
-        CurvatureY2=6*(p[2][1]-2*p[1][1]+p[0][1])*(1-t)+6*(p[3][1]-2*p[2][1]+p[1][1])*t;
-        Curvature1=pow(CurvatureX1*CurvatureX1+CurvatureY1*CurvatureY1,1.5);
-        Curvature2=fabs(CurvatureX1*CurvatureY2-CurvatureX2*CurvatureY1);
-        Curvature=Curvature1/Curvature2;
-        //qDebug("di %f ge dian:%f",10*t+1,Curvature);
-        //qDebug("%f %f",xt,yt);
-        //qDebug("%f",CurvatureY1/CurvatureX1);
-        if(Curvature<minResolution)
-        {
-            p1.drawEllipse(xt-keyPointSize/6,yt-keyPointSize/6,keyPointSize/3,keyPointSize/3);
+                CurvatureX1=3*(p[1][0]-p[0][0])*(1-t)*(1-t)+6*(p[2][0]-p[1][0])*t*(1-t)+3*(p[3][0]-p[2][0])*t*t;
+                CurvatureY1=3*(p[1][1]-p[0][1])*(1-t)*(1-t)+6*(p[2][1]-p[1][1])*t*(1-t)+3*(p[3][1]-p[2][1])*t*t;
+                CurvatureX2=6*(p[2][0]-2*p[1][0]+p[0][0])*(1-t)+6*(p[3][0]-2*p[2][0]+p[1][0])*t;
+                CurvatureY2=6*(p[2][1]-2*p[1][1]+p[0][1])*(1-t)+6*(p[3][1]-2*p[2][1]+p[1][1])*t;
+                Curvature1=pow(CurvatureX1*CurvatureX1+CurvatureY1*CurvatureY1,1.5);
+                Curvature2=fabs(CurvatureX1*CurvatureY2-CurvatureX2*CurvatureY1);
+                Curvature=Curvature1/Curvature2;
+                //qDebug("di %f ge dian:%f",10*t+1,Curvature);
+                //qDebug("%f %f",xt,yt);
+                //qDebug("%f",CurvatureY1/CurvatureX1);
+                if(Curvature<minResolution)
+                {
+                    p1.drawEllipse(xt-keyPointSize/6,yt-keyPointSize/6,keyPointSize/3,keyPointSize/3);
+                }
+                //if(temp==3)
+                //p1.drawEllipse(xt-2-t*5,yt-2-t*5,4+t*10,4+t*10);
+                //p1.drawEllipse(xt-2,yt-2,4,4);
+                //p1.drawEllipse(xt-1,yt-1,2,2);
+            }
+            //temp++;
         }
-        //if(temp==3)
-        //p1.drawEllipse(xt-2-t*5,yt-2-t*5,4+t*10,4+t*10);
-        //p1.drawEllipse(xt-2,yt-2,4,4);
-        //p1.drawEllipse(xt-1,yt-1,2,2);
-    }
-    //temp++;
-    }
 
-    //计算最后一个点的曲率半径
-    --oP1;
-    p[0][0]=(**oP1).x();
-    p[0][1]=(**oP1).y();
-    oP1=oPointTemp.begin();
-    p[3][0]=(**oP1).x();
-    p[3][1]=(**oP1).y();
+        //计算最后一个点的曲率半径
+        --oP1;
+        p[0][0]=(**oP1).x();
+        p[0][1]=(**oP1).y();
+        oP1=oPointTemp.begin();
+        p[3][0]=(**oP1).x();
+        p[3][1]=(**oP1).y();
 
-    p[1][0]=(**oPH1).x();
-    p[1][1]=(**oPH1).y();
-    ++oPH1;
-    p[2][0]=(**oPH1).x();
-    p[2][1]=(**oPH1).y();
+        p[1][0]=(**oPH1).x();
+        p[1][1]=(**oPH1).y();
+        ++oPH1;
+        p[2][0]=(**oPH1).x();
+        p[2][1]=(**oPH1).y();
 
 
-    for(float t=0;t<=1;t+=1.0/rate){
-        ta=(1-t)*(1-t)*(1-t);
-        tb=3*t*(1-t)*(1-t);
-        tc=3*t*t*(1-t);
-        td=t*t*t;
-        xt=p[0][0]*ta+p[1][0]*tb+p[2][0]*tc+p[3][0]*td;
-        yt=p[0][1]*ta+p[1][1]*tb+p[2][1]*tc+p[3][1]*td;
+        for(float t=0;t<=1;t+=1.0/rate){
+            ta=(1-t)*(1-t)*(1-t);
+            tb=3*t*(1-t)*(1-t);
+            tc=3*t*t*(1-t);
+            td=t*t*t;
+            xt=p[0][0]*ta+p[1][0]*tb+p[2][0]*tc+p[3][0]*td;
+            yt=p[0][1]*ta+p[1][1]*tb+p[2][1]*tc+p[3][1]*td;
 
-        CurvatureX1=3*(p[1][0]-p[0][0])*(1-t)*(1-t)+6*(p[2][0]-p[1][0])*t*(1-t)+3*(p[3][0]-p[2][0])*t*t;
-        CurvatureY1=3*(p[1][1]-p[0][1])*(1-t)*(1-t)+6*(p[2][1]-p[1][1])*t*(1-t)+3*(p[3][1]-p[2][1])*t*t;
-        CurvatureX2=6*(p[2][0]-2*p[1][0]+p[0][0])*(1-t)+6*(p[3][0]-2*p[2][0]+p[1][0])*t;
-        CurvatureY2=6*(p[2][1]-2*p[1][1]+p[0][1])*(1-t)+6*(p[3][1]-2*p[2][1]+p[1][1])*t;
-        Curvature1=pow(CurvatureX1*CurvatureX1+CurvatureY1*CurvatureY1,1.5);
-        Curvature2=fabs(CurvatureX1*CurvatureY2-CurvatureX2*CurvatureY1);
-        Curvature=Curvature1/Curvature2;
+            CurvatureX1=3*(p[1][0]-p[0][0])*(1-t)*(1-t)+6*(p[2][0]-p[1][0])*t*(1-t)+3*(p[3][0]-p[2][0])*t*t;
+            CurvatureY1=3*(p[1][1]-p[0][1])*(1-t)*(1-t)+6*(p[2][1]-p[1][1])*t*(1-t)+3*(p[3][1]-p[2][1])*t*t;
+            CurvatureX2=6*(p[2][0]-2*p[1][0]+p[0][0])*(1-t)+6*(p[3][0]-2*p[2][0]+p[1][0])*t;
+            CurvatureY2=6*(p[2][1]-2*p[1][1]+p[0][1])*(1-t)+6*(p[3][1]-2*p[2][1]+p[1][1])*t;
+            Curvature1=pow(CurvatureX1*CurvatureX1+CurvatureY1*CurvatureY1,1.5);
+            Curvature2=fabs(CurvatureX1*CurvatureY2-CurvatureX2*CurvatureY1);
+            Curvature=Curvature1/Curvature2;
 
-        if(Curvature<minResolution)
-        {
-            //qDebug("%d",minResolution);
-            p1.drawEllipse(xt-keyPointSize/6,yt-keyPointSize/6,keyPointSize/3,keyPointSize/3);
+            if(Curvature<minResolution)
+            {
+                //qDebug("%d",minResolution);
+                p1.drawEllipse(xt-keyPointSize/6,yt-keyPointSize/6,keyPointSize/3,keyPointSize/3);
+            }
         }
-    }
-    p1.scale(1/stretch[i],1/stretch[i]);
-    p1.rotate(-rotation[i]);
-    p1.translate(-spotOriginX[i],-spotOriginY[i]);
+        p1.scale(1/stretch[i],1/stretch[i]);
+        p1.rotate(-rotation[i]);
+        p1.translate(-spotOriginX[i],-spotOriginY[i]);
 
     }//循环斑点个数
     p1.setPen(Qt::NoPen);
@@ -1844,55 +1844,55 @@ void DrawWidget::drawSpot(QPainter &p){
         p.setPen(Qt::NoPen);
     }
     for(;t<drawOk+1;t++){
-         p.translate(spotOriginX[t],spotOriginY[t]);
-         p.rotate(rotation[t]);
-         p.scale(stretch[t],stretch[t]);
+        p.translate(spotOriginX[t],spotOriginY[t]);
+        p.rotate(rotation[t]);
+        p.scale(stretch[t],stretch[t]);
 
-         getSpotColor(count);
-         QBrush b(spotColor);
-         p.setBrush(b);
-         p.drawPath(**temp);
-         //qDebug("aaaaaaaaaaaaa");
-         //qDebug("num de ge shu shi:%d",spotNum[t]);
+        getSpotColor(count);
+        QBrush b(spotColor);
+        p.setBrush(b);
+        p.drawPath(**temp);
+        //qDebug("aaaaaaaaaaaaa");
+        //qDebug("num de ge shu shi:%d",spotNum[t]);
 
-         count++;
-         temp++;
-         p.scale(1/stretch[t],1/stretch[t]);
-         p.rotate(-rotation[t]);
-         p.translate(-spotOriginX[t],-spotOriginY[t]);
+        count++;
+        temp++;
+        p.scale(1/stretch[t],1/stretch[t]);
+        p.rotate(-rotation[t]);
+        p.translate(-spotOriginX[t],-spotOriginY[t]);
     }
 }
 
 void DrawWidget::drawDigital(QPainter &p){
-        p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
-        if(mousePressFlag){
-            //qDebug("sssssssssssssssssss");
-            p.drawRect(xBegin,yBegin,xEnd-xBegin,yEnd-yBegin);
-        }
+    p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
+    if(mousePressFlag){
+        //qDebug("sssssssssssssssssss");
+        p.drawRect(xBegin,yBegin,xEnd-xBegin,yEnd-yBegin);
+    }
 
 
-        if(showOPoint)
+    if(showOPoint)
+        drawOPoint(p);
+
+    if(oPoint.size()>1){//绘制过程直线
+        drawProcessLine(p);
+    }
+
+    if(drawOk){
+
+        drawSpot(p);
+
+        if(showOPoint){
             drawOPoint(p);
-
-        if(oPoint.size()>1){//绘制过程直线
-                drawProcessLine(p);
-            }
-
-        if(drawOk){
-
-            drawSpot(p);
-
-            if(showOPoint){
-                drawOPoint(p);
-                drawOrign(p);//绘制斑点中间那个点
-            }
-            if(radiusFlag){
-                    drawMark(p);
-                }
+            drawOrign(p);//绘制斑点中间那个点
         }
+        if(radiusFlag){
+            drawMark(p);
+        }
+    }
 
-        drawEdgeLine(p);
-        drawScaleLine(p);
+    drawEdgeLine(p);
+    drawScaleLine(p);
 
 
 }
@@ -2020,10 +2020,10 @@ void DrawWidget::getThePoint(int (*num)[1000],int hasNum,int area){
         saveGet.getAutoCAD(hasNum,spotNum,allColor.index,num,tempP,area,drawZ,drawY);
     }
     if(area==2){
-       saveGet.getAutoCAD(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY);
+        saveGet.getAutoCAD(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY);
     }
     if(area==3){
-       saveGet.getAutoCAD(hasNum,spotNum,allColor.index,num,tempP,area,drawZ,drawY);
+        saveGet.getAutoCAD(hasNum,spotNum,allColor.index,num,tempP,area,drawZ,drawY);
     }
     if(area==4){
         saveGet.getAutoCAD(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawZ);
@@ -2104,10 +2104,10 @@ void DrawWidget::getThePointAll(int (*num)[1000],int hasNum,int area){
         saveGet.getAutoCADAll(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY,drawZ);
     }
     if(area==2){
-       saveGet.getAutoCADAll(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY,drawZ);
+        saveGet.getAutoCADAll(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY,drawZ);
     }
     if(area==3){
-       saveGet.getAutoCADAll(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY,drawZ);
+        saveGet.getAutoCADAll(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY,drawZ);
     }
     if(area==4){
         saveGet.getAutoCADAll(hasNum,spotNum,allColor.index,num,tempP,area,drawX,drawY,drawZ);
@@ -2133,150 +2133,150 @@ int DrawWidget::handleSelected(){
     list<QPointF*>::iterator oP1 = oPointAll.begin();
     float x,y;
 
-       for(int i=1;i<drawOk+1;i++){
-           thePointTemp.clear();
-           oPointTemp.clear();
-           for(int j=1;j<2*spotNum[i]+1;j++){
-               thePointTemp.push_back(*oP);
-               ++oP;
-           }
+    for(int i=1;i<drawOk+1;i++){
+        thePointTemp.clear();
+        oPointTemp.clear();
+        for(int j=1;j<2*spotNum[i]+1;j++){
+            thePointTemp.push_back(*oP);
+            ++oP;
+        }
 
 
-           for(int j=1;j<spotNum[i]+1;j++){
-               oPointTemp.push_back(*oP1);
-               ++oP1;
-           }
+        for(int j=1;j<spotNum[i]+1;j++){
+            oPointTemp.push_back(*oP1);
+            ++oP1;
+        }
 
 
-       handleSelectedO=oPointTemp.begin();
-       ++handleSelectedO;
-       handleSelectedA=thePointTemp.begin();
-       ++handleSelectedA;
-       handleSelectedB=++handleSelectedA;
-       --handleSelectedA;
+        handleSelectedO=oPointTemp.begin();
+        ++handleSelectedO;
+        handleSelectedA=thePointTemp.begin();
+        ++handleSelectedA;
+        handleSelectedB=++handleSelectedA;
+        --handleSelectedA;
 
-       int t=2;
-       while(handleSelectedB!=thePointTemp.end()){
-                          cPath=new(QPainterPath);
-                          //((**temp).x()-keyPointSize/2)/2+spotOriginX[t];
-                          //x=(**handleSelectedA).x()*cos(rotation[i]/180*PI)/stretch[i]-(**handleSelectedA).y()*sin(rotation[i]/180*PI)/stretch[i]+spotOriginX[i]-handlePointSize/2/stretch[i];
-                          //y=(**handleSelectedA).x()*sin(rotation[i]/180*PI)/stretch[i]+(**handleSelectedA).y()*cos(rotation[i]/180*PI)/stretch[i]+spotOriginY[i]-handlePointSize/2/stretch[i];
-                          x=(**handleSelectedA).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedA).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
-                          y=(**handleSelectedA).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedA).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
-                          //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
-                          cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
-                          if(cPath->contains(*currentPoint)){//如果if为真,责点重合
-                                  flag=4;
-                                  markFlag=2;
-                                  //qDebug("11111111");
-                                  spotSelectedNum=i;
-                                  selectedPoint=new(QPointF);
-                                  selectedPoint->setX((**handleSelectedA).x()+spotOriginX[i]);
-                                  selectedPoint->setY((**handleSelectedA).y()+spotOriginY[i]);
-                                  //addForcePointEdit();
-
-
-                                  handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
-                                  handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
-                                  handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
-                                  handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
-                                  handleO.setX((**handleSelectedO).x());
-                                  handleO.setY((**handleSelectedO).y());//qDebug("oooo %f  %f",handleO.x(),handleO.y());
-                                  delete cPath;
-                                  return 1;
-                              }
-                          delete cPath;
-
-                          cPath=new(QPainterPath);
-                          x=(**handleSelectedB).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedB).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
-                          y=(**handleSelectedB).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedB).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
-                          //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
-                          cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
-                          //cPath->addEllipse(((**handleSelectedB).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedB).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
-                          if(cPath->contains(*currentPoint)){//如果if为真,责点重合
-                                  flag=5;
-                                  markFlag=3;
-                                    //qDebug("22222222222");
-                                  spotSelectedNum=i;
-                                  selectedPoint=new(QPointF);
-                                  selectedPoint->setX((**handleSelectedB).x()+spotOriginX[i]);
-                                  selectedPoint->setY((**handleSelectedB).y()+spotOriginY[i]);
-                                  //addForcePointEdit();
-
-                                  handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
-                                  handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
-                                  handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
-                                  handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
-                                  handleO.setX((**handleSelectedO).x());
-                                  handleO.setY((**handleSelectedO).y());
-                                  delete cPath;
-                                  return 1;
-                              }
-                          delete cPath;
-                          ++handleSelectedA;
-                          ++handleSelectedA;
-                          ++handleSelectedB;
-                          ++handleSelectedB;
-                          ++handleSelectedO;
-                          t++;
-         }
-
-       handleSelectedA=thePointTemp.end();
-       handleSelectedA--;
-       handleSelectedB=thePointTemp.begin();
-       handleSelectedO=oPointTemp.begin();
+        int t=2;
+        while(handleSelectedB!=thePointTemp.end()){
+            cPath=new(QPainterPath);
+            //((**temp).x()-keyPointSize/2)/2+spotOriginX[t];
+            //x=(**handleSelectedA).x()*cos(rotation[i]/180*PI)/stretch[i]-(**handleSelectedA).y()*sin(rotation[i]/180*PI)/stretch[i]+spotOriginX[i]-handlePointSize/2/stretch[i];
+            //y=(**handleSelectedA).x()*sin(rotation[i]/180*PI)/stretch[i]+(**handleSelectedA).y()*cos(rotation[i]/180*PI)/stretch[i]+spotOriginY[i]-handlePointSize/2/stretch[i];
+            x=(**handleSelectedA).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedA).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
+            y=(**handleSelectedA).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedA).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
+            //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
+            cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
+            if(cPath->contains(*currentPoint)){//如果if为真,责点重合
+                flag=4;
+                markFlag=2;
+                //qDebug("11111111");
+                spotSelectedNum=i;
+                selectedPoint=new(QPointF);
+                selectedPoint->setX((**handleSelectedA).x()+spotOriginX[i]);
+                selectedPoint->setY((**handleSelectedA).y()+spotOriginY[i]);
+                //addForcePointEdit();
 
 
-       cPath=new(QPainterPath);
-       x=(**handleSelectedA).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedA).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
-       y=(**handleSelectedA).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedA).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
-       //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
-       cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
-       //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
-       if(cPath->contains(*currentPoint)){//如果if为真,责点重合
-               flag=4;
-               markFlag=2;//qDebug("333333333");
-               spotSelectedNum=i;
-               selectedPoint=new(QPointF);
-               selectedPoint->setX((**handleSelectedA).x()+spotOriginX[i]);
-               selectedPoint->setY((**handleSelectedA).y()+spotOriginY[i]);
-               handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
-               handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
-               handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
-               handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
-               handleO.setX((**handleSelectedO).x());
-               handleO.setY((**handleSelectedO).y());
-               delete cPath;
-               return 1;
-           }
-       delete cPath;
+                handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
+                handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
+                handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
+                handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
+                handleO.setX((**handleSelectedO).x());
+                handleO.setY((**handleSelectedO).y());//qDebug("oooo %f  %f",handleO.x(),handleO.y());
+                delete cPath;
+                return 1;
+            }
+            delete cPath;
+
+            cPath=new(QPainterPath);
+            x=(**handleSelectedB).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedB).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
+            y=(**handleSelectedB).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedB).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
+            //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
+            cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
+            //cPath->addEllipse(((**handleSelectedB).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedB).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
+            if(cPath->contains(*currentPoint)){//如果if为真,责点重合
+                flag=5;
+                markFlag=3;
+                //qDebug("22222222222");
+                spotSelectedNum=i;
+                selectedPoint=new(QPointF);
+                selectedPoint->setX((**handleSelectedB).x()+spotOriginX[i]);
+                selectedPoint->setY((**handleSelectedB).y()+spotOriginY[i]);
+                //addForcePointEdit();
+
+                handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
+                handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
+                handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
+                handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
+                handleO.setX((**handleSelectedO).x());
+                handleO.setY((**handleSelectedO).y());
+                delete cPath;
+                return 1;
+            }
+            delete cPath;
+            ++handleSelectedA;
+            ++handleSelectedA;
+            ++handleSelectedB;
+            ++handleSelectedB;
+            ++handleSelectedO;
+            t++;
+        }
+
+        handleSelectedA=thePointTemp.end();
+        handleSelectedA--;
+        handleSelectedB=thePointTemp.begin();
+        handleSelectedO=oPointTemp.begin();
 
 
-       cPath=new(QPainterPath);
-       x=(**handleSelectedB).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedB).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
-       y=(**handleSelectedB).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedB).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
-       //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
-       cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
-       //cPath->addEllipse(((**handleSelectedB).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedB).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
-       if(cPath->contains(*currentPoint)){//如果if为真,责点重合
-               flag=5;
-               markFlag=3;//qDebug("4444444444");
-               spotSelectedNum=i;
-               selectedPoint=new(QPointF);
-               selectedPoint->setX((**handleSelectedB).x()+spotOriginX[i]);
-               selectedPoint->setY((**handleSelectedB).y()+spotOriginY[i]);
-               handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
-               handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
-               handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
-               handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
-               handleO.setX((**handleSelectedO).x());
-               handleO.setY((**handleSelectedO).y());
-               delete cPath;
-               return 1;
-           }
-       delete cPath;
-       }
-   return 0;
+        cPath=new(QPainterPath);
+        x=(**handleSelectedA).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedA).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
+        y=(**handleSelectedA).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedA).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
+        //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
+        cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
+        //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
+        if(cPath->contains(*currentPoint)){//如果if为真,责点重合
+            flag=4;
+            markFlag=2;//qDebug("333333333");
+            spotSelectedNum=i;
+            selectedPoint=new(QPointF);
+            selectedPoint->setX((**handleSelectedA).x()+spotOriginX[i]);
+            selectedPoint->setY((**handleSelectedA).y()+spotOriginY[i]);
+            handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
+            handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
+            handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
+            handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
+            handleO.setX((**handleSelectedO).x());
+            handleO.setY((**handleSelectedO).y());
+            delete cPath;
+            return 1;
+        }
+        delete cPath;
+
+
+        cPath=new(QPainterPath);
+        x=(**handleSelectedB).x()*cos(rotation[i]/180*PI)*stretch[i]-(**handleSelectedB).y()*sin(rotation[i]/180*PI)*stretch[i]+spotOriginX[i]-handlePointSize/2*stretch[i];
+        y=(**handleSelectedB).x()*sin(rotation[i]/180*PI)*stretch[i]+(**handleSelectedB).y()*cos(rotation[i]/180*PI)*stretch[i]+spotOriginY[i]-handlePointSize/2*stretch[i];
+        //cPath->addEllipse(((**handleSelectedA).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedA).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
+        cPath->addEllipse(x,y,handlePointSize*stretch[i],handlePointSize*stretch[i]);
+        //cPath->addEllipse(((**handleSelectedB).x()-handlePointSize/2)/2+spotOriginX[i],((**handleSelectedB).y()-handlePointSize/2)/2+spotOriginY[i],handlePointSize,handlePointSize);
+        if(cPath->contains(*currentPoint)){//如果if为真,责点重合
+            flag=5;
+            markFlag=3;//qDebug("4444444444");
+            spotSelectedNum=i;
+            selectedPoint=new(QPointF);
+            selectedPoint->setX((**handleSelectedB).x()+spotOriginX[i]);
+            selectedPoint->setY((**handleSelectedB).y()+spotOriginY[i]);
+            handleA.setX((**handleSelectedA).x()+spotOriginX[i]);
+            handleA.setY((**handleSelectedA).y()+spotOriginY[i]);
+            handleB.setX((**handleSelectedB).x()+spotOriginX[i]);
+            handleB.setY((**handleSelectedB).y()+spotOriginY[i]);
+            handleO.setX((**handleSelectedO).x());
+            handleO.setY((**handleSelectedO).y());
+            delete cPath;
+            return 1;
+        }
+        delete cPath;
+    }
+    return 0;
 
 }
 void DrawWidget::getPointStyle(int bigDrawOk[600], int &bigDrawOkNum, int smallDrawOk[600], int &smallDrawOkNum,int&smallAll){
@@ -2329,221 +2329,221 @@ void DrawWidget::getAreaRatio(float *temp){
 
 void DrawWidget::getFiveImage(){
     if(fabs(windowScale-1)<0.001){
-    //int num[5][100],hasNum/*记录斑点个数*/;//五个区域，每个区域最多有200个点
-    int num[5][1000],hasNum/*记录斑点个数*/;//五个区域，每个区域最多有1000个点
-    list<QPainterPath*>::iterator tempPath;
-    float oX,oY;
-    QPen pen(backGroundColor,0,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin);
+        //int num[5][100],hasNum/*记录斑点个数*/;//五个区域，每个区域最多有200个点
+        int num[5][1000],hasNum/*记录斑点个数*/;//五个区域，每个区域最多有1000个点
+        list<QPainterPath*>::iterator tempPath;
+        float oX,oY;
+        QPen pen(backGroundColor,0,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin);
+        if(gyflag)return;
+        //第一副图
+        judgeIntersection(num,0,&hasNum,midWidth-drawX/2,midHeight-drawY/2-drawZ,drawX,drawZ);
+        QPixmap pix1(drawX,drawZ);
+        QPainter p1(&pix1);
+        p1.setBrush(backGroundColor);
 
-    //第一副图
-    judgeIntersection(num,0,&hasNum,midWidth-drawX/2,midHeight-drawY/2-drawZ,drawX,drawZ);
-    QPixmap pix1(drawX,drawZ);
-    QPainter p1(&pix1);
-    p1.setBrush(backGroundColor);
+        p1.setPen(pen);
+        p1.drawRect(0,0,drawX,drawZ);
 
-    p1.setPen(pen);
-    p1.drawRect(0,0,drawX,drawZ);
+        for(int i=0;i<hasNum;i++){
 
-    for(int i=0;i<hasNum;i++){
+            oX=spotOriginX[num[0][i]]-(midWidth-drawX/2);
+            oY=spotOriginY[num[0][i]]-(midHeight-drawY/2-drawZ);
 
-        oX=spotOriginX[num[0][i]]-(midWidth-drawX/2);
-        oY=spotOriginY[num[0][i]]-(midHeight-drawY/2-drawZ);
+            p1.translate(oX,oY);
+            p1.scale(stretch[num[0][i]],stretch[num[0][i]]);
+            p1.rotate(rotation[num[0][i]]);
+            //qDebug("jiaodu: %f",rotation[num[0][i]]);
+            //qDebug("!!!!!!!!!%f",stretch[num[0][i]]/windowScale);
 
-        p1.translate(oX,oY);
-        p1.scale(stretch[num[0][i]],stretch[num[0][i]]);
-        p1.rotate(rotation[num[0][i]]);
-        //qDebug("jiaodu: %f",rotation[num[0][i]]);
-        //qDebug("!!!!!!!!!%f",stretch[num[0][i]]/windowScale);
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[0][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[0][i]);
+            p1.setBrush(spotColor);
+            p1.drawPath(**tempPath);
+            p1.setBrush(Qt::NoBrush);
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[0][i];j++){
-            tempPath++;
+            p1.scale(1/stretch[num[0][i]],1/stretch[num[0][i]]);
+            p1.rotate(-rotation[num[0][i]]);
+            p1.translate(-oX,-oY);
+
         }
-        getSpotColor(num[0][i]);
-        p1.setBrush(spotColor);
-        p1.drawPath(**tempPath);
-        p1.setBrush(Qt::NoBrush);
-
-        p1.scale(1/stretch[num[0][i]],1/stretch[num[0][i]]);
-        p1.rotate(-rotation[num[0][i]]);
-        p1.translate(-oX,-oY);
-
-    }
-    p1.end();
-    pix1.save("../draw/image/1.png");
+        p1.end();
+        pix1.save("./image/1.png");
 
 
-    //第二幅图
-    judgeIntersection(num,1,&hasNum,midWidth-drawX/2-drawZ,midHeight-drawY/2,drawZ,drawY);
-    //qDebug("%d",hasNum);
-    QPixmap pix2(drawZ,drawY);
-    QPainter p2(&pix2);
-    p2.setBrush(backGroundColor);
+        //第二幅图
+        judgeIntersection(num,1,&hasNum,midWidth-drawX/2-drawZ,midHeight-drawY/2,drawZ,drawY);
+        //qDebug("%d",hasNum);
+        QPixmap pix2(drawZ,drawY);
+        QPainter p2(&pix2);
+        p2.setBrush(backGroundColor);
 
-    p2.setPen(pen);
-    p2.drawRect(0,0,drawZ,drawY);
+        p2.setPen(pen);
+        p2.drawRect(0,0,drawZ,drawY);
 
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[1][0],num[1][1]);
-    for(int i=0;i<hasNum;i++){
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[1][0],num[1][1]);
+        for(int i=0;i<hasNum;i++){
 
-        oX=spotOriginX[num[1][i]]-(midWidth-drawX/2-drawZ);
-        oY=spotOriginY[num[1][i]]-(midHeight-drawY/2);
+            oX=spotOriginX[num[1][i]]-(midWidth-drawX/2-drawZ);
+            oY=spotOriginY[num[1][i]]-(midHeight-drawY/2);
 
-        p2.translate(oX,oY);
-        p2.scale(stretch[num[1][i]],stretch[num[1][i]]/windowScale);
-        p2.rotate(rotation[num[1][i]]);
+            p2.translate(oX,oY);
+            p2.scale(stretch[num[1][i]],stretch[num[1][i]]/windowScale);
+            p2.rotate(rotation[num[1][i]]);
 
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[1][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[1][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[1][i]);
+            p2.setBrush(spotColor);
+            p2.drawPath(**tempPath);
+            p2.setBrush(Qt::NoBrush);
+
+            p2.scale(1/stretch[num[1][i]],1/stretch[num[1][i]]);
+            p2.rotate(-rotation[num[1][i]]);
+            p2.translate(-oX,-oY);
+
         }
-        getSpotColor(num[1][i]);
-        p2.setBrush(spotColor);
-        p2.drawPath(**tempPath);
-        p2.setBrush(Qt::NoBrush);
-
-        p2.scale(1/stretch[num[1][i]],1/stretch[num[1][i]]);
-        p2.rotate(-rotation[num[1][i]]);
-        p2.translate(-oX,-oY);
-
-    }
-    p2.end();
-    pix2.save("../draw/image/2.png");
+        p2.end();
+        pix2.save("./image/2.png");
 
 
-    //第三幅图
-    judgeIntersection(num,2,&hasNum,midWidth-drawX/2,midHeight-drawY/2,drawX,drawY);
-    //qDebug("%d",hasNum);
-    QPixmap pix3(drawX,drawY);
-    QPainter p3(&pix3);
-    p3.setBrush(backGroundColor);
+        //第三幅图
+        judgeIntersection(num,2,&hasNum,midWidth-drawX/2,midHeight-drawY/2,drawX,drawY);
+        //qDebug("%d",hasNum);
+        QPixmap pix3(drawX,drawY);
+        QPainter p3(&pix3);
+        p3.setBrush(backGroundColor);
 
-    p3.setPen(pen);
-    p3.drawRect(0,0,drawX,drawY);
+        p3.setPen(pen);
+        p3.drawRect(0,0,drawX,drawY);
 
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[2][0],num[2][1]);
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[2][0],num[2][1]);
 
-    for(int i=0;i<hasNum;i++){
+        for(int i=0;i<hasNum;i++){
 
-        oX=spotOriginX[num[2][i]]-(midWidth-drawX/2);
-        oY=spotOriginY[num[2][i]]-(midHeight-drawY/2);
+            oX=spotOriginX[num[2][i]]-(midWidth-drawX/2);
+            oY=spotOriginY[num[2][i]]-(midHeight-drawY/2);
 
-        p3.translate(oX,oY);
-        p3.scale(stretch[num[2][i]],stretch[num[2][i]]);
-        p3.rotate(rotation[num[2][i]]);
+            p3.translate(oX,oY);
+            p3.scale(stretch[num[2][i]],stretch[num[2][i]]);
+            p3.rotate(rotation[num[2][i]]);
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[2][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[2][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[2][i]);
+            p3.setBrush(spotColor);
+            p3.drawPath(**tempPath);
+            p3.setBrush(Qt::NoBrush);
+
+            p3.scale(1/stretch[num[2][i]],1/stretch[num[2][i]]);
+            p3.rotate(-rotation[num[2][i]]);
+            p3.translate(-oX,-oY);
+
         }
-        getSpotColor(num[2][i]);
-        p3.setBrush(spotColor);
-        p3.drawPath(**tempPath);
-        p3.setBrush(Qt::NoBrush);
-
-        p3.scale(1/stretch[num[2][i]],1/stretch[num[2][i]]);
-        p3.rotate(-rotation[num[2][i]]);
-        p3.translate(-oX,-oY);
-
-    }
-    p3.end();
-    pix3.save("../draw/image/3.png");
+        p3.end();
+        pix3.save("./image/3.png");
 
 
 
 
 
 
-    //第四幅图
-    judgeIntersection(num,3,&hasNum,midWidth+drawX/2,midHeight-drawY/2,drawZ,drawY);
-    //qDebug("%d",hasNum);
-    QPixmap pix4(drawZ,drawY);
-    QPainter p4(&pix4);
-    p4.setBrush(backGroundColor);
+        //第四幅图
+        judgeIntersection(num,3,&hasNum,midWidth+drawX/2,midHeight-drawY/2,drawZ,drawY);
+        //qDebug("%d",hasNum);
+        QPixmap pix4(drawZ,drawY);
+        QPainter p4(&pix4);
+        p4.setBrush(backGroundColor);
 
-    p4.setPen(pen);
-    p4.drawRect(0,0,drawZ,drawY);
+        p4.setPen(pen);
+        p4.drawRect(0,0,drawZ,drawY);
 
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[2][0],num[2][1]);
-    for(int i=0;i<hasNum;i++){
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[2][0],num[2][1]);
+        for(int i=0;i<hasNum;i++){
 
-        oX=spotOriginX[num[3][i]]-(midWidth+drawX/2);
-        oY=spotOriginY[num[3][i]]-(midHeight-drawY/2);
+            oX=spotOriginX[num[3][i]]-(midWidth+drawX/2);
+            oY=spotOriginY[num[3][i]]-(midHeight-drawY/2);
 
-        p4.translate(oX,oY);
-        p4.scale(stretch[num[3][i]],stretch[num[3][i]]);
-        p4.rotate(rotation[num[3][i]]);
+            p4.translate(oX,oY);
+            p4.scale(stretch[num[3][i]],stretch[num[3][i]]);
+            p4.rotate(rotation[num[3][i]]);
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[3][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[3][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[3][i]);
+            p4.setBrush(spotColor);
+            p4.drawPath(**tempPath);
+            p4.setBrush(Qt::NoBrush);
+
+            p4.scale(1/stretch[num[3][i]],1/stretch[num[3][i]]);
+            p4.rotate(-rotation[num[3][i]]);
+            p4.translate(-oX,-oY);
+
         }
-        getSpotColor(num[3][i]);
-        p4.setBrush(spotColor);
-        p4.drawPath(**tempPath);
-        p4.setBrush(Qt::NoBrush);
-
-        p4.scale(1/stretch[num[3][i]],1/stretch[num[3][i]]);
-        p4.rotate(-rotation[num[3][i]]);
-        p4.translate(-oX,-oY);
-
-    }
-    p4.end();
-    pix4.save("../draw/image/4.png");
+        p4.end();
+        pix4.save("./image/4.png");
 
 
 
 
-    //第五幅图
-    judgeIntersection(num,4,&hasNum,midWidth-drawX/2,midHeight+drawY/2,drawX,drawZ);
-    //qDebug("%d",hasNum);
-    QPixmap pix5(drawX,drawZ);
-    QPainter p5(&pix5);
-    p5.setBrush(backGroundColor);
+        //第五幅图
+        judgeIntersection(num,4,&hasNum,midWidth-drawX/2,midHeight+drawY/2,drawX,drawZ);
+        //qDebug("%d",hasNum);
+        QPixmap pix5(drawX,drawZ);
+        QPainter p5(&pix5);
+        p5.setBrush(backGroundColor);
 
-    p5.setPen(pen);
-    p5.drawRect(0,0,drawX,drawZ);
+        p5.setPen(pen);
+        p5.drawRect(0,0,drawX,drawZ);
 
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[2][0],num[2][1]);
-    for(int i=0;i<hasNum;i++){
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[2][0],num[2][1]);
+        for(int i=0;i<hasNum;i++){
 
-        oX=spotOriginX[num[4][i]]-(midWidth-drawX/2);
-        oY=spotOriginY[num[4][i]]-(midHeight+drawY/2);
+            oX=spotOriginX[num[4][i]]-(midWidth-drawX/2);
+            oY=spotOriginY[num[4][i]]-(midHeight+drawY/2);
 
-        p5.translate(oX,oY);
-        p5.scale(stretch[num[4][i]],stretch[num[4][i]]);
-        p5.rotate(rotation[num[4][i]]);
+            p5.translate(oX,oY);
+            p5.scale(stretch[num[4][i]],stretch[num[4][i]]);
+            p5.rotate(rotation[num[4][i]]);
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[4][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[4][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[4][i]);
+            p5.setBrush(spotColor);
+            p5.drawPath(**tempPath);
+            p5.setBrush(Qt::NoBrush);
+
+            p5.scale(1/stretch[num[4][i]],1/stretch[num[4][i]]);
+            p5.rotate(-rotation[num[4][i]]);
+            p5.translate(-oX,-oY);
+
         }
-        getSpotColor(num[4][i]);
-        p5.setBrush(spotColor);
-        p5.drawPath(**tempPath);
-        p5.setBrush(Qt::NoBrush);
-
-        p5.scale(1/stretch[num[4][i]],1/stretch[num[4][i]]);
-        p5.rotate(-rotation[num[4][i]]);
-        p5.translate(-oX,-oY);
-
-    }
-    p5.end();
-    pix5.save("../draw/image/5.png");
+        p5.end();
+        pix5.save("./image/5.png");
     }
     else{
         QMessageBox msgBox(this);
@@ -2558,97 +2558,97 @@ void DrawWidget::getSpotPoint(){
     int spotReadNum;
     int debugNum=1;
     if(AutoCADFlag){
-    float saveP[300][2];
-    int num;
-    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+        float saveP[300][2];
+        int num;
+        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
 
-    spotNum[++drawOk]=num;//把斑点含点个数保存起来
-    pointNum=0;//清空未画完斑点计数器
+        spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        pointNum=0;//清空未画完斑点计数器
 
-    int areaCount=areaGet%5+1;//qDebug("*******%d",areaCount);
-    int tempX=drawX*windowScale,tempY=drawY*windowScale;
-    int ranX,ranY;
-    srand(time(0));
-    if(areaCount==1){
-        ranX=rand()%tempX+1;
-        ranY=rand()%tempY+1;
-        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+ranX;
-        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranY;
-        //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale+ranX;
-        //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranY;
-    }
+        int areaCount=areaGet%5+1;//qDebug("*******%d",areaCount);
+        int tempX=drawX*windowScale,tempY=drawY*windowScale;
+        int ranX,ranY;
+        srand(time(0));
+        if(areaCount==1){
+            ranX=rand()%tempX+1;
+            ranY=rand()%tempY+1;
+            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+ranX;
+            spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranY;
+            //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale+ranX;
+            //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranY;
+        }
 
-    tempX=drawZ*windowScale;
-    tempY=drawY*windowScale;
-    if(areaCount==2){
-        ranX=rand()%tempX+1;
-        ranY=rand()%tempY+1;
-        //qDebug("xxxxxx:%d",ranX);
-        spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+ranX;
-        spotOriginY[drawOk]=midHeight-drawY/2*windowScale+ranY;
-        //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+ranX;
-        //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale+ranY;
-    }
+        tempX=drawZ*windowScale;
+        tempY=drawY*windowScale;
+        if(areaCount==2){
+            ranX=rand()%tempX+1;
+            ranY=rand()%tempY+1;
+            //qDebug("xxxxxx:%d",ranX);
+            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+ranX;
+            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+ranY;
+            //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+ranX;
+            //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale+ranY;
+        }
 
-    tempX=drawX*windowScale;
-    tempY=drawY*windowScale;
-    if(areaCount==3){
-        ranX=rand()%tempX+1;
-        ranY=rand()%tempY+1;
-        //qDebug("xxxxxx:%d",ranX);
-        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+ranX;
-        spotOriginY[drawOk]=midHeight-drawY/2*windowScale+ranY;
-        //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale+ranX;
-        //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale+ranY;
-    }
+        tempX=drawX*windowScale;
+        tempY=drawY*windowScale;
+        if(areaCount==3){
+            ranX=rand()%tempX+1;
+            ranY=rand()%tempY+1;
+            //qDebug("xxxxxx:%d",ranX);
+            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+ranX;
+            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+ranY;
+            //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale+ranX;
+            //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale+ranY;
+        }
 
-    tempX=drawZ*windowScale;
-    tempY=drawY*windowScale;
-    if(areaCount==4){
-        ranX=rand()%tempX+1;
-        ranY=rand()%tempY+1;
-        //qDebug("xxxxxx:%d",ranX);
-        spotOriginX[drawOk]=midWidth+drawX/2*windowScale+ranX;
-        spotOriginY[drawOk]=midHeight-drawY/2*windowScale+ranY;
-        //spotOriginXI[drawOk]=midWidth+drawX/2*windowScale+ranX;
-        //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale+ranY;
-    }
+        tempX=drawZ*windowScale;
+        tempY=drawY*windowScale;
+        if(areaCount==4){
+            ranX=rand()%tempX+1;
+            ranY=rand()%tempY+1;
+            //qDebug("xxxxxx:%d",ranX);
+            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+ranX;
+            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+ranY;
+            //spotOriginXI[drawOk]=midWidth+drawX/2*windowScale+ranX;
+            //spotOriginYI[drawOk]=midHeight-drawY/2*windowScale+ranY;
+        }
 
-    tempX=drawX*windowScale;
-    tempY=drawZ*windowScale;
-    if(areaCount==5){
-        ranX=rand()%tempX+1;
-        ranY=rand()%tempY+1;
-        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+ranX;
-        spotOriginY[drawOk]=midHeight+drawY/2*windowScale+ranY;
-        //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale+ranX;
-        //spotOriginYI[drawOk]=midHeight+drawY/2*windowScale+ranY;
-    }
+        tempX=drawX*windowScale;
+        tempY=drawZ*windowScale;
+        if(areaCount==5){
+            ranX=rand()%tempX+1;
+            ranY=rand()%tempY+1;
+            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+ranX;
+            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+ranY;
+            //spotOriginXI[drawOk]=midWidth-drawX/2*windowScale+ranX;
+            //spotOriginYI[drawOk]=midHeight+drawY/2*windowScale+ranY;
+        }
 
 
-    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
 
-    stretch[drawOk]=windowScale/4;
-    rotation[drawOk]=0;
+        stretch[drawOk]=windowScale/4;
+        rotation[drawOk]=0;
 
-    //把刚绘制完斑点的点保存起来
-    QPointF *tempPoint;
-    oPoint.clear();
-    for(int t=1;t<num+1;t++){
-        tempPoint=new QPointF;
-        tempPoint->setX(saveP[t][0]);
-        tempPoint->setY(saveP[t][1]);
-        oPoint.push_back(tempPoint);
-        oPointAll.push_back(tempPoint);
-            }
-    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-    update();
-    eventStyle=1;
-    emit ChildWindowEvent();
-    areaGet++;
+        //把刚绘制完斑点的点保存起来
+        QPointF *tempPoint;
+        oPoint.clear();
+        for(int t=1;t<num+1;t++){
+            tempPoint=new QPointF;
+            tempPoint->setX(saveP[t][0]);
+            tempPoint->setY(saveP[t][1]);
+            oPoint.push_back(tempPoint);
+            oPointAll.push_back(tempPoint);
+        }
+        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        update();
+        eventStyle=1;
+        emit ChildWindowEvent();
+        areaGet++;
     }
     else{
         float saveP[300][2];
@@ -2685,7 +2685,7 @@ void DrawWidget::getSpotPoint(){
             tempPoint->setY(saveP[t][1]);
             oPoint.push_back(tempPoint);
             oPointAll.push_back(tempPoint);
-                }
+        }
         caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
         update();
         eventStyle=1;
@@ -2697,107 +2697,107 @@ void DrawWidget::getSpotPoint(){
 }
 void DrawWidget::getCanvasPoint(int num1,int num2){
     if(AutoCADFlag){
-    float saveP[300][2];
-    int num;
-    int spotReadNum;
-    int debugNum=0;
-    //getCanvasBigPoint();
-//    update();
-    getEdgePoint();
+        float saveP[300][2];
+        int num;
+        int spotReadNum;
+        int debugNum=0;
+        //getCanvasBigPoint();
+        //    update();
+        getEdgePoint();
 
-//    //分三个区域随机斑点，上中下
+        //    //分三个区域随机斑点，上中下
 
 
 
-    //最左边部分
-    //for(int w=1;w<drawX+2*drawZ;w+=100){
-    for(int w=1;w<drawZ;w+=num1/*90*//*80*/){
-        for(int h=20;h<drawY-50;h+=num2/*80*//*70*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
+        //最左边部分
+        //for(int w=1;w<drawX+2*drawZ;w+=100){
+        for(int w=1;w<drawZ;w+=num1/*90*//*80*/){
+            for(int h=20;h<drawY-50;h+=num2/*80*//*70*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
 
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+40*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
+                spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+40*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
 
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //把刚绘制完斑点的点保存起来
+                QPointF *tempPoint;
+                oPoint.clear();
+                for(int t=1;t<num+1;t++){
+                    tempPoint=new QPointF;
+                    tempPoint->setX(saveP[t][0]);
+                    tempPoint->setY(saveP[t][1]);
+                    oPoint.push_back(tempPoint);
+                    oPointAll.push_back(tempPoint);
+                }
+                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+            }
         }
-    }
-////原来的80为100，40为50
-//    for(int w=1;w<drawZ;w+=100){
-//        for(int h=50;h<drawY-50;h+=100){
-//            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
-//            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//            pointNum=0;//清空未画完斑点计数器
+        ////原来的80为100，40为50
+        //    for(int w=1;w<drawZ;w+=100){
+        //        for(int h=50;h<drawY-50;h+=100){
+        //            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
+        //            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //            pointNum=0;//清空未画完斑点计数器
 
-//            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+50*windowScale;
-//            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+50*windowScale;
-//            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//            stretch[drawOk]=windowScale/4;
-//            rotation[drawOk]=0;
+        //            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+50*windowScale;
+        //            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+50*windowScale;
+        //            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //            stretch[drawOk]=windowScale/4;
+        //            rotation[drawOk]=0;
 
-//            //把刚绘制完斑点的点保存起来
-//            QPointF *tempPoint;
-//            oPoint.clear();
-//            for(int t=1;t<num+1;t++){
-//                tempPoint=new QPointF;
-//                tempPoint->setX(saveP[t][0]);
-//                tempPoint->setY(saveP[t][1]);
-//                oPoint.push_back(tempPoint);
-//                oPointAll.push_back(tempPoint);
-//                    }
-//            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//        }
-//    }
+        //            //把刚绘制完斑点的点保存起来
+        //            QPointF *tempPoint;
+        //            oPoint.clear();
+        //            for(int t=1;t<num+1;t++){
+        //                tempPoint=new QPointF;
+        //                tempPoint->setX(saveP[t][0]);
+        //                tempPoint->setY(saveP[t][1]);
+        //                oPoint.push_back(tempPoint);
+        //                oPointAll.push_back(tempPoint);
+        //                    }
+        //            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //        }
+        //    }
 
-//最右边部分
-    for(int w=1;w<drawZ;w+=num1/*90*//*80*/){
-        for(int h=20;h<drawY-50;h+=num2/*80*//*70*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
+        //最右边部分
+        for(int w=1;w<drawZ;w+=num1/*90*//*80*/){
+            for(int h=20;h<drawY-50;h+=num2/*80*//*70*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
 
-            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
+                spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
 
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //把刚绘制完斑点的点保存起来
+                QPointF *tempPoint;
+                oPoint.clear();
+                for(int t=1;t<num+1;t++){
+                    tempPoint=new QPointF;
+                    tempPoint->setX(saveP[t][0]);
+                    tempPoint->setY(saveP[t][1]);
+                    oPoint.push_back(tempPoint);
+                    oPointAll.push_back(tempPoint);
+                }
+                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+            }
         }
-    }
 
 
 
@@ -2833,167 +2833,167 @@ void DrawWidget::getCanvasPoint(int num1,int num2){
                     temp--;
                 }
 
-        if(shouldFlag){
-        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-        pointNum=0;//清空未画完斑点计数器
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
 
-        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
-        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-        stretch[drawOk]=windowScale/4;
-        rotation[drawOk]=0;
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
 
-        //把刚绘制完斑点的点保存起来
-        QPointF *tempPoint;
-        oPoint.clear();
-        for(int t=1;t<num+1;t++){
-            tempPoint=new QPointF;
-            tempPoint->setX(saveP[t][0]);
-            tempPoint->setY(saveP[t][1]);
-            oPoint.push_back(tempPoint);
-            oPointAll.push_back(tempPoint);
-                }
-        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                }
-//        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
-//        }
-            }
-        }
-
-
-//中间部分
-    for(int w=1;w<drawX;w+=num1/*90*//*80*/){
-        for(int h=1;h<drawY;h+=num2/*80*//*70*/){
-            //检测所要填充的点是不是在已有斑点内部
-            list<QPainterPath*>::iterator temp = allPath.end();
-            temp--;
-            int count=allPath.size();
-            //qDebug("xian zai ge shu shi:%d",count);
-            QPointF tempPoint1;
-            int shouldFlag=1;
-            float tempX,tempY;
-            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-            int x1,y1;
-            while(count>0){
-                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-                tempPoint1.setX(x1);
-                tempPoint1.setY(y1);
-                if((*temp)->contains(tempPoint1)){
-                    shouldFlag=0;
-                    //qDebug("ssssssssssssssss");
-                    break;
-                }
-                count--;
-                temp--;
-            }
-
-
-
-            if(shouldFlag){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
                     }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-        }
-    }
-
-//最下边部分
-    //for(int w=1;w<drawX;w+=100){
-    for(int w=50;w<drawX-50;w+=num1/*90*//*80*/){
-        for(int h=1;h<drawZ;h+=num2/*80*//*70*/){
-
-            //检测所要填充的点是不是在已有斑点内部
-            list<QPainterPath*>::iterator temp = allPath.end();
-            temp--;
-            int count=allPath.size();
-            //qDebug("xian zai ge shu shi:%d",count);
-            QPointF tempPoint1;
-            int shouldFlag=1;
-            float tempX,tempY;
-            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-            int x1,y1;
-            while(count>0){
-                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-                tempPoint1.setX(x1);
-                tempPoint1.setY(y1);
-                if((*temp)->contains(tempPoint1)){
-                    shouldFlag=0;
-                    //qDebug("ssssssssssssssss");
-                    break;
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
                 }
-                count--;
-                temp--;
-            }
-
-
-
-            if(shouldFlag){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
+                //        }
             }
         }
-    }
-update();
+
+
+        //中间部分
+        for(int w=1;w<drawX;w+=num1/*90*//*80*/){
+            for(int h=1;h<drawY;h+=num2/*80*//*70*/){
+                //检测所要填充的点是不是在已有斑点内部
+                list<QPainterPath*>::iterator temp = allPath.end();
+                temp--;
+                int count=allPath.size();
+                //qDebug("xian zai ge shu shi:%d",count);
+                QPointF tempPoint1;
+                int shouldFlag=1;
+                float tempX,tempY;
+                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+                int x1,y1;
+                while(count>0){
+                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+                    tempPoint1.setX(x1);
+                    tempPoint1.setY(y1);
+                    if((*temp)->contains(tempPoint1)){
+                        shouldFlag=0;
+                        //qDebug("ssssssssssssssss");
+                        break;
+                    }
+                    count--;
+                    temp--;
+                }
+
+
+
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+            }
+        }
+
+        //最下边部分
+        //for(int w=1;w<drawX;w+=100){
+        for(int w=50;w<drawX-50;w+=num1/*90*//*80*/){
+            for(int h=1;h<drawZ;h+=num2/*80*//*70*/){
+
+                //检测所要填充的点是不是在已有斑点内部
+                list<QPainterPath*>::iterator temp = allPath.end();
+                temp--;
+                int count=allPath.size();
+                //qDebug("xian zai ge shu shi:%d",count);
+                QPointF tempPoint1;
+                int shouldFlag=1;
+                float tempX,tempY;
+                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+                int x1,y1;
+                while(count>0){
+                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+                    tempPoint1.setX(x1);
+                    tempPoint1.setY(y1);
+                    if((*temp)->contains(tempPoint1)){
+                        shouldFlag=0;
+                        //qDebug("ssssssssssssssss");
+                        break;
+                    }
+                    count--;
+                    temp--;
+                }
+
+
+
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+            }
+        }
+        update();
     }
     else{
         QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("提示"));
         msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
         msgBox.setMinimumSize(200,100);
-       //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
+        //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
         msgBox.exec();
         return;
     }
@@ -3003,87 +3003,87 @@ void DrawWidget::getCanvasPointS(int num1,int num2){
     int spotReadNum;
     int debugNum=0;
     if(AutoCADFlag){
-    float saveP[300][2];
-    int num;
+        float saveP[300][2];
+        int num;
 
-    //getCanvasBigPoint();
-//    update();
+        //getCanvasBigPoint();
+        //    update();
 
-    //分布边缘的点
-    getEdgePoint();
+        //分布边缘的点
+        getEdgePoint();
 
-//    //分三个区域随机斑点，上中下
+        //    //分三个区域随机斑点，上中下
 
 
 
-    //最左边部分
-    //for(int w=1;w<drawX+2*drawZ;w+=100){
-    for(int w=1;w<drawZ;w+=num1/*100*/){
-        for(int h=20;h<drawY-50;h+=num2/*100*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
+        //最左边部分
+        //for(int w=1;w<drawX+2*drawZ;w+=100){
+        for(int w=1;w<drawZ;w+=num1/*100*/){
+            for(int h=20;h<drawY-50;h+=num2/*100*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                debugNum++;
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
 
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+40*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+                spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+40*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
 
-            //qDebug("shhhhhhhhhhhhhhhhhhhhhhhhh:%f",windowScale);
+                //qDebug("shhhhhhhhhhhhhhhhhhhhhhhhh:%f",windowScale);
 
-            //这个地方中心点是按照当前应该绘制的位置设定
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                //这个地方中心点是按照当前应该绘制的位置设定
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
 
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;//斑点入库的时候是按照4米算的，缩小四倍正好是100，即斑点大小1米
-            rotation[drawOk]=0;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;//斑点入库的时候是按照4米算的，缩小四倍正好是100，即斑点大小1米
+                rotation[drawOk]=0;
 
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //把刚绘制完斑点的点保存起来
+                QPointF *tempPoint;
+                oPoint.clear();
+                for(int t=1;t<num+1;t++){
+                    tempPoint=new QPointF;
+                    tempPoint->setX(saveP[t][0]);
+                    tempPoint->setY(saveP[t][1]);
+                    oPoint.push_back(tempPoint);
+                    oPointAll.push_back(tempPoint);
+                }
+                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+            }
         }
-    }
 
 
-//最右边部分
-    for(int w=1;w<drawZ;w+=num1/*100*/){
-        for(int h=20;h<drawY-50;h+=num2/*100*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
+        //最右边部分
+        for(int w=1;w<drawZ;w+=num1/*100*/){
+            for(int h=20;h<drawY-50;h+=num2/*100*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                debugNum++;
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
 
-            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
+                spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
 
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //把刚绘制完斑点的点保存起来
+                QPointF *tempPoint;
+                oPoint.clear();
+                for(int t=1;t<num+1;t++){
+                    tempPoint=new QPointF;
+                    tempPoint->setX(saveP[t][0]);
+                    tempPoint->setY(saveP[t][1]);
+                    oPoint.push_back(tempPoint);
+                    oPointAll.push_back(tempPoint);
+                }
+                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+            }
         }
-    }
 
 
 
@@ -3119,171 +3119,171 @@ void DrawWidget::getCanvasPointS(int num1,int num2){
                     temp--;
                 }
 
-        if(shouldFlag){
-        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-        debugNum++;
-        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-        pointNum=0;//清空未画完斑点计数器
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
 
-        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
-        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-        stretch[drawOk]=windowScale/4;
-        rotation[drawOk]=0;
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
 
-        //把刚绘制完斑点的点保存起来
-        QPointF *tempPoint;
-        oPoint.clear();
-        for(int t=1;t<num+1;t++){
-            tempPoint=new QPointF;
-            tempPoint->setX(saveP[t][0]);
-            tempPoint->setY(saveP[t][1]);
-            oPoint.push_back(tempPoint);
-            oPointAll.push_back(tempPoint);
-                }
-        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                }
-//        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
-//        }
-            }
-        }
-
-
-//中间部分
-    for(int w=60;w<drawX;w+=num1/*100*/){
-        for(int h=1;h<drawY;h+=num2/*100*/){
-            //检测所要填充的点是不是在已有斑点内部
-            list<QPainterPath*>::iterator temp = allPath.end();
-            temp--;
-            int count=allPath.size();
-            //qDebug("xian zai ge shu shi:%d",count);
-            QPointF tempPoint1;
-            int shouldFlag=1;
-            float tempX,tempY;
-            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-            int x1,y1;
-            while(count>0){
-                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-                tempPoint1.setX(x1);
-                tempPoint1.setY(y1);
-                if((*temp)->contains(tempPoint1)){
-                    shouldFlag=0;
-                    //qDebug("ssssssssssssssss");
-                    break;
-                }
-                count--;
-                temp--;
-            }
-
-
-
-            if(shouldFlag){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
                     }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-        }
-    }
-
-//最下边部分
-    //for(int w=1;w<drawX;w+=100){
-    for(int w=50;w<drawX-50;w+=num1/*100*/){
-        for(int h=1;h<drawZ;h+=num2/*100*/){
-
-            //检测所要填充的点是不是在已有斑点内部
-            list<QPainterPath*>::iterator temp = allPath.end();
-            temp--;
-            int count=allPath.size();
-            //qDebug("xian zai ge shu shi:%d",count);
-            QPointF tempPoint1;
-            int shouldFlag=1;
-            float tempX,tempY;
-            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-            int x1,y1;
-            while(count>0){
-                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-                tempPoint1.setX(x1);
-                tempPoint1.setY(y1);
-                if((*temp)->contains(tempPoint1)){
-                    shouldFlag=0;
-                    //qDebug("ssssssssssssssss");
-                    break;
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
                 }
-                count--;
-                temp--;
-            }
-
-
-
-            if(shouldFlag){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
+                //        }
             }
         }
-    }
-update();
+
+
+        //中间部分
+        for(int w=60;w<drawX;w+=num1/*100*/){
+            for(int h=1;h<drawY;h+=num2/*100*/){
+                //检测所要填充的点是不是在已有斑点内部
+                list<QPainterPath*>::iterator temp = allPath.end();
+                temp--;
+                int count=allPath.size();
+                //qDebug("xian zai ge shu shi:%d",count);
+                QPointF tempPoint1;
+                int shouldFlag=1;
+                float tempX,tempY;
+                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+                int x1,y1;
+                while(count>0){
+                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+                    tempPoint1.setX(x1);
+                    tempPoint1.setY(y1);
+                    if((*temp)->contains(tempPoint1)){
+                        shouldFlag=0;
+                        //qDebug("ssssssssssssssss");
+                        break;
+                    }
+                    count--;
+                    temp--;
+                }
+
+
+
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+            }
+        }
+
+        //最下边部分
+        //for(int w=1;w<drawX;w+=100){
+        for(int w=50;w<drawX-50;w+=num1/*100*/){
+            for(int h=1;h<drawZ;h+=num2/*100*/){
+
+                //检测所要填充的点是不是在已有斑点内部
+                list<QPainterPath*>::iterator temp = allPath.end();
+                temp--;
+                int count=allPath.size();
+                //qDebug("xian zai ge shu shi:%d",count);
+                QPointF tempPoint1;
+                int shouldFlag=1;
+                float tempX,tempY;
+                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+                int x1,y1;
+                while(count>0){
+                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+                    tempPoint1.setX(x1);
+                    tempPoint1.setY(y1);
+                    if((*temp)->contains(tempPoint1)){
+                        shouldFlag=0;
+                        //qDebug("ssssssssssssssss");
+                        break;
+                    }
+                    count--;
+                    temp--;
+                }
+
+
+
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+            }
+        }
+        update();
     }
     else{
         QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("提示"));
         msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
         msgBox.setMinimumSize(200,100);
-       //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
+        //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
         msgBox.exec();
         return;
     }
@@ -3293,77 +3293,77 @@ void DrawWidget::getCanvasPointT(int num1,int num2){
     int debugNum=0;
     int spotReadNum;
     if(AutoCADFlag){
-    float saveP[300][2];
-    int num;
-    //getCanvasBigPoint();
-    //    update();
-    getEdgePoint();
+        float saveP[300][2];
+        int num;
+        //getCanvasBigPoint();
+        //    update();
+        getEdgePoint();
 
-//    //分三个区域随机斑点，上中下
+        //    //分三个区域随机斑点，上中下
 
 
 
-    //最左边部分
-    //for(int w=1;w<drawX+2*drawZ;w+=100){
-    for(int w=1;w<drawZ;w+=num1/*100*/){
-        for(int h=20;h<drawY-50;h+=num2/*90*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
+        //最左边部分
+        //for(int w=1;w<drawX+2*drawZ;w+=100){
+        for(int w=1;w<drawZ;w+=num1/*100*/){
+            for(int h=20;h<drawY-50;h+=num2/*90*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
 
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+40*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
+                spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+w*windowScale+40*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
 
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //把刚绘制完斑点的点保存起来
+                QPointF *tempPoint;
+                oPoint.clear();
+                for(int t=1;t<num+1;t++){
+                    tempPoint=new QPointF;
+                    tempPoint->setX(saveP[t][0]);
+                    tempPoint->setY(saveP[t][1]);
+                    oPoint.push_back(tempPoint);
+                    oPointAll.push_back(tempPoint);
+                }
+                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+            }
         }
-    }
 
 
-//最右边部分
-    for(int w=1;w<drawZ;w+=num1/*100*/){
-        for(int h=20;h<drawY-50;h+=num2/*90*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
+        //最右边部分
+        for(int w=1;w<drawZ;w+=num1/*100*/){
+            for(int h=20;h<drawY-50;h+=num2/*90*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
 
-            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
+                spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
 
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //把刚绘制完斑点的点保存起来
+                QPointF *tempPoint;
+                oPoint.clear();
+                for(int t=1;t<num+1;t++){
+                    tempPoint=new QPointF;
+                    tempPoint->setX(saveP[t][0]);
+                    tempPoint->setY(saveP[t][1]);
+                    oPoint.push_back(tempPoint);
+                    oPointAll.push_back(tempPoint);
+                }
+                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+            }
         }
-    }
 
 
 
@@ -3399,170 +3399,170 @@ void DrawWidget::getCanvasPointT(int num1,int num2){
                     temp--;
                 }
 
-        if(shouldFlag){
-        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-        debugNum++;
-        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-        pointNum=0;//清空未画完斑点计数器
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
 
-        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
-        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-        stretch[drawOk]=windowScale/4;
-        rotation[drawOk]=0;
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
 
-        //把刚绘制完斑点的点保存起来
-        QPointF *tempPoint;
-        oPoint.clear();
-        for(int t=1;t<num+1;t++){
-            tempPoint=new QPointF;
-            tempPoint->setX(saveP[t][0]);
-            tempPoint->setY(saveP[t][1]);
-            oPoint.push_back(tempPoint);
-            oPointAll.push_back(tempPoint);
-                }
-        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                }
-//        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
-//        }
-            }
-        }
-
-
-//中间部分
-    for(int w=60;w<drawX-60;w+=num1/*100*/){
-        for(int h=60;h<drawY;h+=num2/*120*/){
-            //检测所要填充的点是不是在已有斑点内部
-            list<QPainterPath*>::iterator temp = allPath.end();
-            temp--;
-            int count=allPath.size();
-            //qDebug("xian zai ge shu shi:%d",count);
-            QPointF tempPoint1;
-            int shouldFlag=1;
-            float tempX,tempY;
-            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-            int x1,y1;
-            while(count>0){
-                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-                tempPoint1.setX(x1);
-                tempPoint1.setY(y1);
-                if((*temp)->contains(tempPoint1)){
-                    shouldFlag=0;
-                    //qDebug("ssssssssssssssss");
-                    break;
-                }
-                count--;
-                temp--;
-            }
-
-
-
-            if(shouldFlag){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
                     }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-        }
-    }
-
-//最下边部分
-    //for(int w=1;w<drawX;w+=100){
-    for(int w=50;w<drawX-50;w+=num1/*120*/){
-        for(int h=1;h<drawZ;h+=num2/*120*/){
-
-            //检测所要填充的点是不是在已有斑点内部
-            list<QPainterPath*>::iterator temp = allPath.end();
-            temp--;
-            int count=allPath.size();
-            //qDebug("xian zai ge shu shi:%d",count);
-            QPointF tempPoint1;
-            int shouldFlag=1;
-            float tempX,tempY;
-            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-            int x1,y1;
-            while(count>0){
-                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-                tempPoint1.setX(x1);
-                tempPoint1.setY(y1);
-                if((*temp)->contains(tempPoint1)){
-                    shouldFlag=0;
-                    //qDebug("ssssssssssssssss");
-                    break;
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
                 }
-                count--;
-                temp--;
-            }
-
-
-
-            if(shouldFlag){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //把刚绘制完斑点的点保存起来
-            QPointF *tempPoint;
-            oPoint.clear();
-            for(int t=1;t<num+1;t++){
-                tempPoint=new QPointF;
-                tempPoint->setX(saveP[t][0]);
-                tempPoint->setY(saveP[t][1]);
-                oPoint.push_back(tempPoint);
-                oPointAll.push_back(tempPoint);
-                    }
-            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
+                //        }
             }
         }
-    }
-update();
+
+
+        //中间部分
+        for(int w=60;w<drawX-60;w+=num1/*100*/){
+            for(int h=60;h<drawY;h+=num2/*120*/){
+                //检测所要填充的点是不是在已有斑点内部
+                list<QPainterPath*>::iterator temp = allPath.end();
+                temp--;
+                int count=allPath.size();
+                //qDebug("xian zai ge shu shi:%d",count);
+                QPointF tempPoint1;
+                int shouldFlag=1;
+                float tempX,tempY;
+                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+                int x1,y1;
+                while(count>0){
+                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+                    tempPoint1.setX(x1);
+                    tempPoint1.setY(y1);
+                    if((*temp)->contains(tempPoint1)){
+                        shouldFlag=0;
+                        //qDebug("ssssssssssssssss");
+                        break;
+                    }
+                    count--;
+                    temp--;
+                }
+
+
+
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+            }
+        }
+
+        //最下边部分
+        //for(int w=1;w<drawX;w+=100){
+        for(int w=50;w<drawX-50;w+=num1/*120*/){
+            for(int h=1;h<drawZ;h+=num2/*120*/){
+
+                //检测所要填充的点是不是在已有斑点内部
+                list<QPainterPath*>::iterator temp = allPath.end();
+                temp--;
+                int count=allPath.size();
+                //qDebug("xian zai ge shu shi:%d",count);
+                QPointF tempPoint1;
+                int shouldFlag=1;
+                float tempX,tempY;
+                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+                int x1,y1;
+                while(count>0){
+                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+                    tempPoint1.setX(x1);
+                    tempPoint1.setY(y1);
+                    if((*temp)->contains(tempPoint1)){
+                        shouldFlag=0;
+                        //qDebug("ssssssssssssssss");
+                        break;
+                    }
+                    count--;
+                    temp--;
+                }
+
+
+
+                if(shouldFlag){
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+
+                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                    spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+            }
+        }
+        update();
     }
     else{
         QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("提示"));
         msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
         msgBox.setMinimumSize(200,100);
-       //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
+        //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
         msgBox.exec();
         return;
     }
@@ -3625,19 +3625,19 @@ int DrawWidget::getCanvasPointSTestByControl(int num1,int num2){
         //只画一行
         //int currentRowNum = 0;
         for(int currentRowNum=0;currentRowNum<upRowNum;){
-        //for(int i=0;i<2;i++){
-        w = 0;
-        preWidth = 0;
-        h = k;
-        preHeigh = 0;
-        maxHeigh = 0;
-        minHeigh = 99999;
-        //线程死锁 ------------------xiaotian
-        int minRowNum = 99999;
-        int maxRowNum = 0;
-        for(int currentColNum = 0;currentColNum<upColNum;){
-        //for(int j=0;j<2;j++){
-        //while(w<drawX){
+            //for(int i=0;i<2;i++){
+            w = 0;
+            preWidth = 0;
+            h = k;
+            preHeigh = 0;
+            maxHeigh = 0;
+            minHeigh = 99999;
+            //线程死锁 ------------------xiaotian
+            int minRowNum = 99999;
+            int maxRowNum = 0;
+            for(int currentColNum = 0;currentColNum<upColNum;){
+                //for(int j=0;j<2;j++){
+                //while(w<drawX){
                 list<QPainterPath*>::iterator temp = allPath.end();
                 temp--;
                 int count=allPath.size();
@@ -3755,59 +3755,59 @@ int DrawWidget::getCanvasPointSTestByControl(int num1,int num2){
                     //--------------xiaotian  计算图案中心点坐标
 
 
-                        midWidth=width()/2;
-                        midHeight=height()/2;
-                        float lupointX =midWidth-drawX/2*windowScale;
-                        float lupointY =midHeight-(drawY/2*windowScale+drawZ-k);
+                    midWidth=width()/2;
+                    midHeight=height()/2;
+                    float lupointX =midWidth-drawX/2*windowScale;
+                    float lupointY =midHeight-(drawY/2*windowScale+drawZ-k);
 
-                        spotOriginX[drawOk] = lupointX + w;
-                        spotOriginY[drawOk] = lupointY + h;
+                    spotOriginX[drawOk] = lupointX + w;
+                    spotOriginY[drawOk] = lupointY + h;
 
-                        if((w+spotWidth/2.0)>drawX){
-                            spotOriginX[drawOk] = spotOriginX[drawOk] - (w+spotWidth/2.0-drawX);
-                        }
-
-                        //改成minHeigh
-                        if((k+spotHeigh)>drawZ){
-                            spotOriginY[drawOk] = spotOriginY[drawOk] - (k +spotHeigh - drawZ);
-                        }
-                        cout<<"中心点x :"<<spotOriginX[drawOk]<<"中心点y:"<<spotOriginY[drawOk]<<endl;
-                        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                        //压缩4 -----------------------xiaotian  调成不压缩
-                        stretch[drawOk]=windowScale/4;
-                        rotation[drawOk]=0;
-                        //把刚绘制完斑点的点保存起来
-                        QPointF *tempPoint;
-                        oPoint.clear();
-                        for(int t=1;t<num+1;t++){
-                            tempPoint=new QPointF;
-                            tempPoint->setX(saveP[t][0]);
-                            tempPoint->setY(saveP[t][1]);
-                            oPoint.push_back(tempPoint);
-                            oPointAll.push_back(tempPoint);
-                         }
-                        showDigital = flag;
-
-                        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                        //update();    //--------xiaotian  一次性update
-
-                   }else{
-                        QMessageBox msgBox(this);
-                        msgBox.setWindowTitle(tr("提示"));
-                        msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
-                        msgBox.setMinimumSize(200,100);
-                        msgBox.exec();
-                        return -1;
+                    if((w+spotWidth/2.0)>drawX){
+                        spotOriginX[drawOk] = spotOriginX[drawOk] - (w+spotWidth/2.0-drawX);
                     }
-                   saveStation();
-        }
 
-        k+=minHeigh;
-        currentRowNum +=minRowNum;
-        //update();
+                    //改成minHeigh
+                    if((k+spotHeigh)>drawZ){
+                        spotOriginY[drawOk] = spotOriginY[drawOk] - (k +spotHeigh - drawZ);
+                    }
+                    cout<<"中心点x :"<<spotOriginX[drawOk]<<"中心点y:"<<spotOriginY[drawOk]<<endl;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    //压缩4 -----------------------xiaotian  调成不压缩
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    showDigital = flag;
+
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                    //update();    //--------xiaotian  一次性update
+
+                }else{
+                    QMessageBox msgBox(this);
+                    msgBox.setWindowTitle(tr("提示"));
+                    msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
+                    msgBox.setMinimumSize(200,100);
+                    msgBox.exec();
+                    return -1;
+                }
+                saveStation();
+            }
+
+            k+=minHeigh;
+            currentRowNum +=minRowNum;
+            //update();
         }
         uptotalArea = drawX * drawZ;
 
@@ -3839,190 +3839,190 @@ int DrawWidget::getCanvasPointSTestByControl(int num1,int num2){
             int minRowNum = 99999;
             int maxRowNum = 0;
             for(int currentColNum = 0;currentColNum<upColNum;){
-            //for(int j=0;j<2;j++){
-            //while(w<drawX){
-                    list<QPainterPath*>::iterator temp = allPath.end();
-                    temp--;
-                    int count=allPath.size();
-                    //qDebug("xian zai ge shu shi:%d",count);
-                    QPointF tempPoint1;
-                    int shouldFlag=1;
-                    list<QString> jzpoints;
+                //for(int j=0;j<2;j++){
+                //while(w<drawX){
+                list<QPainterPath*>::iterator temp = allPath.end();
+                temp--;
+                int count=allPath.size();
+                //qDebug("xian zai ge shu shi:%d",count);
+                QPointF tempPoint1;
+                int shouldFlag=1;
+                list<QString> jzpoints;
 
 
-                    if(shouldFlag){
-                        mid = saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                        jzpoints = saveGet.readOrig(&spotWidth,&spotHeigh,mid);
-                        debugNum++;
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        pointNum=0;//清空未画完斑点计数器
-                        //cout<<"宽度为:"<<midWidth<<"高度为:"<<midHeight<<endl;
-                        //preHeigh += spotHeigh;
+                if(shouldFlag){
+                    mid = saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    jzpoints = saveGet.readOrig(&spotWidth,&spotHeigh,mid);
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+                    //cout<<"宽度为:"<<midWidth<<"高度为:"<<midHeight<<endl;
+                    //preHeigh += spotHeigh;
 
-                        preWidth += spotWidth;
-                        //preHeigh += spotHeigh;
-                        w =preWidth - spotWidth/2.0;
-                        //h = preHeigh - spotHeigh/2;
-                        h = spotHeigh/2.0;
-                        //计算最小的heigh
-                        if(spotHeigh<minHeigh){
-                            minHeigh = spotHeigh;
+                    preWidth += spotWidth;
+                    //preHeigh += spotHeigh;
+                    w =preWidth - spotWidth/2.0;
+                    //h = preHeigh - spotHeigh/2;
+                    h = spotHeigh/2.0;
+                    //计算最小的heigh
+                    if(spotHeigh<minHeigh){
+                        minHeigh = spotHeigh;
+                    }
+                    if(maxHeigh<spotHeigh){
+                        maxHeigh = spotHeigh;
+                    }
+
+                    int colNum = spotWidth/10;
+                    int rowNum = spotHeigh/10;
+                    int edge[rowNum][colNum];
+                    for(int i=0;i<rowNum;i++){
+                        for(int j=0;j<colNum;j++){
+                            edge[i][j] = 0;
                         }
-                        if(maxHeigh<spotHeigh){
-                            maxHeigh = spotHeigh;
-                        }
+                    }
 
-                        int colNum = spotWidth/10;
-                        int rowNum = spotHeigh/10;
-                        int edge[rowNum][colNum];
-                        for(int i=0;i<rowNum;i++){
-                            for(int j=0;j<colNum;j++){
-                                edge[i][j] = 0;
+                    list<QString>::iterator jzindex = jzpoints.begin();
+
+                    int poi=0;
+                    for(;jzindex!=jzpoints.end();++jzindex){
+                        int poj=0;
+                        QString str = *jzindex;
+                        QStringList strs = str.split(",");
+                        QList<QString>::Iterator it = strs.begin();
+                        for(;it!=strs.end();++it){
+                            QString valuestr = *it;
+
+                            int value = 0;
+                            if(valuestr == "1")
+                                value = 1;
+                            edge[poi][poj] = value;
+                            ++poj;
+                        }
+                        ++poi;
+                    }
+
+
+                    //记录图案的面积
+                    int graphC = 0;
+                    for(int i=0;i<rowNum;i++){
+                        for(int j=0;j<colNum;j++){
+                            if(edge[i][j] == 1){
+                                graphC++;
                             }
                         }
+                    }
+                    //每个图案的面积 40*40
 
-                        list<QString>::iterator jzindex = jzpoints.begin();
+                    graphArea[graphCount] = graphC*100;
 
-                        int poi=0;
-                        for(;jzindex!=jzpoints.end();++jzindex){
-                            int poj=0;
-                            QString str = *jzindex;
-                            QStringList strs = str.split(",");
-                            QList<QString>::Iterator it = strs.begin();
-                            for(;it!=strs.end();++it){
-                                QString valuestr = *it;
 
-                                int value = 0;
-                                if(valuestr == "1")
-                                    value = 1;
-                                edge[poi][poj] = value;
-                                ++poj;
-                            }
-                            ++poi;
+                    int m = 0;
+                    int maxcurrentRowNum = currentRowNum+rowNum;
+                    int maxcurrentColNum = currentColNum+colNum;
+
+
+
+                    int rowbegin = currentRowNum;
+                    int colbegin = currentColNum;
+                    if(maxcurrentRowNum>=upRowNum){
+                        rowbegin = upRowNum - rowNum;
+                        maxcurrentRowNum = upRowNum;
+                    }
+                    if(maxcurrentColNum>=upColNum){
+                        colbegin = upColNum - colNum;
+                        maxcurrentColNum = upColNum;
+                    }
+                    //用作生成颜色矩阵的
+                    removeCurrentRow[graphCount] = rowbegin+drawZ/10;
+                    removeCurrentCol[graphCount] = colbegin;
+                    removeRow[graphCount] = rowNum;
+                    removeCol[graphCount] = colNum;
+                    graphName[graphCount] = mid;
+                    cout<<"图案:"<<graphCount<<"面积:"<<graphArea[graphCount];
+                    graphCount++;
+
+                    for(int i=rowbegin;i<maxcurrentRowNum;i++){
+                        int n = 0;
+                        for(int j=colbegin;j<maxcurrentColNum;j++){
+                            center[i][j] = center[i][j] + edge[m][n];
+                            n++;
                         }
+                        m++;
+                    }
 
 
-                        //记录图案的面积
-                        int graphC = 0;
-                        for(int i=0;i<rowNum;i++){
-                            for(int j=0;j<colNum;j++){
-                                if(edge[i][j] == 1){
-                                    graphC++;
-                                }
-                            }
-                        }
-                        //每个图案的面积 40*40
+                    if(rowNum<minRowNum){
+                        minRowNum = rowNum;
+                    }
+                    if(rowNum>maxRowNum){
+                        maxRowNum = rowNum;
+                    }
+                    currentColNum +=  colNum;
 
-                        graphArea[graphCount] = graphC*100;
-
-
-                        int m = 0;
-                        int maxcurrentRowNum = currentRowNum+rowNum;
-                        int maxcurrentColNum = currentColNum+colNum;
+                    cout<<"w:"<<w<<"drawX为:"<<drawX<<endl;
 
 
 
-                        int rowbegin = currentRowNum;
-                        int colbegin = currentColNum;
-                        if(maxcurrentRowNum>=upRowNum){
-                            rowbegin = upRowNum - rowNum;
-                            maxcurrentRowNum = upRowNum;
-                        }
-                        if(maxcurrentColNum>=upColNum){
-                            colbegin = upColNum - colNum;
-                            maxcurrentColNum = upColNum;
-                        }
-                        //用作生成颜色矩阵的
-                        removeCurrentRow[graphCount] = rowbegin+drawZ/10;
-                        removeCurrentCol[graphCount] = colbegin;
-                        removeRow[graphCount] = rowNum;
-                        removeCol[graphCount] = colNum;
-                        graphName[graphCount] = mid;
-                        cout<<"图案:"<<graphCount<<"面积:"<<graphArea[graphCount];
-                        graphCount++;
-
-                        for(int i=rowbegin;i<maxcurrentRowNum;i++){
-                            int n = 0;
-                            for(int j=colbegin;j<maxcurrentColNum;j++){
-                                center[i][j] = center[i][j] + edge[m][n];
-                                n++;
-                            }
-                            m++;
-                        }
+                    //--------------xiaotian  计算图案中心点坐标
 
 
-                        if(rowNum<minRowNum){
-                            minRowNum = rowNum;
-                        }
-                        if(rowNum>maxRowNum){
-                            maxRowNum = rowNum;
-                        }
-                        currentColNum +=  colNum;
+                    midWidth=width()/2;
+                    midHeight=height()/2;
+                    float lupointX =midWidth-(drawX/2+drawZ)*windowScale;
+                    float lupointY =midHeight-(drawY/2*windowScale-k);
 
-                        cout<<"w:"<<w<<"drawX为:"<<drawX<<endl;
-
-
-
-                        //--------------xiaotian  计算图案中心点坐标
-
-
-                            midWidth=width()/2;
-                            midHeight=height()/2;
-                            float lupointX =midWidth-(drawX/2+drawZ)*windowScale;
-                            float lupointY =midHeight-(drawY/2*windowScale-k);
-
-                            spotOriginX[drawOk] = lupointX + w;
-                            spotOriginY[drawOk] = lupointY + h;
+                    spotOriginX[drawOk] = lupointX + w;
+                    spotOriginY[drawOk] = lupointY + h;
 
 
 
 
-                            if((w+spotWidth/2.0)>(drawX+2*drawZ)){
-                                spotOriginX[drawOk] = spotOriginX[drawOk] - (w+spotWidth/2.0-(drawX+2*drawZ));
-                            }
+                    if((w+spotWidth/2.0)>(drawX+2*drawZ)){
+                        spotOriginX[drawOk] = spotOriginX[drawOk] - (w+spotWidth/2.0-(drawX+2*drawZ));
+                    }
 
-                            if((k+spotHeigh)>drawY){
-                                spotOriginY[drawOk] = spotOriginY[drawOk] - (k +spotHeigh - drawY);
-                            }
+                    if((k+spotHeigh)>drawY){
+                        spotOriginY[drawOk] = spotOriginY[drawOk] - (k +spotHeigh - drawY);
+                    }
 
 
-                            cout<<"中心点x :"<<spotOriginX[drawOk]<<"中心点y:"<<spotOriginY[drawOk]<<endl;
+                    cout<<"中心点x :"<<spotOriginX[drawOk]<<"中心点y:"<<spotOriginY[drawOk]<<endl;
 
-                            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                            //压缩4 -----------------------xiaotian  调成不压缩
-                            stretch[drawOk]=windowScale/4;
-                            rotation[drawOk]=0;
-                            //把刚绘制完斑点的点保存起来
-                            QPointF *tempPoint;
-                            oPoint.clear();
-                            for(int t=1;t<num+1;t++){
-                                tempPoint=new QPointF;
-                                tempPoint->setX(saveP[t][0]);
-                                tempPoint->setY(saveP[t][1]);
-                                oPoint.push_back(tempPoint);
-                                oPointAll.push_back(tempPoint);
-                             }
-                            showDigital = flag;
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    //压缩4 -----------------------xiaotian  调成不压缩
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    showDigital = flag;
 
-                            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                            //update();
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                    //update();
 
-                       }else{
-                            QMessageBox msgBox(this);
-                            msgBox.setWindowTitle(tr("提示"));
-                            msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
-                            msgBox.setMinimumSize(200,100);
-                            msgBox.exec();
-                            return -1;
-                        }
-                       saveStation();
+                }else{
+                    QMessageBox msgBox(this);
+                    msgBox.setWindowTitle(tr("提示"));
+                    msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
+                    msgBox.setMinimumSize(200,100);
+                    msgBox.exec();
+                    return -1;
+                }
+                saveStation();
             }
 
-           cout<<"第"<<++count<<"行图案"<<endl;
-           /*
+            cout<<"第"<<++count<<"行图案"<<endl;
+            /*
            k+= maxHeigh;
            currentRowNum += maxRowNum;
            */
@@ -4034,32 +4034,32 @@ int DrawWidget::getCanvasPointSTestByControl(int num1,int num2){
 
 
 
-    //下边
-    k=0;
-    upRowNum = drawZ/10;
-    upColNum = drawX/10;
+        //下边
+        k=0;
+        upRowNum = drawZ/10;
+        upColNum = drawX/10;
 
-    int down[upRowNum][upColNum];
+        int down[upRowNum][upColNum];
 
-    //初始化上画布的二维数组。
-    for(int i=0;i<upRowNum;i++){
-        for(int j=0;j<upColNum;j++){
-            down[i][j] = 0;
+        //初始化上画布的二维数组。
+        for(int i=0;i<upRowNum;i++){
+            for(int j=0;j<upColNum;j++){
+                down[i][j] = 0;
+            }
         }
-    }
-    for(int currentRowNum=0;currentRowNum<upRowNum;){
-        w = 0;
-        preWidth = 0;
-        h = k;
-        preHeigh = 0;
-        maxHeigh = 0;
-        minHeigh = 99999;
-        //线程死锁 ------------------xiaotian
-        int minRowNum = 99999;
-        int maxRowNum = 0;
-        for(int currentColNum = 0;currentColNum<upColNum;){
-        //for(int j=0;j<2;j++){
-        //while(w<drawX){
+        for(int currentRowNum=0;currentRowNum<upRowNum;){
+            w = 0;
+            preWidth = 0;
+            h = k;
+            preHeigh = 0;
+            maxHeigh = 0;
+            minHeigh = 99999;
+            //线程死锁 ------------------xiaotian
+            int minRowNum = 99999;
+            int maxRowNum = 0;
+            for(int currentColNum = 0;currentColNum<upColNum;){
+                //for(int j=0;j<2;j++){
+                //while(w<drawX){
                 list<QPainterPath*>::iterator temp = allPath.end();
                 temp--;
                 int count=allPath.size();
@@ -4186,67 +4186,67 @@ int DrawWidget::getCanvasPointSTestByControl(int num1,int num2){
                     //--------------xiaotian  计算图案中心点坐标
 
 
-                        midWidth=width()/2;
-                        midHeight=height()/2;
-                        float lupointX =midWidth-drawX/2*windowScale;
-                        float lupointY =midHeight+(drawY/2*windowScale+k);
+                    midWidth=width()/2;
+                    midHeight=height()/2;
+                    float lupointX =midWidth-drawX/2*windowScale;
+                    float lupointY =midHeight+(drawY/2*windowScale+k);
 
-                        spotOriginX[drawOk] = lupointX + w;
-                        spotOriginY[drawOk] = lupointY + h;
+                    spotOriginX[drawOk] = lupointX + w;
+                    spotOriginY[drawOk] = lupointY + h;
 
-                        if((w+spotWidth/2.0)>drawX){
-                            spotOriginX[drawOk] = spotOriginX[drawOk] - (w+spotWidth/2.0-drawX);
-                        }
-
-                        if((k+spotHeigh)>drawZ){
-                            spotOriginY[drawOk] = spotOriginY[drawOk] - (k +spotHeigh - drawZ);
-                        }
-
-
-                        cout<<"中心点x :"<<spotOriginX[drawOk]<<"中心点y:"<<spotOriginY[drawOk]<<endl;
-
-                        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                        //压缩4 -----------------------xiaotian  调成不压缩
-                        stretch[drawOk]=windowScale/4;
-                        rotation[drawOk]=0;
-                        //把刚绘制完斑点的点保存起来
-                        QPointF *tempPoint;
-                        oPoint.clear();
-                        for(int t=1;t<num+1;t++){
-                            tempPoint=new QPointF;
-                            tempPoint->setX(saveP[t][0]);
-                            tempPoint->setY(saveP[t][1]);
-                            oPoint.push_back(tempPoint);
-                            oPointAll.push_back(tempPoint);
-                         }
-                        showDigital = flag;
-
-                        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                        //update();       //---------xiaotian    一次性update
-
-                   }else{
-                        QMessageBox msgBox(this);
-                        msgBox.setWindowTitle(tr("提示"));
-                        msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
-                        msgBox.setMinimumSize(200,100);
-                        msgBox.exec();
-                        return -1;
+                    if((w+spotWidth/2.0)>drawX){
+                        spotOriginX[drawOk] = spotOriginX[drawOk] - (w+spotWidth/2.0-drawX);
                     }
-                   saveStation();
+
+                    if((k+spotHeigh)>drawZ){
+                        spotOriginY[drawOk] = spotOriginY[drawOk] - (k +spotHeigh - drawZ);
+                    }
+
+
+                    cout<<"中心点x :"<<spotOriginX[drawOk]<<"中心点y:"<<spotOriginY[drawOk]<<endl;
+
+                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                    //压缩4 -----------------------xiaotian  调成不压缩
+                    stretch[drawOk]=windowScale/4;
+                    rotation[drawOk]=0;
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    showDigital = flag;
+
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                    //update();       //---------xiaotian    一次性update
+
+                }else{
+                    QMessageBox msgBox(this);
+                    msgBox.setWindowTitle(tr("提示"));
+                    msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
+                    msgBox.setMinimumSize(200,100);
+                    msgBox.exec();
+                    return -1;
+                }
+                saveStation();
+            }
+
+            cout<<"第"<<++count<<"行图案"<<endl;
+
+            k+=minHeigh;
+            currentRowNum +=minRowNum;
+
         }
-
-       cout<<"第"<<++count<<"行图案"<<endl;
-
-       k+=minHeigh;
-       currentRowNum +=minRowNum;
+        uptotalArea += drawX * drawZ;
 
     }
-    uptotalArea += drawX * drawZ;
-
-   }
 
     saveGet.digitalFlag = 0;
     return (drawOk + 1);
@@ -4261,465 +4261,74 @@ int DrawWidget::getCanvasPointSTestByControl(int num1,int num2){
 
 
 void DrawWidget::getCanvasPointNew(){
-if(AutoCADFlag){
-    float saveP[300][2];
-    int num;
-    int spotReadNum;
+    if(AutoCADFlag){
+        float saveP[300][2];
+        int num;
+        int spotReadNum;
 
-    int debugNum=1;
+        int debugNum=1;
 
-    //分布边缘的点
-    getEdgePoint();
+        //分布边缘的点
+        getEdgePoint();
 
-    if(mainWin->returnGetSize()){
-        getCanvasBigPoint();
-    }
-
-
-//    update();
-
-
-
-//    //分三个区域随机斑点，上中下
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-    //最左边部分
-    //for(int w=1;w<drawX+2*drawZ;w+=100){
-    for(int w=1;w<drawZ;w+=8/*100*/){
-        for(int h=2;h<drawY-10;h+=8/*100*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            if(debugNum==1){
-                //qDebug("首个点：%d",spotReadNum);
-            }
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2-drawZ+w+40;
-            spotOriginY[drawOk]=midHeight-drawY/2+h+40;
-
-            //这个地方中心点是按照当前应该绘制的位置设定
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            //spotOriginPOX和spotOriginPOY是为了实现随窗口放大缩小用的
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;//斑点入库的时候是按照4米算的，缩小四倍正好是100，即斑点大小1米
-            rotation[drawOk]=0;
-
-            //qDebug("drawOk shi:%d   %d",drawOk,num);
-            int detectI=1;
-            if(drawOk!=1){
-                for(detectI=1;detectI<11;detectI++){
-                    if(collisonDetection(num,saveP)){
-                        //qDebug("detect%d",detectI);
-                        break;
-                    }
-                    else{
-                        drawOk--;
-                        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                        debugNum++;
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        pointNum=0;//清空未画完斑点计数器
-                    }
-                }
-            }
-            //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
-            if(detectI<11){
-                //qDebug("绘制第%d个点",drawOk);
-                    //把刚绘制完斑点的点保存起来
-                    QPointF *tempPoint;
-                    oPoint.clear();
-                    for(int t=1;t<num+1;t++){
-                        tempPoint=new QPointF;
-                        tempPoint->setX(saveP[t][0]);
-                        tempPoint->setY(saveP[t][1]);
-                        oPoint.push_back(tempPoint);
-                        oPointAll.push_back(tempPoint);
-                            }
-                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-            else{
-                drawOk--;
-            }
+        if(mainWin->returnGetSize()){
+            getCanvasBigPoint();
         }
-    }
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-//最右边部分
 
 
-    for(int w=1;w<drawZ;w+=8/*100*/){
-        for(int h=2;h<drawY-50;h+=8/*100*/){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
+        //    update();
 
-            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
 
-            //qDebug("drawOk shi:%d   %d",drawOk,num);
-            int detectI=1;
-            if(drawOk!=1){
-                for(detectI=1;detectI<11;detectI++){
-                    if(collisonDetection(num,saveP)){
-                        //qDebug("detect%d",detectI);
-                        break;
-                    }
-                    else{
-                        drawOk--;
-                        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                        debugNum++;
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        pointNum=0;//清空未画完斑点计数器
-                    }
+
+        //    //分三个区域随机斑点，上中下
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //最左边部分
+        //for(int w=1;w<drawX+2*drawZ;w+=100){
+        for(int w=1;w<drawZ;w+=8/*100*/){
+            for(int h=2;h<drawY-10;h+=8/*100*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                debugNum++;
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                if(debugNum==1){
+                    //qDebug("首个点：%d",spotReadNum);
                 }
-            }
-            //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
-            if(detectI<11){
-                //qDebug("绘制第%d个点",drawOk);
-                    //把刚绘制完斑点的点保存起来
-                    QPointF *tempPoint;
-                    oPoint.clear();
-                    for(int t=1;t<num+1;t++){
-                        tempPoint=new QPointF;
-                        tempPoint->setX(saveP[t][0]);
-                        tempPoint->setY(saveP[t][1]);
-                        oPoint.push_back(tempPoint);
-                        oPointAll.push_back(tempPoint);
-                            }
-                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-            else{
-                drawOk--;
-            }
-        }
-    }
+                pointNum=0;//清空未画完斑点计数器
 
+                spotOriginX[drawOk]=midWidth-drawX/2-drawZ+w+40;
+                spotOriginY[drawOk]=midHeight-drawY/2+h+40;
 
-//    for(int w=1;w<drawZ;w+=num1/*100*/){
-//        for(int h=20;h<drawY-50;h+=num2/*100*/){
-//            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
-//            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//            pointNum=0;//清空未画完斑点计数器
+                //这个地方中心点是按照当前应该绘制的位置设定
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                //spotOriginPOX和spotOriginPOY是为了实现随窗口放大缩小用的
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;//斑点入库的时候是按照4米算的，缩小四倍正好是100，即斑点大小1米
+                rotation[drawOk]=0;
 
-//            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
-//            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
-//            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//            stretch[drawOk]=windowScale/4;
-//            rotation[drawOk]=0;
-
-//            //把刚绘制完斑点的点保存起来
-//            QPointF *tempPoint;
-//            oPoint.clear();
-//            for(int t=1;t<num+1;t++){
-//                tempPoint=new QPointF;
-//                tempPoint->setX(saveP[t][0]);
-//                tempPoint->setY(saveP[t][1]);
-//                oPoint.push_back(tempPoint);
-//                oPointAll.push_back(tempPoint);
-//                    }
-//            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//        }
-//    }
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-            //最上边部分
-            //for(int w=1;w<drawX;w+=100){
-            for(int w=5;w<drawX-50;w+=8/*100*/){//120
-                for(int h=1;h<drawZ;h+=8/*100*/){
-
-                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                    debugNum++;
-                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                    pointNum=0;//清空未画完斑点计数器
-
-                    spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
-                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                    stretch[drawOk]=windowScale/4;
-                    rotation[drawOk]=0;
-
-                    //qDebug("drawOk shi:%d   %d",drawOk,num);
-                    int detectI=1;
-                    if(drawOk!=1){
-                        for(detectI=1;detectI<11;detectI++){
-                            if(collisonDetection(num,saveP)){
-                                //qDebug("detect%d",detectI);
-                                break;
-                            }
-                            else{
-                                drawOk--;
-                                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                                debugNum++;
-                                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                                pointNum=0;//清空未画完斑点计数器
-                            }
-                        }
-                    }
-                    //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
-                    if(detectI<11){
-                        //qDebug("绘制第%d个点",drawOk);
-                            //把刚绘制完斑点的点保存起来
-                            QPointF *tempPoint;
-                            oPoint.clear();
-                            for(int t=1;t<num+1;t++){
-                                tempPoint=new QPointF;
-                                tempPoint->setX(saveP[t][0]);
-                                tempPoint->setY(saveP[t][1]);
-                                oPoint.push_back(tempPoint);
-                                oPointAll.push_back(tempPoint);
-                                    }
-                            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                    }
-                    else{
-                        drawOk--;
-                    }
-                }
-            }
-
-
-//        //最上边部分
-//        //for(int w=1;w<drawX;w+=100){
-//        for(int w=50;w<drawX-50;w+=num1/*100*/){//120
-//            for(int h=1;h<drawZ;h+=num2/*100*/){
-//                //检测所要填充的点是不是在已有斑点内部
-//                list<QPainterPath*>::iterator temp = allPath.end();
-//                temp--;
-//                int count=allPath.size();
-//                //qDebug("xian zai ge shu shi:%d",count);
-//                QPointF tempPoint1;
-//                int shouldFlag=1;
-//                float tempX,tempY;
-//                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-//                tempY=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
-//                int x1,y1;
-//                while(count>0){
-//                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-//                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-//                    tempPoint1.setX(x1);
-//                    tempPoint1.setY(y1);
-//                    if((*temp)->contains(tempPoint1)){
-//                        shouldFlag=0;
-//                        //qDebug("ssssssssssssssss");
-//                        break;
-//                    }
-//                    count--;
-//                    temp--;
-//                }
-
-//        if(shouldFlag){
-//        saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
-//        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//        pointNum=0;//清空未画完斑点计数器
-
-//        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-//        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
-//        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//        stretch[drawOk]=windowScale/4;
-//        rotation[drawOk]=0;
-
-//        //把刚绘制完斑点的点保存起来
-//        QPointF *tempPoint;
-//        oPoint.clear();
-//        for(int t=1;t<num+1;t++){
-//            tempPoint=new QPointF;
-//            tempPoint->setX(saveP[t][0]);
-//            tempPoint->setY(saveP[t][1]);
-//            oPoint.push_back(tempPoint);
-//            oPointAll.push_back(tempPoint);
-//                }
-//        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//                }
-////        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
-////        }
-//            }
-//        }
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-            //中间部分
-                for(int w=6;w<drawX-10;w+=8/*100*/){
-                    for(int h=1;h<drawY;h+=8/*100*/){
-
-                        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                        debugNum++;
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        pointNum=0;//清空未画完斑点计数器
-
-                        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-                        spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-                        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                        stretch[drawOk]=windowScale/4;
-                        rotation[drawOk]=0;
-
-                        //qDebug("drawOk shi:%d   %d",drawOk,num);
-                        int detectI=1;
-                        if(drawOk!=1){
-                            for(detectI=1;detectI<11;detectI++){
-                                if(collisonDetection(num,saveP)){
-                                    //qDebug("detect%d",detectI);
-                                    break;
-                                }
-                                else{
-                                    drawOk--;
-                                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                                    debugNum++;
-                                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                                    pointNum=0;//清空未画完斑点计数器
-                                }
-                            }
-                        }
-
-                        if(detectI<11){
-                            //qDebug("绘制第%d个点",drawOk);
-                                //把刚绘制完斑点的点保存起来
-                                QPointF *tempPoint;
-                                oPoint.clear();
-                                for(int t=1;t<num+1;t++){
-                                    tempPoint=new QPointF;
-                                    tempPoint->setX(saveP[t][0]);
-                                    tempPoint->setY(saveP[t][1]);
-                                    oPoint.push_back(tempPoint);
-                                    oPointAll.push_back(tempPoint);
-                                        }
-                                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //qDebug("drawOk shi:%d   %d",drawOk,num);
+                int detectI=1;
+                if(drawOk!=1){
+                    for(detectI=1;detectI<11;detectI++){
+                        if(collisonDetection(num,saveP)){
+                            //qDebug("detect%d",detectI);
+                            break;
                         }
                         else{
                             drawOk--;
+                            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                            debugNum++;
+                            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                            pointNum=0;//清空未画完斑点计数器
                         }
                     }
                 }
-
-////中间部分
-//    for(int w=60;w<drawX-60;w+=num1/*100*/){
-//        for(int h=1;h<drawY;h+=num2/*100*/){
-//            //检测所要填充的点是不是在已有斑点内部
-//            list<QPainterPath*>::iterator temp = allPath.end();
-//            temp--;
-//            int count=allPath.size();
-//            //qDebug("xian zai ge shu shi:%d",count);
-//            QPointF tempPoint1;
-//            int shouldFlag=1;
-//            float tempX,tempY;
-//            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-//            tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-//            int x1,y1;
-//            while(count>0){
-//                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-//                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
-
-//                tempPoint1.setX(x1);
-//                tempPoint1.setY(y1);
-//                if((*temp)->contains(tempPoint1)){
-//                    shouldFlag=0;
-//                    //qDebug("ssssssssssssssss");
-//                    break;
-//                }
-//                count--;
-//                temp--;
-//            }
-
-
-
-//            if(shouldFlag){
-//            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
-//            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//            pointNum=0;//清空未画完斑点计数器
-
-//            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-//            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
-//            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//            stretch[drawOk]=windowScale/4;
-//            rotation[drawOk]=0;
-
-//            //把刚绘制完斑点的点保存起来
-//            QPointF *tempPoint;
-//            oPoint.clear();
-//            for(int t=1;t<num+1;t++){
-//                tempPoint=new QPointF;
-//                tempPoint->setX(saveP[t][0]);
-//                tempPoint->setY(saveP[t][1]);
-//                oPoint.push_back(tempPoint);
-//                oPointAll.push_back(tempPoint);
-//                    }
-//            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//            }
-//        }
-//    }
-/////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-//最下边部分
-    //for(int w=1;w<drawX;w+=100){
-    for(int w=5;w<drawX-5;w+=8/*100*/){
-        for(int h=1;h<drawZ;h+=8/*100*/){
-
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //qDebug("drawOk shi:%d   %d",drawOk,num);
-            int detectI=1;
-            if(drawOk!=1){
-                for(detectI=1;detectI<11;detectI++){
-                    if(collisonDetection(num,saveP)){
-                        //qDebug("detect%d",detectI);
-                        break;
-                    }
-                    else{
-                        drawOk--;
-                        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                        debugNum++;
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        pointNum=0;//清空未画完斑点计数器
-                    }
-                }
-            }
-
-            if(detectI<11){
-                //qDebug("绘制第%d个点",drawOk);
+                //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
+                if(detectI<11){
+                    //qDebug("绘制第%d个点",drawOk);
                     //把刚绘制完斑点的点保存起来
                     QPointF *tempPoint;
                     oPoint.clear();
@@ -4729,80 +4338,471 @@ if(AutoCADFlag){
                         tempPoint->setY(saveP[t][1]);
                         oPoint.push_back(tempPoint);
                         oPointAll.push_back(tempPoint);
-                            }
+                    }
                     caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-            else{
-                drawOk--;
+                }
+                else{
+                    drawOk--;
+                }
             }
         }
-    }
-//            //检测所要填充的点是不是在已有斑点内部
-//            list<QPainterPath*>::iterator temp = allPath.end();
-//            temp--;
-//            int count=allPath.size();
-//            //qDebug("xian zai ge shu shi:%d",count);
-//            QPointF tempPoint1;
-//            int shouldFlag=1;
-//            float tempX,tempY;
-//            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-//            tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-//            int x1,y1;
-//            while(count>0){
-//                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
-//                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
 
-//                tempPoint1.setX(x1);
-//                tempPoint1.setY(y1);
-//                if((*temp)->contains(tempPoint1)){
-//                    shouldFlag=0;
-//                    //qDebug("ssssssssssssssss");
-//                    break;
-//                }
-//                count--;
-//                temp--;
-//            }
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
+
+        //最右边部分
 
 
+        for(int w=1;w<drawZ;w+=8/*100*/){
+            for(int h=2;h<drawY-50;h+=8/*100*/){
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                debugNum++;
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
 
-//            if(shouldFlag){
-//            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
-//            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//            pointNum=0;//清空未画完斑点计数器
+                spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
 
-//            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
-//            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
-//            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//            stretch[drawOk]=windowScale/4;
-//            rotation[drawOk]=0;
+                //qDebug("drawOk shi:%d   %d",drawOk,num);
+                int detectI=1;
+                if(drawOk!=1){
+                    for(detectI=1;detectI<11;detectI++){
+                        if(collisonDetection(num,saveP)){
+                            //qDebug("detect%d",detectI);
+                            break;
+                        }
+                        else{
+                            drawOk--;
+                            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                            debugNum++;
+                            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                            pointNum=0;//清空未画完斑点计数器
+                        }
+                    }
+                }
+                //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
+                if(detectI<11){
+                    //qDebug("绘制第%d个点",drawOk);
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+                else{
+                    drawOk--;
+                }
+            }
+        }
 
-//            //把刚绘制完斑点的点保存起来
-//            QPointF *tempPoint;
-//            oPoint.clear();
-//            for(int t=1;t<num+1;t++){
-//                tempPoint=new QPointF;
-//                tempPoint->setX(saveP[t][0]);
-//                tempPoint->setY(saveP[t][1]);
-//                oPoint.push_back(tempPoint);
-//                oPointAll.push_back(tempPoint);
-//                    }
-//            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//            }
-//        }
-//    }
+
+        //    for(int w=1;w<drawZ;w+=num1/*100*/){
+        //        for(int h=20;h<drawY-50;h+=num2/*100*/){
+        //            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
+        //            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //            pointNum=0;//清空未画完斑点计数器
+
+        //            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+w*windowScale+40*windowScale;
+        //            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+40*windowScale;
+        //            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //            stretch[drawOk]=windowScale/4;
+        //            rotation[drawOk]=0;
+
+        //            //把刚绘制完斑点的点保存起来
+        //            QPointF *tempPoint;
+        //            oPoint.clear();
+        //            for(int t=1;t<num+1;t++){
+        //                tempPoint=new QPointF;
+        //                tempPoint->setX(saveP[t][0]);
+        //                tempPoint->setY(saveP[t][1]);
+        //                oPoint.push_back(tempPoint);
+        //                oPointAll.push_back(tempPoint);
+        //                    }
+        //            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //        }
+        //    }
 
 
-//update();
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
+
+        //最上边部分
+        //for(int w=1;w<drawX;w+=100){
+        for(int w=5;w<drawX-50;w+=8/*100*/){//120
+            for(int h=1;h<drawZ;h+=8/*100*/){
+
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                debugNum++;
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
+
+                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
+
+                //qDebug("drawOk shi:%d   %d",drawOk,num);
+                int detectI=1;
+                if(drawOk!=1){
+                    for(detectI=1;detectI<11;detectI++){
+                        if(collisonDetection(num,saveP)){
+                            //qDebug("detect%d",detectI);
+                            break;
+                        }
+                        else{
+                            drawOk--;
+                            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                            debugNum++;
+                            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                            pointNum=0;//清空未画完斑点计数器
+                        }
+                    }
+                }
+                //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
+                if(detectI<11){
+                    //qDebug("绘制第%d个点",drawOk);
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+                else{
+                    drawOk--;
+                }
+            }
+        }
+
+
+        //        //最上边部分
+        //        //for(int w=1;w<drawX;w+=100){
+        //        for(int w=50;w<drawX-50;w+=num1/*100*/){//120
+        //            for(int h=1;h<drawZ;h+=num2/*100*/){
+        //                //检测所要填充的点是不是在已有斑点内部
+        //                list<QPainterPath*>::iterator temp = allPath.end();
+        //                temp--;
+        //                int count=allPath.size();
+        //                //qDebug("xian zai ge shu shi:%d",count);
+        //                QPointF tempPoint1;
+        //                int shouldFlag=1;
+        //                float tempX,tempY;
+        //                tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+        //                tempY=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
+        //                int x1,y1;
+        //                while(count>0){
+        //                    x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+        //                    y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+        //                    tempPoint1.setX(x1);
+        //                    tempPoint1.setY(y1);
+        //                    if((*temp)->contains(tempPoint1)){
+        //                        shouldFlag=0;
+        //                        //qDebug("ssssssssssssssss");
+        //                        break;
+        //                    }
+        //                    count--;
+        //                    temp--;
+        //                }
+
+        //        if(shouldFlag){
+        //        saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
+        //        spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //        pointNum=0;//清空未画完斑点计数器
+
+        //        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+        //        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale+5*windowScale;
+        //        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //        stretch[drawOk]=windowScale/4;
+        //        rotation[drawOk]=0;
+
+        //        //把刚绘制完斑点的点保存起来
+        //        QPointF *tempPoint;
+        //        oPoint.clear();
+        //        for(int t=1;t<num+1;t++){
+        //            tempPoint=new QPointF;
+        //            tempPoint->setX(saveP[t][0]);
+        //            tempPoint->setY(saveP[t][1]);
+        //            oPoint.push_back(tempPoint);
+        //            oPointAll.push_back(tempPoint);
+        //                }
+        //        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //                }
+        ////        else{qDebug("bu hua  bu hua  bu hua  bu hua  bu hua  ");
+        ////        }
+        //            }
+        //        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //中间部分
+        for(int w=6;w<drawX-10;w+=8/*100*/){
+            for(int h=1;h<drawY;h+=8/*100*/){
+
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                debugNum++;
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
+
+                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
+
+                //qDebug("drawOk shi:%d   %d",drawOk,num);
+                int detectI=1;
+                if(drawOk!=1){
+                    for(detectI=1;detectI<11;detectI++){
+                        if(collisonDetection(num,saveP)){
+                            //qDebug("detect%d",detectI);
+                            break;
+                        }
+                        else{
+                            drawOk--;
+                            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                            debugNum++;
+                            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                            pointNum=0;//清空未画完斑点计数器
+                        }
+                    }
+                }
+
+                if(detectI<11){
+                    //qDebug("绘制第%d个点",drawOk);
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+                else{
+                    drawOk--;
+                }
+            }
+        }
+
+        ////中间部分
+        //    for(int w=60;w<drawX-60;w+=num1/*100*/){
+        //        for(int h=1;h<drawY;h+=num2/*100*/){
+        //            //检测所要填充的点是不是在已有斑点内部
+        //            list<QPainterPath*>::iterator temp = allPath.end();
+        //            temp--;
+        //            int count=allPath.size();
+        //            //qDebug("xian zai ge shu shi:%d",count);
+        //            QPointF tempPoint1;
+        //            int shouldFlag=1;
+        //            float tempX,tempY;
+        //            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+        //            tempY=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+        //            int x1,y1;
+        //            while(count>0){
+        //                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+        //                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+        //                tempPoint1.setX(x1);
+        //                tempPoint1.setY(y1);
+        //                if((*temp)->contains(tempPoint1)){
+        //                    shouldFlag=0;
+        //                    //qDebug("ssssssssssssssss");
+        //                    break;
+        //                }
+        //                count--;
+        //                temp--;
+        //            }
+
+
+
+        //            if(shouldFlag){
+        //            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
+        //            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //            pointNum=0;//清空未画完斑点计数器
+
+        //            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+        //            spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale+5*windowScale;
+        //            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //            stretch[drawOk]=windowScale/4;
+        //            rotation[drawOk]=0;
+
+        //            //把刚绘制完斑点的点保存起来
+        //            QPointF *tempPoint;
+        //            oPoint.clear();
+        //            for(int t=1;t<num+1;t++){
+        //                tempPoint=new QPointF;
+        //                tempPoint->setX(saveP[t][0]);
+        //                tempPoint->setY(saveP[t][1]);
+        //                oPoint.push_back(tempPoint);
+        //                oPointAll.push_back(tempPoint);
+        //                    }
+        //            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //            }
+        //        }
+        //    }
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////
+        //最下边部分
+        //for(int w=1;w<drawX;w+=100){
+        for(int w=5;w<drawX-5;w+=8/*100*/){
+            for(int h=1;h<drawZ;h+=8/*100*/){
+
+                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                debugNum++;
+                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                pointNum=0;//清空未画完斑点计数器
+
+                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+                spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                stretch[drawOk]=windowScale/4;
+                rotation[drawOk]=0;
+
+                //qDebug("drawOk shi:%d   %d",drawOk,num);
+                int detectI=1;
+                if(drawOk!=1){
+                    for(detectI=1;detectI<11;detectI++){
+                        if(collisonDetection(num,saveP)){
+                            //qDebug("detect%d",detectI);
+                            break;
+                        }
+                        else{
+                            drawOk--;
+                            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                            debugNum++;
+                            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                            pointNum=0;//清空未画完斑点计数器
+                        }
+                    }
+                }
+
+                if(detectI<11){
+                    //qDebug("绘制第%d个点",drawOk);
+                    //把刚绘制完斑点的点保存起来
+                    QPointF *tempPoint;
+                    oPoint.clear();
+                    for(int t=1;t<num+1;t++){
+                        tempPoint=new QPointF;
+                        tempPoint->setX(saveP[t][0]);
+                        tempPoint->setY(saveP[t][1]);
+                        oPoint.push_back(tempPoint);
+                        oPointAll.push_back(tempPoint);
+                    }
+                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                }
+                else{
+                    drawOk--;
+                }
+            }
+        }
+        //            //检测所要填充的点是不是在已有斑点内部
+        //            list<QPainterPath*>::iterator temp = allPath.end();
+        //            temp--;
+        //            int count=allPath.size();
+        //            //qDebug("xian zai ge shu shi:%d",count);
+        //            QPointF tempPoint1;
+        //            int shouldFlag=1;
+        //            float tempX,tempY;
+        //            tempX=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+        //            tempY=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+        //            int x1,y1;
+        //            while(count>0){
+        //                x1=(tempX-spotOriginX[count])*cos(-rotation[count]/180*PI)/stretch[count]-(tempY-spotOriginY[count])*sin(-rotation[count]/180*PI)/stretch[count];
+        //                y1=(tempX-spotOriginX[count])*sin(-rotation[count]/180*PI)/stretch[count]+(tempY-spotOriginY[count])*cos(-rotation[count]/180*PI)/stretch[count];
+
+        //                tempPoint1.setX(x1);
+        //                tempPoint1.setY(y1);
+        //                if((*temp)->contains(tempPoint1)){
+        //                    shouldFlag=0;
+        //                    //qDebug("ssssssssssssssss");
+        //                    break;
+        //                }
+        //                count--;
+        //                temp--;
+        //            }
+
+
+
+        //            if(shouldFlag){
+        //            saveGet.readSpotPoint(2,&num,saveP);//第一个参数没用
+        //            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //            pointNum=0;//清空未画完斑点计数器
+
+        //            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale+5*windowScale;
+        //            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale+5*windowScale;
+        //            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //            stretch[drawOk]=windowScale/4;
+        //            rotation[drawOk]=0;
+
+        //            //把刚绘制完斑点的点保存起来
+        //            QPointF *tempPoint;
+        //            oPoint.clear();
+        //            for(int t=1;t<num+1;t++){
+        //                tempPoint=new QPointF;
+        //                tempPoint->setX(saveP[t][0]);
+        //                tempPoint->setY(saveP[t][1]);
+        //                oPoint.push_back(tempPoint);
+        //                oPointAll.push_back(tempPoint);
+        //                    }
+        //            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //            }
+        //        }
+        //    }
+
+
+        //update();
     }
     else{
         QMessageBox msgBox(this);
         msgBox.setWindowTitle(tr("提示"));
         msgBox.setText(tr("请在画布为五视图模式下使用该功能        "));
         msgBox.setMinimumSize(200,100);
-       //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
+        //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
         msgBox.exec();
         return;
     }
@@ -4811,198 +4811,198 @@ if(AutoCADFlag){
 
 
 void DrawWidget::getCanvasBigPointS(){
-//    if(AutoCADFlag){
-//    float saveP[300][2];
-//    int num,ranNum;
-//    int thisNum=1;
+    //    if(AutoCADFlag){
+    //    float saveP[300][2];
+    //    int num,ranNum;
+    //    int thisNum=1;
 
-//    srand(time(0));
-//    int ranNumAll[101];//=rand()%100+1;
-//    for(int i=1;i<101;i++){
-//        ranNumAll[i]=rand()%100+1;
-//    }
+    //    srand(time(0));
+    //    int ranNumAll[101];//=rand()%100+1;
+    //    for(int i=1;i<101;i++){
+    //        ranNumAll[i]=rand()%100+1;
+    //    }
 
-//    //上边部分
-//    for(int h=300;h<drawY+drawZ*2;h+=600){
-//        for(int w=80;w<drawX-50;w+=110){
-//            ranNum=ranNumAll[thisNum];
-//                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-//                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//                pointNum=0;//清空未画完斑点计数器
+    //    //上边部分
+    //    for(int h=300;h<drawY+drawZ*2;h+=600){
+    //        for(int w=80;w<drawX-50;w+=110){
+    //            ranNum=ranNumAll[thisNum];
+    //                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+    //                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+    //                pointNum=0;//清空未画完斑点计数器
 
-//                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-//                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranNum*windowScale+h*windowScale;
-//                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//                stretch[drawOk]=windowScale/4;
-//                rotation[drawOk]=0;
+    //                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+    //                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranNum*windowScale+h*windowScale;
+    //                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+    //                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+    //                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+    //                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+    //                stretch[drawOk]=windowScale/4;
+    //                rotation[drawOk]=0;
 
-//                //把刚绘制完斑点的点保存起来
-//                QPointF *tempPoint;
-//                oPoint.clear();
-//                for(int t=1;t<num+1;t++){
-//                    tempPoint=new QPointF;
-//                    tempPoint->setX(saveP[t][0]);
-//                    tempPoint->setY(saveP[t][1]);
-//                    oPoint.push_back(tempPoint);
-//                    oPointAll.push_back(tempPoint);
-//                        }
-//                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//                //////////////////////////////////////////////////////////////////////
+    //                //把刚绘制完斑点的点保存起来
+    //                QPointF *tempPoint;
+    //                oPoint.clear();
+    //                for(int t=1;t<num+1;t++){
+    //                    tempPoint=new QPointF;
+    //                    tempPoint->setX(saveP[t][0]);
+    //                    tempPoint->setY(saveP[t][1]);
+    //                    oPoint.push_back(tempPoint);
+    //                    oPointAll.push_back(tempPoint);
+    //                        }
+    //                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+    //                //////////////////////////////////////////////////////////////////////
 
-////                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-////                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-////                pointNum=0;//清空未画完斑点计数器
+    ////                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+    ////                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+    ////                pointNum=0;//清空未画完斑点计数器
 
-////                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-////                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+560*windowScale-drawZ/2*windowScale+ranNum*windowScale;
-////                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-////                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-////                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-////                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-////                stretch[drawOk]=windowScale/4;
-////                rotation[drawOk]=0;
+    ////                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+    ////                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+560*windowScale-drawZ/2*windowScale+ranNum*windowScale;
+    ////                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+    ////                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+    ////                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+    ////                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+    ////                stretch[drawOk]=windowScale/4;
+    ////                rotation[drawOk]=0;
 
-////                //把刚绘制完斑点的点保存起来
-////                QPointF *tempPoint1;
-////                oPoint.clear();
-////                for(int t=1;t<num+1;t++){
-////                    tempPoint1=new QPointF;
-////                    tempPoint1->setX(saveP[t][0]);
-////                    tempPoint1->setY(saveP[t][1]);
-////                    oPoint.push_back(tempPoint1);
-////                    oPointAll.push_back(tempPoint1);
-////                        }
-////                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//                thisNum++;
-//                thisNum=thisNum%100+1;
+    ////                //把刚绘制完斑点的点保存起来
+    ////                QPointF *tempPoint1;
+    ////                oPoint.clear();
+    ////                for(int t=1;t<num+1;t++){
+    ////                    tempPoint1=new QPointF;
+    ////                    tempPoint1->setX(saveP[t][0]);
+    ////                    tempPoint1->setY(saveP[t][1]);
+    ////                    oPoint.push_back(tempPoint1);
+    ////                    oPointAll.push_back(tempPoint1);
+    ////                        }
+    ////                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+    //                thisNum++;
+    //                thisNum=thisNum%100+1;
 
-//        }
-//    }
-////        int addNum=1;
-////        for(int w=80;w<drawX-50;w+=110){
-////            for(int h=600;h<drawY+drawZ*2-300;h+=600){
-////            saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-////            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-////            pointNum=0;//清空未画完斑点计数器
+    //        }
+    //    }
+    ////        int addNum=1;
+    ////        for(int w=80;w<drawX-50;w+=110){
+    ////            for(int h=600;h<drawY+drawZ*2-300;h+=600){
+    ////            saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+    ////            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+    ////            pointNum=0;//清空未画完斑点计数器
 
-////            spotOriginX[drawOk]=spotOriginX[addNum];//midWidth-drawX/2*windowScale+w*windowScale;
-////            spotOriginY[drawOk]=spotOriginY[addNum]+h*windowScale;//midHeight-drawY/2*windowScale+560*windowScale-drawZ/2*windowScale+ranNum*windowScale;
-////            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-////            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-////            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-////            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-////            stretch[drawOk]=windowScale/4;
-////            rotation[drawOk]=0;
+    ////            spotOriginX[drawOk]=spotOriginX[addNum];//midWidth-drawX/2*windowScale+w*windowScale;
+    ////            spotOriginY[drawOk]=spotOriginY[addNum]+h*windowScale;//midHeight-drawY/2*windowScale+560*windowScale-drawZ/2*windowScale+ranNum*windowScale;
+    ////            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+    ////            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+    ////            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+    ////            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+    ////            stretch[drawOk]=windowScale/4;
+    ////            rotation[drawOk]=0;
 
-////            //把刚绘制完斑点的点保存起来
-////            QPointF *tempPoint1;
-////            oPoint.clear();
-////            for(int t=1;t<num+1;t++){
-////                tempPoint1=new QPointF;
-////                tempPoint1->setX(saveP[t][0]);
-////                tempPoint1->setY(saveP[t][1]);
-////                oPoint.push_back(tempPoint1);
-////                oPointAll.push_back(tempPoint1);
-////                    }
-////            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-////            addNum++;
-////        }
-////        }
-//        update();
+    ////            //把刚绘制完斑点的点保存起来
+    ////            QPointF *tempPoint1;
+    ////            oPoint.clear();
+    ////            for(int t=1;t<num+1;t++){
+    ////                tempPoint1=new QPointF;
+    ////                tempPoint1->setX(saveP[t][0]);
+    ////                tempPoint1->setY(saveP[t][1]);
+    ////                oPoint.push_back(tempPoint1);
+    ////                oPointAll.push_back(tempPoint1);
+    ////                    }
+    ////            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+    ////            addNum++;
+    ////        }
+    ////        }
+    //        update();
 
-//    }
+    //    }
 }
 void DrawWidget::getCanvasBigPointT(){
-//    if(AutoCADFlag){
-//    float saveP[300][2];
-//    int num,ranNum;
-//    int thisNum=1;
+    //    if(AutoCADFlag){
+    //    float saveP[300][2];
+    //    int num,ranNum;
+    //    int thisNum=1;
 
-//    srand(time(0));
-//    int ranNumAll[101];//=rand()%100+1;
-//    for(int i=1;i<101;i++){
-//        ranNumAll[i]=rand()%100+1;
-//    }
+    //    srand(time(0));
+    //    int ranNumAll[101];//=rand()%100+1;
+    //    for(int i=1;i<101;i++){
+    //        ranNumAll[i]=rand()%100+1;
+    //    }
 
-//    //上下部分
-//    for(int h=300;h<drawY+drawZ*2;h+=600){
-//        for(int w=100;w<drawX-60;w+=120){
-//            ranNum=ranNumAll[thisNum];
-//                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-//                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//                pointNum=0;//清空未画完斑点计数器
+    //    //上下部分
+    //    for(int h=300;h<drawY+drawZ*2;h+=600){
+    //        for(int w=100;w<drawX-60;w+=120){
+    //            ranNum=ranNumAll[thisNum];
+    //                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+    //                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+    //                pointNum=0;//清空未画完斑点计数器
 
-//                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-//                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranNum*windowScale+h*windowScale;
-//                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//                stretch[drawOk]=windowScale/4;
-//                rotation[drawOk]=0;
+    //                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+    //                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranNum*windowScale+h*windowScale;
+    //                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+    //                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+    //                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+    //                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+    //                stretch[drawOk]=windowScale/4;
+    //                rotation[drawOk]=0;
 
-//                //把刚绘制完斑点的点保存起来
-//                QPointF *tempPoint;
-//                oPoint.clear();
-//                for(int t=1;t<num+1;t++){
-//                    tempPoint=new QPointF;
-//                    tempPoint->setX(saveP[t][0]);
-//                    tempPoint->setY(saveP[t][1]);
-//                    oPoint.push_back(tempPoint);
-//                    oPointAll.push_back(tempPoint);
-//                        }
-//                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                //把刚绘制完斑点的点保存起来
+    //                QPointF *tempPoint;
+    //                oPoint.clear();
+    //                for(int t=1;t<num+1;t++){
+    //                    tempPoint=new QPointF;
+    //                    tempPoint->setX(saveP[t][0]);
+    //                    tempPoint->setY(saveP[t][1]);
+    //                    oPoint.push_back(tempPoint);
+    //                    oPointAll.push_back(tempPoint);
+    //                        }
+    //                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-////                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-////                pointNum=0;//清空未画完斑点计数器
+    ////                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+    ////                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+    ////                pointNum=0;//清空未画完斑点计数器
 
-////                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-////                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale-drawZ/2*windowScale+ranNum*windowScale;
-////                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-////                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-////                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-////                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-////                stretch[drawOk]=windowScale/4;
-////                rotation[drawOk]=0;
+    ////                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+    ////                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+h*windowScale-drawZ/2*windowScale+ranNum*windowScale;
+    ////                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+    ////                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+    ////                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+    ////                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+    ////                stretch[drawOk]=windowScale/4;
+    ////                rotation[drawOk]=0;
 
-////                //把刚绘制完斑点的点保存起来
-////                QPointF *tempPoint1;
-////                oPoint.clear();
-////                for(int t=1;t<num+1;t++){
-////                    tempPoint1=new QPointF;
-////                    tempPoint1->setX(saveP[t][0]);
-////                    tempPoint1->setY(saveP[t][1]);
-////                    oPoint.push_back(tempPoint1);
-////                    oPointAll.push_back(tempPoint1);
-////                        }
-////                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-
-
-////                thisNum++;
-////                thisNum=thisNum%100+1;
-//        }
-//       }
+    ////                //把刚绘制完斑点的点保存起来
+    ////                QPointF *tempPoint1;
+    ////                oPoint.clear();
+    ////                for(int t=1;t<num+1;t++){
+    ////                    tempPoint1=new QPointF;
+    ////                    tempPoint1->setX(saveP[t][0]);
+    ////                    tempPoint1->setY(saveP[t][1]);
+    ////                    oPoint.push_back(tempPoint1);
+    ////                    oPointAll.push_back(tempPoint1);
+    ////                        }
+    ////                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
 
 
-//        update();
+    ////                thisNum++;
+    ////                thisNum=thisNum%100+1;
+    //        }
+    //       }
 
-//    }
+
+    //        update();
+
+    //    }
 }
 
 
 void DrawWidget::getDigitalCanvas(QPainter &p){
 
     //QPainterPath temp;
-//    for(int i=1;i<drawZ;i+=18/*100*/){
-//        for(int j=2;j<drawY;j+=18/*100*/){
-//    for(float i=midWidth-0.5*drawX-drawZ;i<midWidth-0.5*drawX;i+=18){
-//        for(float j=midHeight-0.5*drawY;j<midHeight+0.5*drawY;j+=18){
+    //    for(int i=1;i<drawZ;i+=18/*100*/){
+    //        for(int j=2;j<drawY;j+=18/*100*/){
+    //    for(float i=midWidth-0.5*drawX-drawZ;i<midWidth-0.5*drawX;i+=18){
+    //        for(float j=midHeight-0.5*drawY;j<midHeight+0.5*drawY;j+=18){
     if(drawOk!=0){
         //最上边部分
         list<QPainterPath*>::iterator temp;
@@ -5028,57 +5028,57 @@ void DrawWidget::getDigitalCanvas(QPainter &p){
         QColor colorA,colorB,colorC,colorD;
 
 
-    for(float i=midWidth-0.5*drawX;i<midWidth+0.5*drawX;i+=12){
-        for(float j=midHeight-0.5*drawY-drawZ;j<midHeight+0.5*drawY+drawZ;j+=12){
-            //qDebug("%f  %f  %f   %f     %f",midWidth,midHeight,canvasX,canvasY,drawZ);
+        for(float i=midWidth-0.5*drawX;i<midWidth+0.5*drawX;i+=12){
+            for(float j=midHeight-0.5*drawY-drawZ;j<midHeight+0.5*drawY+drawZ;j+=12){
+                //qDebug("%f  %f  %f   %f     %f",midWidth,midHeight,canvasX,canvasY,drawZ);
                 //p.drawRect(i,j,18,18);
-        temp = allPath.begin();
-        count=1;
-        //qDebug("start:%f  %f",i,j);
-        for(;temp!=allPath.end();++temp){
-            ////真实的点到某个斑点的坐标系
-            x=(i-spotOriginX[count])*cos(rotation[count]/180*PI)/stretch[count]-(j-spotOriginY[count])*sin(rotation[count]/180*PI)/stretch[count];
-            y=(i-spotOriginX[count])*sin(rotation[count]/180*PI)/stretch[count]+(j-spotOriginY[count])*cos(rotation[count]/180*PI)/stretch[count];
-            //temp.addRect();
-            getSpotColor(count);
-            if((*temp)->intersects(QRect(x,y,12/stretch[count],12/stretch[count]))){
-                if(colorANum==0){
-                    colorA=spotColor;
-                    colorAXY[colorANum][0]=i;
-                    colorAXY[colorANum][1]=j;
-                    //qDebug("xs,ys:%f  %f",i,j);
-                    //qDebug("%d",colorANum);
-                    colorANum++;
-                    break;
-                }else if(colorA==spotColor){
-                    colorAXY[colorANum][0]=i;
-                    colorAXY[colorANum][1]=j;
-                    colorANum++;
-                    break;
-                }else if(colorBNum==0){
-                    colorB=spotColor;
-                    colorBXY[colorBNum][0]=i;
-                    colorBXY[colorBNum][1]=j;
-                    colorBNum++;
-                    break;
-                }else if(colorB==spotColor){
-                    colorBXY[colorBNum][0]=i;
-                    colorBXY[colorBNum][1]=j;
-                    colorBNum++;
-                    break;
-                }else if(colorCNum==0){
-                    colorC=spotColor;
-                    colorCXY[colorCNum][0]=i;
-                    colorCXY[colorCNum][1]=j;
-                    colorCNum++;
-                    break;
-                }else if(colorC==spotColor){
-                    colorC=spotColor;
-                    colorCXY[colorCNum][0]=i;
-                    colorCXY[colorCNum][1]=j;
-                    colorCNum++;
-                    break;
-                }/*else{
+                temp = allPath.begin();
+                count=1;
+                //qDebug("start:%f  %f",i,j);
+                for(;temp!=allPath.end();++temp){
+                    ////真实的点到某个斑点的坐标系
+                    x=(i-spotOriginX[count])*cos(rotation[count]/180*PI)/stretch[count]-(j-spotOriginY[count])*sin(rotation[count]/180*PI)/stretch[count];
+                    y=(i-spotOriginX[count])*sin(rotation[count]/180*PI)/stretch[count]+(j-spotOriginY[count])*cos(rotation[count]/180*PI)/stretch[count];
+                    //temp.addRect();
+                    getSpotColor(count);
+                    if((*temp)->intersects(QRect(x,y,12/stretch[count],12/stretch[count]))){
+                        if(colorANum==0){
+                            colorA=spotColor;
+                            colorAXY[colorANum][0]=i;
+                            colorAXY[colorANum][1]=j;
+                            //qDebug("xs,ys:%f  %f",i,j);
+                            //qDebug("%d",colorANum);
+                            colorANum++;
+                            break;
+                        }else if(colorA==spotColor){
+                            colorAXY[colorANum][0]=i;
+                            colorAXY[colorANum][1]=j;
+                            colorANum++;
+                            break;
+                        }else if(colorBNum==0){
+                            colorB=spotColor;
+                            colorBXY[colorBNum][0]=i;
+                            colorBXY[colorBNum][1]=j;
+                            colorBNum++;
+                            break;
+                        }else if(colorB==spotColor){
+                            colorBXY[colorBNum][0]=i;
+                            colorBXY[colorBNum][1]=j;
+                            colorBNum++;
+                            break;
+                        }else if(colorCNum==0){
+                            colorC=spotColor;
+                            colorCXY[colorCNum][0]=i;
+                            colorCXY[colorCNum][1]=j;
+                            colorCNum++;
+                            break;
+                        }else if(colorC==spotColor){
+                            colorC=spotColor;
+                            colorCXY[colorCNum][0]=i;
+                            colorCXY[colorCNum][1]=j;
+                            colorCNum++;
+                            break;
+                        }/*else{
                     if(spotColor==colorA){
                         colorAXY[colorANum][0]=i;
                         colorAXY[colorANum][1]=j;
@@ -5098,128 +5098,128 @@ void DrawWidget::getDigitalCanvas(QPainter &p){
                         break;
                     }
                 }*/
-            }/*else{
+                    }/*else{
                 colorD=spotColor;
                 colorDXY[colorDNum][0]=i;
                 colorDXY[colorDNum][1]=j;
                 colorDNum++;
             }*/
-            count++;
+                    count++;
+                }
+                if(temp==allPath.end()){
+                    colorD=backGroundColor;
+                    colorDXY[colorDNum][0]=i;
+                    colorDXY[colorDNum][1]=j;
+                    colorDNum++;
+                }
+            }
         }
-        if(temp==allPath.end()){
-            colorD=backGroundColor;
-            colorDXY[colorDNum][0]=i;
-            colorDXY[colorDNum][1]=j;
-            colorDNum++;
+
+
+        p.setBrush(colorA);
+        p.setPen(Qt::NoPen);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorANum;i++){
+            p.drawRects(&QRectF(colorAXY[i][0],colorAXY[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
         }
-    }
-    }
 
 
-p.setBrush(colorA);
-p.setPen(Qt::NoPen);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorANum;i++){
-    p.drawRects(&QRectF(colorAXY[i][0],colorAXY[i][1],12,12),1);
-    //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
+        p.setBrush(colorB);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorBNum;i++){
+            p.drawRects(&QRectF(colorBXY[i][0],colorBXY[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
 
-
-p.setBrush(colorB);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorBNum;i++){
-    p.drawRects(&QRectF(colorBXY[i][0],colorBXY[i][1],12,12),1);
-    //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
-
-p.setBrush(colorC);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorCNum;i++){
-    p.drawRects(&QRectF(colorCXY[i][0],colorCXY[i][1],12,12),1);
-    //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
-p.setBrush(colorD);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorDNum;i++){
-    p.drawRects(&QRectF(colorDXY[i][0],colorDXY[i][1],12,12),1);
-    //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
-p.setBrush(Qt::NoBrush);
+        p.setBrush(colorC);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorCNum;i++){
+            p.drawRects(&QRectF(colorCXY[i][0],colorCXY[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
+        p.setBrush(colorD);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorDNum;i++){
+            p.drawRects(&QRectF(colorDXY[i][0],colorDXY[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
+        p.setBrush(Qt::NoBrush);
 
 
 
-//最左边部分
-p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
-rectNum=(2*drawZ+drawX)*drawX/64;
-float colorAXYL[rectNum][2],colorBXYL[rectNum][2],colorCXYL[rectNum][2],colorDXYL[rectNum][2];
-for(int i=0;i<rectNum;i++){
-    colorAXYL[i][0]=0;
-    colorAXYL[i][1]=0;
+        //最左边部分
+        p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
+        rectNum=(2*drawZ+drawX)*drawX/64;
+        float colorAXYL[rectNum][2],colorBXYL[rectNum][2],colorCXYL[rectNum][2],colorDXYL[rectNum][2];
+        for(int i=0;i<rectNum;i++){
+            colorAXYL[i][0]=0;
+            colorAXYL[i][1]=0;
 
-    colorBXYL[i][0]=0;
-    colorBXYL[i][1]=0;
+            colorBXYL[i][0]=0;
+            colorBXYL[i][1]=0;
 
-    colorCXYL[i][0]=0;
-    colorCXYL[i][1]=0;
+            colorCXYL[i][0]=0;
+            colorCXYL[i][1]=0;
 
-    colorDXYL[i][0]=0;
-    colorDXYL[i][1]=0;
-}
-//int colorANumL=0,colorBNumL=0,colorCNumL=0,colorDNum=0;
-//QColor colorA,colorB,colorC,colorD;
+            colorDXYL[i][0]=0;
+            colorDXYL[i][1]=0;
+        }
+        //int colorANumL=0,colorBNumL=0,colorCNumL=0,colorDNum=0;
+        //QColor colorA,colorB,colorC,colorD;
 
 
-for(float i=midWidth-0.5*drawX-drawZ;i<midWidth-0.5*drawX;i+=12){
-for(float j=midHeight-0.5*drawY;j<midHeight+0.5*drawY;j+=12){
-    //qDebug("%f  %f  %f   %f     %f",midWidth,midHeight,canvasX,canvasY,drawZ);
-        //p.drawRect(i,j,18,18);
-temp = allPath.begin();
-count=1;
-//qDebug("start:%f  %f",i,j);
-for(;temp!=allPath.end();++temp){
-    ////真实的点到某个斑点的坐标系
-    x=(i-spotOriginX[count])*cos(rotation[count]/180*PI)/stretch[count]-(j-spotOriginY[count])*sin(rotation[count]/180*PI)/stretch[count];
-    y=(i-spotOriginX[count])*sin(rotation[count]/180*PI)/stretch[count]+(j-spotOriginY[count])*cos(rotation[count]/180*PI)/stretch[count];
-    //tempL.addRect();
-    getSpotColor(count);
-    if((*temp)->intersects(QRect(x,y,12/stretch[count],12/stretch[count]))){
-        if(colorANum==0){
-            colorA=spotColor;
-            colorAXYL[colorANum][0]=i;
-            colorAXYL[colorANum][1]=j;
-            //qDebug("xs,ys:%f  %f",i,j);
-            //qDebug("%d",colorANum);
-            colorANum++;
-            break;
-        }else if(colorA==spotColor){
-            colorAXYL[colorANum][0]=i;
-            colorAXYL[colorANum][1]=j;
-            colorANum++;
-            break;
-        }else if(colorBNum==0){
-            colorB=spotColor;
-            colorBXYL[colorBNum][0]=i;
-            colorBXYL[colorBNum][1]=j;
-            colorBNum++;
-            break;
-        }else if(colorB==spotColor){
-            colorBXYL[colorBNum][0]=i;
-            colorBXYL[colorBNum][1]=j;
-            colorBNum++;
-            break;
-        }else if(colorCNum==0){
-            colorC=spotColor;
-            colorCXYL[colorCNum][0]=i;
-            colorCXYL[colorCNum][1]=j;
-            colorCNum++;
-            break;
-        }else if(colorC==spotColor){
-            colorC=spotColor;
-            colorCXYL[colorCNum][0]=i;
-            colorCXYL[colorCNum][1]=j;
-            colorCNum++;
-            break;
-        }/*else{
+        for(float i=midWidth-0.5*drawX-drawZ;i<midWidth-0.5*drawX;i+=12){
+            for(float j=midHeight-0.5*drawY;j<midHeight+0.5*drawY;j+=12){
+                //qDebug("%f  %f  %f   %f     %f",midWidth,midHeight,canvasX,canvasY,drawZ);
+                //p.drawRect(i,j,18,18);
+                temp = allPath.begin();
+                count=1;
+                //qDebug("start:%f  %f",i,j);
+                for(;temp!=allPath.end();++temp){
+                    ////真实的点到某个斑点的坐标系
+                    x=(i-spotOriginX[count])*cos(rotation[count]/180*PI)/stretch[count]-(j-spotOriginY[count])*sin(rotation[count]/180*PI)/stretch[count];
+                    y=(i-spotOriginX[count])*sin(rotation[count]/180*PI)/stretch[count]+(j-spotOriginY[count])*cos(rotation[count]/180*PI)/stretch[count];
+                    //tempL.addRect();
+                    getSpotColor(count);
+                    if((*temp)->intersects(QRect(x,y,12/stretch[count],12/stretch[count]))){
+                        if(colorANum==0){
+                            colorA=spotColor;
+                            colorAXYL[colorANum][0]=i;
+                            colorAXYL[colorANum][1]=j;
+                            //qDebug("xs,ys:%f  %f",i,j);
+                            //qDebug("%d",colorANum);
+                            colorANum++;
+                            break;
+                        }else if(colorA==spotColor){
+                            colorAXYL[colorANum][0]=i;
+                            colorAXYL[colorANum][1]=j;
+                            colorANum++;
+                            break;
+                        }else if(colorBNum==0){
+                            colorB=spotColor;
+                            colorBXYL[colorBNum][0]=i;
+                            colorBXYL[colorBNum][1]=j;
+                            colorBNum++;
+                            break;
+                        }else if(colorB==spotColor){
+                            colorBXYL[colorBNum][0]=i;
+                            colorBXYL[colorBNum][1]=j;
+                            colorBNum++;
+                            break;
+                        }else if(colorCNum==0){
+                            colorC=spotColor;
+                            colorCXYL[colorCNum][0]=i;
+                            colorCXYL[colorCNum][1]=j;
+                            colorCNum++;
+                            break;
+                        }else if(colorC==spotColor){
+                            colorC=spotColor;
+                            colorCXYL[colorCNum][0]=i;
+                            colorCXYL[colorCNum][1]=j;
+                            colorCNum++;
+                            break;
+                        }/*else{
             if(spotColor==colorA){
                 colorAXY[colorANum][0]=i;
                 colorAXY[colorANum][1]=j;
@@ -5239,128 +5239,128 @@ for(;temp!=allPath.end();++temp){
                 break;
             }
         }*/
-    }/*else{
+                    }/*else{
         colorD=spotColor;
         colorDXY[colorDNum][0]=i;
         colorDXY[colorDNum][1]=j;
         colorDNum++;
     }*/
-    count++;
-}
-if(temp==allPath.end()){
-    colorD=backGroundColor;
-    colorDXYL[colorDNum][0]=i;
-    colorDXYL[colorDNum][1]=j;
-    colorDNum++;
-}
-}
-}
+                    count++;
+                }
+                if(temp==allPath.end()){
+                    colorD=backGroundColor;
+                    colorDXYL[colorDNum][0]=i;
+                    colorDXYL[colorDNum][1]=j;
+                    colorDNum++;
+                }
+            }
+        }
 
 
-p.setBrush(colorA);
-p.setPen(Qt::NoPen);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorANum;i++){
-p.drawRects(&QRectF(colorAXYL[i][0],colorAXYL[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
+        p.setBrush(colorA);
+        p.setPen(Qt::NoPen);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorANum;i++){
+            p.drawRects(&QRectF(colorAXYL[i][0],colorAXYL[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
 
 
-p.setBrush(colorB);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorBNum;i++){
-p.drawRects(&QRectF(colorBXYL[i][0],colorBXYL[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
+        p.setBrush(colorB);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorBNum;i++){
+            p.drawRects(&QRectF(colorBXYL[i][0],colorBXYL[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
 
-p.setBrush(colorC);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorCNum;i++){
-p.drawRects(&QRectF(colorCXYL[i][0],colorCXYL[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
-p.setBrush(colorD);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorDNum;i++){
-p.drawRects(&QRectF(colorDXYL[i][0],colorDXYL[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
-p.setBrush(Qt::NoBrush);
-
-
-
-//最右边部分
-p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
-rectNum=(2*drawZ+drawX)*drawX/64;
-float colorAXYR[rectNum][2],colorBXYR[rectNum][2],colorCXYR[rectNum][2],colorDXYR[rectNum][2];
-for(int i=0;i<rectNum;i++){
-    colorAXYR[i][0]=0;
-    colorAXYR[i][1]=0;
-
-    colorBXYR[i][0]=0;
-    colorBXYR[i][1]=0;
-
-    colorCXYR[i][0]=0;
-    colorCXYR[i][1]=0;
-
-    colorDXYR[i][0]=0;
-    colorDXYR[i][1]=0;
-}
-//int colorANumL=0,colorBNumL=0,colorCNumL=0,colorDNum=0;
-//QColor colorA,colorB,colorC,colorD;
+        p.setBrush(colorC);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorCNum;i++){
+            p.drawRects(&QRectF(colorCXYL[i][0],colorCXYL[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
+        p.setBrush(colorD);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorDNum;i++){
+            p.drawRects(&QRectF(colorDXYL[i][0],colorDXYL[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
+        p.setBrush(Qt::NoBrush);
 
 
-for(float i=midWidth+0.5*drawX;i<midWidth+0.5*drawX+drawZ;i+=12){
-for(float j=midHeight-0.5*drawY;j<midHeight+0.5*drawY;j+=12){
-    //qDebug("%f  %f  %f   %f     %f",midWidth,midHeight,canvasX,canvasY,drawZ);
-        //p.drawRect(i,j,18,18);
-temp = allPath.begin();
-count=1;
-//qDebug("start:%f  %f",i,j);
-for(;temp!=allPath.end();++temp){
-    ////真实的点到某个斑点的坐标系
-    x=(i-spotOriginX[count])*cos(rotation[count]/180*PI)/stretch[count]-(j-spotOriginY[count])*sin(rotation[count]/180*PI)/stretch[count];
-    y=(i-spotOriginX[count])*sin(rotation[count]/180*PI)/stretch[count]+(j-spotOriginY[count])*cos(rotation[count]/180*PI)/stretch[count];
-    //tempL.addRect();
-    getSpotColor(count);
-    if((*temp)->intersects(QRect(x,y,12/stretch[count],12/stretch[count]))){
-        if(colorANum==0){
-            colorA=spotColor;
-            colorAXYR[colorANum][0]=i;
-            colorAXYL[colorANum][1]=j;
-            //qDebug("xs,ys:%f  %f",i,j);
-            //qDebug("%d",colorANum);
-            colorANum++;
-            break;
-        }else if(colorA==spotColor){
-            colorAXYR[colorANum][0]=i;
-            colorAXYR[colorANum][1]=j;
-            colorANum++;
-            break;
-        }else if(colorBNum==0){
-            colorB=spotColor;
-            colorBXYR[colorBNum][0]=i;
-            colorBXYR[colorBNum][1]=j;
-            colorBNum++;
-            break;
-        }else if(colorB==spotColor){
-            colorBXYR[colorBNum][0]=i;
-            colorBXYR[colorBNum][1]=j;
-            colorBNum++;
-            break;
-        }else if(colorCNum==0){
-            colorC=spotColor;
-            colorCXYR[colorCNum][0]=i;
-            colorCXYR[colorCNum][1]=j;
-            colorCNum++;
-            break;
-        }else if(colorC==spotColor){
-            colorC=spotColor;
-            colorCXYR[colorCNum][0]=i;
-            colorCXYR[colorCNum][1]=j;
-            colorCNum++;
-            break;
-        }/*else{
+
+        //最右边部分
+        p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
+        rectNum=(2*drawZ+drawX)*drawX/64;
+        float colorAXYR[rectNum][2],colorBXYR[rectNum][2],colorCXYR[rectNum][2],colorDXYR[rectNum][2];
+        for(int i=0;i<rectNum;i++){
+            colorAXYR[i][0]=0;
+            colorAXYR[i][1]=0;
+
+            colorBXYR[i][0]=0;
+            colorBXYR[i][1]=0;
+
+            colorCXYR[i][0]=0;
+            colorCXYR[i][1]=0;
+
+            colorDXYR[i][0]=0;
+            colorDXYR[i][1]=0;
+        }
+        //int colorANumL=0,colorBNumL=0,colorCNumL=0,colorDNum=0;
+        //QColor colorA,colorB,colorC,colorD;
+
+
+        for(float i=midWidth+0.5*drawX;i<midWidth+0.5*drawX+drawZ;i+=12){
+            for(float j=midHeight-0.5*drawY;j<midHeight+0.5*drawY;j+=12){
+                //qDebug("%f  %f  %f   %f     %f",midWidth,midHeight,canvasX,canvasY,drawZ);
+                //p.drawRect(i,j,18,18);
+                temp = allPath.begin();
+                count=1;
+                //qDebug("start:%f  %f",i,j);
+                for(;temp!=allPath.end();++temp){
+                    ////真实的点到某个斑点的坐标系
+                    x=(i-spotOriginX[count])*cos(rotation[count]/180*PI)/stretch[count]-(j-spotOriginY[count])*sin(rotation[count]/180*PI)/stretch[count];
+                    y=(i-spotOriginX[count])*sin(rotation[count]/180*PI)/stretch[count]+(j-spotOriginY[count])*cos(rotation[count]/180*PI)/stretch[count];
+                    //tempL.addRect();
+                    getSpotColor(count);
+                    if((*temp)->intersects(QRect(x,y,12/stretch[count],12/stretch[count]))){
+                        if(colorANum==0){
+                            colorA=spotColor;
+                            colorAXYR[colorANum][0]=i;
+                            colorAXYL[colorANum][1]=j;
+                            //qDebug("xs,ys:%f  %f",i,j);
+                            //qDebug("%d",colorANum);
+                            colorANum++;
+                            break;
+                        }else if(colorA==spotColor){
+                            colorAXYR[colorANum][0]=i;
+                            colorAXYR[colorANum][1]=j;
+                            colorANum++;
+                            break;
+                        }else if(colorBNum==0){
+                            colorB=spotColor;
+                            colorBXYR[colorBNum][0]=i;
+                            colorBXYR[colorBNum][1]=j;
+                            colorBNum++;
+                            break;
+                        }else if(colorB==spotColor){
+                            colorBXYR[colorBNum][0]=i;
+                            colorBXYR[colorBNum][1]=j;
+                            colorBNum++;
+                            break;
+                        }else if(colorCNum==0){
+                            colorC=spotColor;
+                            colorCXYR[colorCNum][0]=i;
+                            colorCXYR[colorCNum][1]=j;
+                            colorCNum++;
+                            break;
+                        }else if(colorC==spotColor){
+                            colorC=spotColor;
+                            colorCXYR[colorCNum][0]=i;
+                            colorCXYR[colorCNum][1]=j;
+                            colorCNum++;
+                            break;
+                        }/*else{
             if(spotColor==colorA){
                 colorAXY[colorANum][0]=i;
                 colorAXY[colorANum][1]=j;
@@ -5380,56 +5380,56 @@ for(;temp!=allPath.end();++temp){
                 break;
             }
         }*/
-    }/*else{
+                    }/*else{
         colorD=spotColor;
         colorDXY[colorDNum][0]=i;
         colorDXY[colorDNum][1]=j;
         colorDNum++;
     }*/
-    count++;
-}
-if(temp==allPath.end()){
-    colorD=backGroundColor;
-    colorDXYR[colorDNum][0]=i;
-    colorDXYR[colorDNum][1]=j;
-    colorDNum++;
-}
-}
-}
+                    count++;
+                }
+                if(temp==allPath.end()){
+                    colorD=backGroundColor;
+                    colorDXYR[colorDNum][0]=i;
+                    colorDXYR[colorDNum][1]=j;
+                    colorDNum++;
+                }
+            }
+        }
 
 
-p.setBrush(colorA);
-p.setPen(Qt::NoPen);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorANum;i++){
-p.drawRects(&QRectF(colorAXYR[i][0],colorAXYR[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
+        p.setBrush(colorA);
+        p.setPen(Qt::NoPen);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorANum;i++){
+            p.drawRects(&QRectF(colorAXYR[i][0],colorAXYR[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
 
 
-p.setBrush(colorB);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorBNum;i++){
-p.drawRects(&QRectF(colorBXYR[i][0],colorBXYR[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
+        p.setBrush(colorB);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorBNum;i++){
+            p.drawRects(&QRectF(colorBXYR[i][0],colorBXYR[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
 
-p.setBrush(colorC);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorCNum;i++){
-p.drawRects(&QRectF(colorCXYR[i][0],colorCXYR[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
-p.setBrush(colorD);
-//qDebug("%d",colorANum);
-for(int i=0;i<colorDNum;i++){
-p.drawRects(&QRectF(colorDXYR[i][0],colorDXYR[i][1],12,12),1);
-//qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
-}
-p.setBrush(Qt::NoBrush);
+        p.setBrush(colorC);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorCNum;i++){
+            p.drawRects(&QRectF(colorCXYR[i][0],colorCXYR[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
+        p.setBrush(colorD);
+        //qDebug("%d",colorANum);
+        for(int i=0;i<colorDNum;i++){
+            p.drawRects(&QRectF(colorDXYR[i][0],colorDXYR[i][1],12,12),1);
+            //qDebug("11111:%f   %f",colorAXY[i][0],colorAXY[i][1]);
+        }
+        p.setBrush(Qt::NoBrush);
 
 
-}
+    }
 
 }
 
@@ -5440,231 +5440,490 @@ void DrawWidget::getEdgePoint(){
     int debugNum=0;
     //QPointF *tempPoint;
     //第一个边
-        for(int h=1;h<drawZ-50;h+=10){
-            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            debugNum++;
+    for(int h=1;h<drawZ-50;h+=10){
+        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+        debugNum++;
 
+        spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        drawOk1++;
+        pointNum=0;//清空未画完斑点计数器
+
+        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+10;
+        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale;
+        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        stretch[drawOk]=windowScale/4;
+        rotation[drawOk]=0;
+
+        int detectI=1;
+        if(drawOk!=1){
+            for(detectI=1;detectI<11;detectI++){
+                if(collisonDetection(num,saveP)){
+                    //qDebug("detect%d",detectI);
+                    break;
+                }
+                else{
+                    drawOk--;
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数为调用的文件序列中的哪个斑点
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+                }
+            }
+        }
+        //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
+        if(detectI<11){
+            //qDebug("绘制第%d个点",drawOk);
+            //把刚绘制完斑点的点保存起来
+            QPointF *tempPoint;
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
+            }
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+
+
+            //////////////////与另一条边对应
             spotNum[++drawOk]=num;//把斑点含点个数保存起来
             drawOk1++;
             pointNum=0;//清空未画完斑点计数器
 
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+10;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale;
+            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+h*windowScale;
+            spotOriginY[drawOk]=midHeight-drawY/2*windowScale-10;
             spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
             spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
             spotOriginPOX[drawOk]=spotOriginOX[drawOk];
             spotOriginPOY[drawOk]=spotOriginOY[drawOk];
             stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
+            rotation[drawOk]=-90;
 
-            int detectI=1;
-            if(drawOk!=1){
-                for(detectI=1;detectI<11;detectI++){
-                    if(collisonDetection(num,saveP)){
-                        //qDebug("detect%d",detectI);
-                        break;
-                    }
-                    else{
-                        drawOk--;
-                        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数为调用的文件序列中的哪个斑点
-                        debugNum++;
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        pointNum=0;//清空未画完斑点计数器
-                    }
-                }
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
             }
-            //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
-            if(detectI<11){
-                //qDebug("绘制第%d个点",drawOk);
-                    //把刚绘制完斑点的点保存起来
-                    QPointF *tempPoint;
-                    oPoint.clear();
-                    for(int t=1;t<num+1;t++){
-                        tempPoint=new QPointF;
-                        tempPoint->setX(saveP[t][0]);
-                        tempPoint->setY(saveP[t][1]);
-                        oPoint.push_back(tempPoint);
-                        oPointAll.push_back(tempPoint);
-                            }
-                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        }
+        else{
+            drawOk--;
+        }
 
 
-                    //////////////////与另一条边对应
-                                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                                drawOk1++;
-                                pointNum=0;//清空未画完斑点计数器
-
-                                spotOriginX[drawOk]=midWidth-drawX/2*windowScale-drawZ*windowScale+h*windowScale;
-                                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-10;
-                                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                                stretch[drawOk]=windowScale/4;
-                                rotation[drawOk]=-90;
-
-                                oPoint.clear();
-                                for(int t=1;t<num+1;t++){
-                                    tempPoint=new QPointF;
-                                    tempPoint->setX(saveP[t][0]);
-                                    tempPoint->setY(saveP[t][1]);
-                                    oPoint.push_back(tempPoint);
-                                    oPointAll.push_back(tempPoint);
-                                        }
-                                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-            else{
-                drawOk--;
-            }
-
-
-            //把刚绘制完斑点的点保存起来
-//            QPointF *tempPoint;
-//            oPoint.clear();
-//            for(int t=1;t<num+1;t++){
-//                tempPoint=new QPointF;
-//                tempPoint->setX(saveP[t][0]);
-//                tempPoint->setY(saveP[t][1]);
-//                oPoint.push_back(tempPoint);
-//                oPointAll.push_back(tempPoint);
-//                    }
-//            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //把刚绘制完斑点的点保存起来
+        //            QPointF *tempPoint;
+        //            oPoint.clear();
+        //            for(int t=1;t<num+1;t++){
+        //                tempPoint=new QPointF;
+        //                tempPoint->setX(saveP[t][0]);
+        //                tempPoint->setY(saveP[t][1]);
+        //                oPoint.push_back(tempPoint);
+        //                oPointAll.push_back(tempPoint);
+        //                    }
+        //            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
 
 
 
     }
-/////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-        //第二个边
-          for(int h=1;h<drawZ-50;h+=80){
-              saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-              debugNum++;
-              spotNum[++drawOk]=num;//把斑点含点个数保存起来
-              drawOk2++;
-              pointNum=0;//清空未画完斑点计数器
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////
+    //第二个边
+    for(int h=1;h<drawZ-50;h+=80){
+        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+        debugNum++;
+        spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        drawOk2++;
+        pointNum=0;//清空未画完斑点计数器
 
-              spotOriginX[drawOk]=midWidth+drawX/2*windowScale-10;
-              spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale;
-              spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-              spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-              spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-              spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-              stretch[drawOk]=windowScale/4;
-              rotation[drawOk]=0;
-
-
-
-              int detectI=1;
-              if(drawOk!=1){
-                  for(detectI=1;detectI<11;detectI++){
-                      if(collisonDetection(num,saveP)){
-                          //qDebug("detect%d",detectI);
-                          break;
-                      }
-                      else{
-                          drawOk--;
-                          saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                          debugNum++;
-                          spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                          pointNum=0;//清空未画完斑点计数器
-                      }
-                  }
-              }
-              //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
-              if(detectI<11){
-                  //qDebug("绘制第%d个点",drawOk);
-                      //把刚绘制完斑点的点保存起来
-                      QPointF *tempPoint;
-                      oPoint.clear();
-                      for(int t=1;t<num+1;t++){
-                          tempPoint=new QPointF;
-                          tempPoint->setX(saveP[t][0]);
-                          tempPoint->setY(saveP[t][1]);
-                          oPoint.push_back(tempPoint);
-                          oPointAll.push_back(tempPoint);
-                              }
-                      caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-
-
-                      //////////////////与另一条边对应
-                                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                                    drawOk2++;
-                                    pointNum=0;//清空未画完斑点计数器
-
-                                    spotOriginX[drawOk]=midWidth+drawX/2*windowScale+drawZ*windowScale-h*windowScale;
-                                    spotOriginY[drawOk]=midHeight-drawY/2*windowScale-10;
-                                    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                                    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                                    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                                    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                                    stretch[drawOk]=windowScale/4;
-                                    rotation[drawOk]=90;
-
-                                    oPoint.clear();
-                                    for(int t=1;t<num+1;t++){
-                                        tempPoint=new QPointF;
-                                        tempPoint->setX(saveP[t][0]);
-                                        tempPoint->setY(saveP[t][1]);
-                                        oPoint.push_back(tempPoint);
-                                        oPointAll.push_back(tempPoint);
-                                            }
-                                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-              }
-              else{
-                  drawOk--;
-              }
+        spotOriginX[drawOk]=midWidth+drawX/2*windowScale-10;
+        spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+h*windowScale;
+        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        stretch[drawOk]=windowScale/4;
+        rotation[drawOk]=0;
 
 
 
+        int detectI=1;
+        if(drawOk!=1){
+            for(detectI=1;detectI<11;detectI++){
+                if(collisonDetection(num,saveP)){
+                    //qDebug("detect%d",detectI);
+                    break;
+                }
+                else{
+                    drawOk--;
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+                }
+            }
+        }
+        //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
+        if(detectI<11){
+            //qDebug("绘制第%d个点",drawOk);
+            //把刚绘制完斑点的点保存起来
+            QPointF *tempPoint;
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
+            }
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
 
-//              //把刚绘制完斑点的点保存起来
-//              QPointF *tempPoint;
-//              oPoint.clear();
-//              for(int t=1;t<num+1;t++){
-//                  tempPoint=new QPointF;
-//                  tempPoint->setX(saveP[t][0]);
-//                  tempPoint->setY(saveP[t][1]);
-//                  oPoint.push_back(tempPoint);
-//                  oPointAll.push_back(tempPoint);
-//                      }
-//              caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//   //////////////////////////////////////////////////////////////////////////////////
-//              spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//              drawOk2++;
-//              pointNum=0;//清空未画完斑点计数器
 
-//              spotOriginX[drawOk]=midWidth+drawX/2*windowScale+drawZ*windowScale-h*windowScale;
-//              spotOriginY[drawOk]=midHeight-drawY/2*windowScale-10;
-//              spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//              spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//              spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//              spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//              stretch[drawOk]=windowScale/4;
-//              rotation[drawOk]=90;
+            //////////////////与另一条边对应
+            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+            drawOk2++;
+            pointNum=0;//清空未画完斑点计数器
 
-//              oPoint.clear();
-//              for(int t=1;t<num+1;t++){
-//                  tempPoint=new QPointF;
-//                  tempPoint->setX(saveP[t][0]);
-//                  tempPoint->setY(saveP[t][1]);
-//                  oPoint.push_back(tempPoint);
-//                  oPointAll.push_back(tempPoint);
-//                      }
-//              caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-      }
-///////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
+            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+drawZ*windowScale-h*windowScale;
+            spotOriginY[drawOk]=midHeight-drawY/2*windowScale-10;
+            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+            stretch[drawOk]=windowScale/4;
+            rotation[drawOk]=90;
 
-          //第三个边
-            for(int h=50;h<drawZ;h+=80){
-                saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
+            }
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        }
+        else{
+            drawOk--;
+        }
+
+
+
+
+        //              //把刚绘制完斑点的点保存起来
+        //              QPointF *tempPoint;
+        //              oPoint.clear();
+        //              for(int t=1;t<num+1;t++){
+        //                  tempPoint=new QPointF;
+        //                  tempPoint->setX(saveP[t][0]);
+        //                  tempPoint->setY(saveP[t][1]);
+        //                  oPoint.push_back(tempPoint);
+        //                  oPointAll.push_back(tempPoint);
+        //                      }
+        //              caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //   //////////////////////////////////////////////////////////////////////////////////
+        //              spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //              drawOk2++;
+        //              pointNum=0;//清空未画完斑点计数器
+
+        //              spotOriginX[drawOk]=midWidth+drawX/2*windowScale+drawZ*windowScale-h*windowScale;
+        //              spotOriginY[drawOk]=midHeight-drawY/2*windowScale-10;
+        //              spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //              spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //              spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //              spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //              stretch[drawOk]=windowScale/4;
+        //              rotation[drawOk]=90;
+
+        //              oPoint.clear();
+        //              for(int t=1;t<num+1;t++){
+        //                  tempPoint=new QPointF;
+        //                  tempPoint->setX(saveP[t][0]);
+        //                  tempPoint->setY(saveP[t][1]);
+        //                  oPoint.push_back(tempPoint);
+        //                  oPointAll.push_back(tempPoint);
+        //                      }
+        //              caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    //第三个边
+    for(int h=50;h<drawZ;h+=80){
+        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+        debugNum++;
+        spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        drawOk3++;
+        pointNum=0;//清空未画完斑点计数器
+
+        spotOriginX[drawOk]=midWidth-drawX/2*windowScale+10;
+        spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale;
+        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        stretch[drawOk]=windowScale/4;
+        rotation[drawOk]=0;
+
+
+        int detectI=1;
+        if(drawOk!=1){
+            for(detectI=1;detectI<11;detectI++){
+                if(collisonDetection(num,saveP)){
+                    //qDebug("detect%d",detectI);
+                    break;
+                }
+                else{
+                    drawOk--;
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+                }
+            }
+        }
+        //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
+        if(detectI<11){
+            //qDebug("绘制第%d个点",drawOk);
+            //把刚绘制完斑点的点保存起来
+            QPointF *tempPoint;
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
+            }
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+
+
+            //////////////////与另一条边对应
+            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+            drawOk3++;
+            pointNum=0;//清空未画完斑点计数器
+
+            spotOriginX[drawOk]=midWidth-drawX/2*windowScale-h*windowScale;
+            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
+            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+            stretch[drawOk]=windowScale/4;
+            rotation[drawOk]=90;
+
+            //把刚绘制完斑点的点保存起来
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
+            }
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        }
+        else{
+            drawOk--;
+        }
+
+
+
+
+        //                //把刚绘制完斑点的点保存起来
+        //                QPointF *tempPoint;
+        //                oPoint.clear();
+        //                for(int t=1;t<num+1;t++){
+        //                    tempPoint=new QPointF;
+        //                    tempPoint->setX(saveP[t][0]);
+        //                    tempPoint->setY(saveP[t][1]);
+        //                    oPoint.push_back(tempPoint);
+        //                    oPointAll.push_back(tempPoint);
+        //                        }
+        //                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        ///////////////////////////////////////////////////////////
+        //                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //                drawOk3++;
+        //                pointNum=0;//清空未画完斑点计数器
+
+        //                spotOriginX[drawOk]=midWidth-drawX/2*windowScale-h*windowScale;
+        //                spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
+        //                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //                stretch[drawOk]=windowScale/4;
+        //                rotation[drawOk]=90;
+
+        //                //把刚绘制完斑点的点保存起来
+        //                oPoint.clear();
+        //                for(int t=1;t<num+1;t++){
+        //                    tempPoint=new QPointF;
+        //                    tempPoint->setX(saveP[t][0]);
+        //                    tempPoint->setY(saveP[t][1]);
+        //                    oPoint.push_back(tempPoint);
+        //                    oPointAll.push_back(tempPoint);
+        //                        }
+        //                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    //第四个边
+    for(int h=50;h<drawZ;h+=80){
+        saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+        debugNum++;
+        spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        drawOk4++;
+        pointNum=0;//清空未画完斑点计数器
+
+        spotOriginX[drawOk]=midWidth+drawX/2*windowScale-10;
+        spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale;
+        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        stretch[drawOk]=windowScale/4;
+        rotation[drawOk]=0;
+
+
+        int detectI=1;
+        if(drawOk!=1){
+            for(detectI=1;detectI<11;detectI++){
+                if(collisonDetection(num,saveP)){
+                    //qDebug("detect%d",detectI);
+                    break;
+                }
+                else{
+                    drawOk--;
+                    saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                    debugNum++;
+                    spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                    pointNum=0;//清空未画完斑点计数器
+                }
+            }
+        }
+        //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
+        if(detectI<11){
+            //qDebug("绘制第%d个点",drawOk);
+            //把刚绘制完斑点的点保存起来
+            QPointF *tempPoint;
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
+            }
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+
+
+            //////////////////与另一条边对应
+            spotNum[++drawOk]=num;//把斑点含点个数保存起来
+            drawOk4++;
+            pointNum=0;//清空未画完斑点计数器
+
+            spotOriginX[drawOk]=midWidth+drawX/2*windowScale+h*windowScale;
+            spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
+            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+            stretch[drawOk]=windowScale/4;
+            rotation[drawOk]=-90;
+
+            //把刚绘制完斑点的点保存起来
+            oPoint.clear();
+            for(int t=1;t<num+1;t++){
+                tempPoint=new QPointF;
+                tempPoint->setX(saveP[t][0]);
+                tempPoint->setY(saveP[t][1]);
+                oPoint.push_back(tempPoint);
+                oPointAll.push_back(tempPoint);
+            }
+            caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        }
+        else{
+            drawOk--;
+        }
+
+
+
+        //                  //把刚绘制完斑点的点保存起来
+        //                  QPointF *tempPoint;
+        //                  oPoint.clear();
+        //                  for(int t=1;t<num+1;t++){
+        //                      tempPoint=new QPointF;
+        //                      tempPoint->setX(saveP[t][0]);
+        //                      tempPoint->setY(saveP[t][1]);
+        //                      oPoint.push_back(tempPoint);
+        //                      oPointAll.push_back(tempPoint);
+        //                          }
+        //                  caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+        //////////////////////////////////////////////////////////////////////////////////////////
+        //                  spotNum[++drawOk]=num;//把斑点含点个数保存起来
+        //                  drawOk4++;
+        //                  pointNum=0;//清空未画完斑点计数器
+
+        //                  spotOriginX[drawOk]=midWidth+drawX/2*windowScale+h*windowScale;
+        //                  spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
+        //                  spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        //                  spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+        //                  spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        //                  spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        //                  stretch[drawOk]=windowScale/4;
+        //                  rotation[drawOk]=-90;
+
+        //                  //把刚绘制完斑点的点保存起来
+        //                  oPoint.clear();
+        //                  for(int t=1;t<num+1;t++){
+        //                      tempPoint=new QPointF;
+        //                      tempPoint->setX(saveP[t][0]);
+        //                      tempPoint->setY(saveP[t][1]);
+        //                      oPoint.push_back(tempPoint);
+        //                      oPointAll.push_back(tempPoint);
+        //                          }
+        //                  caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+    }
+    //          //qDebug("######################:   %d   %d   %d   %d",drawOk1,drawOk2,drawOk3,drawOk4);
+}
+
+void DrawWidget::getCanvasBigPoint(){
+    if(AutoCADFlag){
+        float saveP[300][2];
+        int num;
+        int thisNum=1;
+        int spotReadNum;
+        int debugNum=0;
+
+        srand(time(0));
+        int ranNumAll[101];//=rand()%100+1;
+        for(int i=1;i<101;i++){
+            ranNumAll[i]=rand()%100+1;
+        }
+
+        //上边部分
+        for(int h=300;h<drawY+drawZ*2;h+=100){
+            for(int w=80;w<drawX-50;w+=100){
+
+                //saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                saveGet.readBigSpotPoint(&num,saveP,debugNum);
                 debugNum++;
                 spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                drawOk3++;
+                //            if(debugNum==1){
+                //                qDebug("首个点：%d",spotReadNum);
+                //            }
                 pointNum=0;//清空未画完斑点计数器
 
-                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+10;
-                spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale;
+                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale/*+ranNum*windowScale*/+h*windowScale;
                 spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
                 spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
                 spotOriginPOX[drawOk]=spotOriginOX[drawOk];
@@ -5672,7 +5931,7 @@ void DrawWidget::getEdgePoint(){
                 stretch[drawOk]=windowScale/4;
                 rotation[drawOk]=0;
 
-
+                //qDebug("drawOk shi:%d   %d",drawOk,num);
                 int detectI=1;
                 if(drawOk!=1){
                     for(detectI=1;detectI<11;detectI++){
@@ -5682,7 +5941,7 @@ void DrawWidget::getEdgePoint(){
                         }
                         else{
                             drawOk--;
-                            saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
+                            saveGet.readBigSpotPoint(&num,saveP,debugNum);
                             debugNum++;
                             spotNum[++drawOk]=num;//把斑点含点个数保存起来
                             pointNum=0;//清空未画完斑点计数器
@@ -5692,265 +5951,6 @@ void DrawWidget::getEdgePoint(){
                 //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
                 if(detectI<11){
                     //qDebug("绘制第%d个点",drawOk);
-                        //把刚绘制完斑点的点保存起来
-                        QPointF *tempPoint;
-                        oPoint.clear();
-                        for(int t=1;t<num+1;t++){
-                            tempPoint=new QPointF;
-                            tempPoint->setX(saveP[t][0]);
-                            tempPoint->setY(saveP[t][1]);
-                            oPoint.push_back(tempPoint);
-                            oPointAll.push_back(tempPoint);
-                                }
-                        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-
-
-                        //////////////////与另一条边对应
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        drawOk3++;
-                        pointNum=0;//清空未画完斑点计数器
-
-                        spotOriginX[drawOk]=midWidth-drawX/2*windowScale-h*windowScale;
-                        spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
-                        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                        stretch[drawOk]=windowScale/4;
-                        rotation[drawOk]=90;
-
-                        //把刚绘制完斑点的点保存起来
-                        oPoint.clear();
-                        for(int t=1;t<num+1;t++){
-                            tempPoint=new QPointF;
-                            tempPoint->setX(saveP[t][0]);
-                            tempPoint->setY(saveP[t][1]);
-                            oPoint.push_back(tempPoint);
-                            oPointAll.push_back(tempPoint);
-                                }
-                        caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                }
-                else{
-                    drawOk--;
-                }
-
-
-
-
-//                //把刚绘制完斑点的点保存起来
-//                QPointF *tempPoint;
-//                oPoint.clear();
-//                for(int t=1;t<num+1;t++){
-//                    tempPoint=new QPointF;
-//                    tempPoint->setX(saveP[t][0]);
-//                    tempPoint->setY(saveP[t][1]);
-//                    oPoint.push_back(tempPoint);
-//                    oPointAll.push_back(tempPoint);
-//                        }
-//                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-///////////////////////////////////////////////////////////
-//                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//                drawOk3++;
-//                pointNum=0;//清空未画完斑点计数器
-
-//                spotOriginX[drawOk]=midWidth-drawX/2*windowScale-h*windowScale;
-//                spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
-//                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//                stretch[drawOk]=windowScale/4;
-//                rotation[drawOk]=90;
-
-//                //把刚绘制完斑点的点保存起来
-//                oPoint.clear();
-//                for(int t=1;t<num+1;t++){
-//                    tempPoint=new QPointF;
-//                    tempPoint->setX(saveP[t][0]);
-//                    tempPoint->setY(saveP[t][1]);
-//                    oPoint.push_back(tempPoint);
-//                    oPointAll.push_back(tempPoint);
-//                        }
-//                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-        }
-///////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
-            //第四个边
-              for(int h=50;h<drawZ;h+=80){
-                  saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                  debugNum++;
-                  spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                  drawOk4++;
-                  pointNum=0;//清空未画完斑点计数器
-
-                  spotOriginX[drawOk]=midWidth+drawX/2*windowScale-10;
-                  spotOriginY[drawOk]=midHeight+drawY/2*windowScale+h*windowScale;
-                  spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                  spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                  spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                  spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                  stretch[drawOk]=windowScale/4;
-                  rotation[drawOk]=0;
-
-
-                  int detectI=1;
-                  if(drawOk!=1){
-                      for(detectI=1;detectI<11;detectI++){
-                          if(collisonDetection(num,saveP)){
-                              //qDebug("detect%d",detectI);
-                              break;
-                          }
-                          else{
-                              drawOk--;
-                              saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-                              debugNum++;
-                              spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                              pointNum=0;//清空未画完斑点计数器
-                          }
-                      }
-                  }
-                  //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
-                  if(detectI<11){
-                      //qDebug("绘制第%d个点",drawOk);
-                          //把刚绘制完斑点的点保存起来
-                          QPointF *tempPoint;
-                          oPoint.clear();
-                          for(int t=1;t<num+1;t++){
-                              tempPoint=new QPointF;
-                              tempPoint->setX(saveP[t][0]);
-                              tempPoint->setY(saveP[t][1]);
-                              oPoint.push_back(tempPoint);
-                              oPointAll.push_back(tempPoint);
-                                  }
-                          caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-
-
-                          //////////////////与另一条边对应
-                          spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                          drawOk4++;
-                          pointNum=0;//清空未画完斑点计数器
-
-                          spotOriginX[drawOk]=midWidth+drawX/2*windowScale+h*windowScale;
-                          spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
-                          spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-                          spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-                          spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-                          spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-                          stretch[drawOk]=windowScale/4;
-                          rotation[drawOk]=-90;
-
-                          //把刚绘制完斑点的点保存起来
-                          oPoint.clear();
-                          for(int t=1;t<num+1;t++){
-                              tempPoint=new QPointF;
-                              tempPoint->setX(saveP[t][0]);
-                              tempPoint->setY(saveP[t][1]);
-                              oPoint.push_back(tempPoint);
-                              oPointAll.push_back(tempPoint);
-                                  }
-                          caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                  }
-                  else{
-                      drawOk--;
-                  }
-
-
-
-//                  //把刚绘制完斑点的点保存起来
-//                  QPointF *tempPoint;
-//                  oPoint.clear();
-//                  for(int t=1;t<num+1;t++){
-//                      tempPoint=new QPointF;
-//                      tempPoint->setX(saveP[t][0]);
-//                      tempPoint->setY(saveP[t][1]);
-//                      oPoint.push_back(tempPoint);
-//                      oPointAll.push_back(tempPoint);
-//                          }
-//                  caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-//////////////////////////////////////////////////////////////////////////////////////////
-//                  spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//                  drawOk4++;
-//                  pointNum=0;//清空未画完斑点计数器
-
-//                  spotOriginX[drawOk]=midWidth+drawX/2*windowScale+h*windowScale;
-//                  spotOriginY[drawOk]=midHeight+drawY/2*windowScale+10;
-//                  spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//                  spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//                  spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//                  spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//                  stretch[drawOk]=windowScale/4;
-//                  rotation[drawOk]=-90;
-
-//                  //把刚绘制完斑点的点保存起来
-//                  oPoint.clear();
-//                  for(int t=1;t<num+1;t++){
-//                      tempPoint=new QPointF;
-//                      tempPoint->setX(saveP[t][0]);
-//                      tempPoint->setY(saveP[t][1]);
-//                      oPoint.push_back(tempPoint);
-//                      oPointAll.push_back(tempPoint);
-//                          }
-//                  caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-          }
-//          //qDebug("######################:   %d   %d   %d   %d",drawOk1,drawOk2,drawOk3,drawOk4);
-}
-
-void DrawWidget::getCanvasBigPoint(){
-    if(AutoCADFlag){
-    float saveP[300][2];
-    int num;
-    int thisNum=1;
-    int spotReadNum;
-    int debugNum=0;
-
-    srand(time(0));
-    int ranNumAll[101];//=rand()%100+1;
-    for(int i=1;i<101;i++){
-        ranNumAll[i]=rand()%100+1;
-    }
-
-    //上边部分
-    for(int h=300;h<drawY+drawZ*2;h+=100){
-        for(int w=80;w<drawX-50;w+=100){
-
-            //saveGet.readSpotPoint(spotReadNum,&num,saveP,debugNum);//第一个参数没用
-            saveGet.readBigSpotPoint(&num,saveP,debugNum);
-            debugNum++;
-            spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//            if(debugNum==1){
-//                qDebug("首个点：%d",spotReadNum);
-//            }
-            pointNum=0;//清空未画完斑点计数器
-
-            spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-            spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale/*+ranNum*windowScale*/+h*windowScale;
-            spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-            spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-            spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-            spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-            stretch[drawOk]=windowScale/4;
-            rotation[drawOk]=0;
-
-            //qDebug("drawOk shi:%d   %d",drawOk,num);
-            int detectI=1;
-            if(drawOk!=1){
-                for(detectI=1;detectI<11;detectI++){
-                    if(collisonDetection(num,saveP)){
-                        //qDebug("detect%d",detectI);
-                        break;
-                    }
-                    else{
-                        drawOk--;
-                        saveGet.readBigSpotPoint(&num,saveP,debugNum);
-                        debugNum++;
-                        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-                        pointNum=0;//清空未画完斑点计数器
-                    }
-                }
-            }
-            //qDebug("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%d@@@@@@%d$$$$$%d",detectI,w,h);
-            if(detectI<11){
-                //qDebug("绘制第%d个点",drawOk);
                     //把刚绘制完斑点的点保存起来
                     QPointF *tempPoint;
                     oPoint.clear();
@@ -5960,113 +5960,113 @@ void DrawWidget::getCanvasBigPoint(){
                         tempPoint->setY(saveP[t][1]);
                         oPoint.push_back(tempPoint);
                         oPointAll.push_back(tempPoint);
-                            }
+                    }
                     caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-            }
-            else{
-                drawOk--;
-            }
+                }
+                else{
+                    drawOk--;
+                }
 
 
-            //for(int h=1;h<drawY;h+=600){
-//            ranNum=ranNumAll[thisNum];
-//                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-//                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//                pointNum=0;//清空未画完斑点计数器
+                //for(int h=1;h<drawY;h+=600){
+                //            ranNum=ranNumAll[thisNum];
+                //                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+                //                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                //                pointNum=0;//清空未画完斑点计数器
 
-//                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-//                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranNum*windowScale+h*windowScale;
-//                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//                stretch[drawOk]=windowScale/4;
-//                rotation[drawOk]=0;
+                //                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+                //                spotOriginY[drawOk]=midHeight-drawY/2*windowScale-drawZ*windowScale+ranNum*windowScale+h*windowScale;
+                //                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                //                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                //                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                //                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                //                stretch[drawOk]=windowScale/4;
+                //                rotation[drawOk]=0;
 
-//                //把刚绘制完斑点的点保存起来
-//                QPointF *tempPoint;
-//                oPoint.clear();
-//                for(int t=1;t<num+1;t++){
-//                    tempPoint=new QPointF;
-//                    tempPoint->setX(saveP[t][0]);
-//                    tempPoint->setY(saveP[t][1]);
-//                    oPoint.push_back(tempPoint);
-//                    oPointAll.push_back(tempPoint);
-//                        }
-//                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //                //把刚绘制完斑点的点保存起来
+                //                QPointF *tempPoint;
+                //                oPoint.clear();
+                //                for(int t=1;t<num+1;t++){
+                //                    tempPoint=new QPointF;
+                //                    tempPoint->setX(saveP[t][0]);
+                //                    tempPoint->setY(saveP[t][1]);
+                //                    oPoint.push_back(tempPoint);
+                //                    oPointAll.push_back(tempPoint);
+                //                        }
+                //                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
                 //////////////////////////////////////////////////////////////////////
 
-//                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-//                spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//                pointNum=0;//清空未画完斑点计数器
+                //                saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+                //                spotNum[++drawOk]=num;//把斑点含点个数保存起来
+                //                pointNum=0;//清空未画完斑点计数器
 
-//                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-//                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+550*windowScale-drawZ/2*windowScale+ranNum*windowScale;
-//                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//                stretch[drawOk]=windowScale/4;
-//                rotation[drawOk]=0;
+                //                spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+                //                spotOriginY[drawOk]=midHeight-drawY/2*windowScale+550*windowScale-drawZ/2*windowScale+ranNum*windowScale;
+                //                spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+                //                spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+                //                spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+                //                spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+                //                stretch[drawOk]=windowScale/4;
+                //                rotation[drawOk]=0;
 
-//                //把刚绘制完斑点的点保存起来
-//                QPointF *tempPoint1;
-//                oPoint.clear();
-//                for(int t=1;t<num+1;t++){
-//                    tempPoint1=new QPointF;
-//                    tempPoint1->setX(saveP[t][0]);
-//                    tempPoint1->setY(saveP[t][1]);
-//                    oPoint.push_back(tempPoint1);
-//                    oPointAll.push_back(tempPoint1);
-//                        }
-//                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                //                //把刚绘制完斑点的点保存起来
+                //                QPointF *tempPoint1;
+                //                oPoint.clear();
+                //                for(int t=1;t<num+1;t++){
+                //                    tempPoint1=new QPointF;
+                //                    tempPoint1->setX(saveP[t][0]);
+                //                    tempPoint1->setY(saveP[t][1]);
+                //                    oPoint.push_back(tempPoint1);
+                //                    oPointAll.push_back(tempPoint1);
+                //                        }
+                //                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
 
 
                 thisNum++;
                 thisNum=thisNum%100+1;
 
+            }
+            //        int addNum=1;
+            //for(int w=80;w<drawX-50;w+=100){
+            //        saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
+            //        spotNum[++drawOk]=num;//把斑点含点个数保存起来
+            //        pointNum=0;//清空未画完斑点计数器
+
+            //        spotOriginX[drawOk]=spotOriginX[addNum];
+            //        spotOriginY[drawOk]=spotOriginY[addNum]+550*windowScale;
+            //        //spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
+            //        //spotOriginY[drawOk]=midHeight-drawY/2*windowScale+550*windowScale-drawZ/2*windowScale+ranNum*windowScale;
+            //        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+            //        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+            //        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+            //        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+            //        stretch[drawOk]=windowScale/4;
+            //        rotation[drawOk]=0;
+
+            //        //把刚绘制完斑点的点保存起来
+            //        QPointF *tempPoint1;
+            //        oPoint.clear();
+            //        for(int t=1;t<num+1;t++){
+            //            tempPoint1=new QPointF;
+            //            tempPoint1->setX(saveP[t][0]);
+            //            tempPoint1->setY(saveP[t][1]);
+            //            oPoint.push_back(tempPoint1);
+            //            oPointAll.push_back(tempPoint1);
+            //                }
+            //        caculateOneCurve();
+            //        addNum++;
+            //        }//计算最后一个斑点的数据，包括thePoint和cPath
+
+            //    //下边部分
+            //        for(int w=80;w<drawX-50;w+=100){
+            //            //for(int h=1;h<drawY;h+=600){
+            //                thisNum=1;
+            //                ranNum=ranNumAll[thisNum];
+
+            //                thisNum++;
+            //                thisNum=thisNum%100+1;
+            //        }
         }
-//        int addNum=1;
-//for(int w=80;w<drawX-50;w+=100){
-//        saveGet.readBigSpotPoint(&num,saveP);//第一个参数没用
-//        spotNum[++drawOk]=num;//把斑点含点个数保存起来
-//        pointNum=0;//清空未画完斑点计数器
-
-//        spotOriginX[drawOk]=spotOriginX[addNum];
-//        spotOriginY[drawOk]=spotOriginY[addNum]+550*windowScale;
-//        //spotOriginX[drawOk]=midWidth-drawX/2*windowScale+w*windowScale;
-//        //spotOriginY[drawOk]=midHeight-drawY/2*windowScale+550*windowScale-drawZ/2*windowScale+ranNum*windowScale;
-//        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-//        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
-//        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-//        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
-//        stretch[drawOk]=windowScale/4;
-//        rotation[drawOk]=0;
-
-//        //把刚绘制完斑点的点保存起来
-//        QPointF *tempPoint1;
-//        oPoint.clear();
-//        for(int t=1;t<num+1;t++){
-//            tempPoint1=new QPointF;
-//            tempPoint1->setX(saveP[t][0]);
-//            tempPoint1->setY(saveP[t][1]);
-//            oPoint.push_back(tempPoint1);
-//            oPointAll.push_back(tempPoint1);
-//                }
-//        caculateOneCurve();
-//        addNum++;
-//        }//计算最后一个斑点的数据，包括thePoint和cPath
-
-//    //下边部分
-//        for(int w=80;w<drawX-50;w+=100){
-//            //for(int h=1;h<drawY;h+=600){
-//                thisNum=1;
-//                ranNum=ranNumAll[thisNum];
-
-//                thisNum++;
-//                thisNum=thisNum%100+1;
-//        }
-    }
         //update();
 
     }
@@ -6095,27 +6095,27 @@ void DrawWidget::judgeIntersection(int num[5][1000],int count/*五视图的哪�
         for(float i=ox;i<ox+wid;i+=wid/30){
             for(j=oy;j<oy+hei;j+=hei/30){
                 //qDebug("~~~~~~~~~%f %f",i,j);
-                    x=(i-spotOriginX[t])*cos(-rotation[t]/180*PI)/stretch[t]-(j-spotOriginY[t])*sin(-rotation[t]/180*PI)/stretch[t];
-                    y=(i-spotOriginX[t])*sin(-rotation[t]/180*PI)/stretch[t]+(j-spotOriginY[t])*cos(-rotation[t]/180*PI)/stretch[t];
-                    //qDebug("oooo:%f %f",spotOriginX[t],spotOriginY[t]);
-                    //qDebug("yuan:%f %f",i,j);
-                    //qDebug("bian:%f %f",x,y);
-                    tempPoint.setX(x);
-                    tempPoint.setY(y);
-                    if((*temp)->contains(tempPoint)){
-                        num[count][(*hasNum)]=t;//保存斑点序号
-                        //qDebug("&&&&%d %d",count,*hasNum);
-                        (*hasNum)++;//此处为五视图所包含斑点个数,数组下表从0开始
-                        con=0;
-                        //qDebug("!!!%d",t);
-                        break;
-                    }
+                x=(i-spotOriginX[t])*cos(-rotation[t]/180*PI)/stretch[t]-(j-spotOriginY[t])*sin(-rotation[t]/180*PI)/stretch[t];
+                y=(i-spotOriginX[t])*sin(-rotation[t]/180*PI)/stretch[t]+(j-spotOriginY[t])*cos(-rotation[t]/180*PI)/stretch[t];
+                //qDebug("oooo:%f %f",spotOriginX[t],spotOriginY[t]);
+                //qDebug("yuan:%f %f",i,j);
+                //qDebug("bian:%f %f",x,y);
+                tempPoint.setX(x);
+                tempPoint.setY(y);
+                if((*temp)->contains(tempPoint)){
+                    num[count][(*hasNum)]=t;//保存斑点序号
+                    //qDebug("&&&&%d %d",count,*hasNum);
+                    (*hasNum)++;//此处为五视图所包含斑点个数,数组下表从0开始
+                    con=0;
+                    //qDebug("!!!%d",t);
+                    break;
                 }
+            }
             if(!con)
                 break;
-            }
-        t++;
         }
+        t++;
+    }
     //qDebug("%d",(*hasNum));
 }
 void DrawWidget::keyPressEvent(QKeyEvent *event){
@@ -6126,12 +6126,12 @@ void DrawWidget::keyPressEvent(QKeyEvent *event){
         ctrlFlag=1;
         //qDebug("xian shi 1111111111");
         //qDebug("xian shi :%d",flag);
-//        if(markFlag==4){
-//            //qDebug("xian shi 1111111111");
-//            if(!ctrlSize){
-//                addCtrlSpot();
-//            }
-//        }
+        //        if(markFlag==4){
+        //            //qDebug("xian shi 1111111111");
+        //            if(!ctrlSize){
+        //                addCtrlSpot();
+        //            }
+        //        }
     }
 
 }
@@ -6147,240 +6147,236 @@ void DrawWidget::keyReleaseEvent(QKeyEvent *event){
 
 void DrawWidget::mapping(){
     if(fabs(windowScale-1)<0.001){
-   cWindow=new childWindow();
-   cWindow->setWindowTitle(QObject::tr("模型视图"));
-   cWindow->show();
-   connect(cWindow,SIGNAL(ChildWindowEvent()),this,SLOT(ChildWindowEventSlot()));
+        cWindow=new childWindow();
+        cWindow->setWindowTitle(QObject::tr("模型视图"));
+        cWindow->show();
+        connect(cWindow,SIGNAL(ChildWindowEvent()),this,SLOT(ChildWindowEventSlot()));
 
 
-    //int num[5][100],hasNum/*记录斑点个数*/;
-    int num[5][1000],hasNum/*记录斑点个数*/;
-    list<QPainterPath*>::iterator tempPath;
-    float oX,oY;
-    QPen pen(backGroundColor,0,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin);
+        //int num[5][100],hasNum/*记录斑点个数*/;
+        int num[5][1000],hasNum/*记录斑点个数*/;
+        list<QPainterPath*>::iterator tempPath;
+        float oX,oY;
+        QPen pen(backGroundColor,0,Qt::SolidLine,Qt::RoundCap,Qt::RoundJoin);
 
+        if(gyflag)return;
+        //第一副图
+        judgeIntersection(num,0,&hasNum,midWidth-drawX/2,midHeight-drawY/2-drawZ,drawX,drawZ);
+        QPixmap pix1(drawX,drawZ);
+        QPainter p1(&pix1);
+        p1.setBrush(backGroundColor);
 
-    //第一副图
-    judgeIntersection(num,0,&hasNum,midWidth-drawX/2,midHeight-drawY/2-drawZ,drawX,drawZ);
-    QPixmap pix1(drawX,drawZ);
-    QPainter p1(&pix1);
-    p1.setBrush(backGroundColor);
+        p1.setPen(Qt::NoPen);
+        //p1.setPen(Qt::pen);
+        p1.drawRect(0,0,drawX,drawZ);
 
-    p1.setPen(Qt::NoPen);
-    //p1.setPen(Qt::pen);
-    p1.drawRect(0,0,drawX,drawZ);
+        for(int i=0;i<hasNum;i++){
 
-    for(int i=0;i<hasNum;i++){
+            oX=spotOriginX[num[0][i]]-(midWidth-drawX/2);
+            oY=spotOriginY[num[0][i]]-(midHeight-drawY/2-drawZ);
 
-        oX=spotOriginX[num[0][i]]-(midWidth-drawX/2);
-        oY=spotOriginY[num[0][i]]-(midHeight-drawY/2-drawZ);
+            p1.translate(oX,oY);
+            p1.scale(stretch[num[0][i]],stretch[num[0][i]]);
+            p1.rotate(rotation[num[0][i]]);
+            //qDebug("jiaodu: %f",rotation[num[0][i]]);
+            //qDebug("!!!!!!!!!%f",stretch[num[0][i]]/windowScale);
 
-        p1.translate(oX,oY);
-        p1.scale(stretch[num[0][i]],stretch[num[0][i]]);
-        p1.rotate(rotation[num[0][i]]);
-        //qDebug("jiaodu: %f",rotation[num[0][i]]);
-        //qDebug("!!!!!!!!!%f",stretch[num[0][i]]/windowScale);
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[0][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[0][i]);
+            p1.setBrush(spotColor);
+            p1.drawPath(**tempPath);
+            p1.setBrush(Qt::NoBrush);
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[0][i];j++){
-            tempPath++;
+            p1.scale(1/stretch[num[0][i]],1/stretch[num[0][i]]);
+            p1.rotate(-rotation[num[0][i]]);
+            p1.translate(-oX,-oY);
+
         }
-        getSpotColor(num[0][i]);
-        p1.setBrush(spotColor);
-        p1.drawPath(**tempPath);
-        p1.setBrush(Qt::NoBrush);
-
-        p1.scale(1/stretch[num[0][i]],1/stretch[num[0][i]]);
-        p1.rotate(-rotation[num[0][i]]);
-        p1.translate(-oX,-oY);
-
-    }
-    p1.end();
-    pix1.save("../draw/image/1.png");
+        p1.end();
+        pix1.save("./image/1.png");
 
 
-    //第二幅图
-    judgeIntersection(num,1,&hasNum,midWidth-drawX/2-drawZ,midHeight-drawY/2,drawZ,drawY);
-    //qDebug("%d",hasNum);
-    QPixmap pix2(drawZ,drawY);
-    QPainter p2(&pix2);
-    p2.setBrush(backGroundColor);
+        //第二幅图
+        judgeIntersection(num,1,&hasNum,midWidth-drawX/2-drawZ,midHeight-drawY/2,drawZ,drawY);
+        //qDebug("%d",hasNum);
+        QPixmap pix2(drawZ,drawY);
+        QPainter p2(&pix2);
+        p2.setBrush(backGroundColor);
 
-    //p2.setPen(pen);
-    p2.setPen(Qt::NoPen);
-    p2.drawRect(0,0,drawZ,drawY);
+        //p2.setPen(pen);
+        p2.setPen(Qt::NoPen);
+        p2.drawRect(0,0,drawZ,drawY);
 
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[1][0],num[1][1]);
-    for(int i=0;i<hasNum;i++){
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[1][0],num[1][1]);
+        for(int i=0;i<hasNum;i++){
 
-        oX=spotOriginX[num[1][i]]-(midWidth-drawX/2-drawZ);
-        oY=spotOriginY[num[1][i]]-(midHeight-drawY/2);
+            oX=spotOriginX[num[1][i]]-(midWidth-drawX/2-drawZ);
+            oY=spotOriginY[num[1][i]]-(midHeight-drawY/2);
 
-        p2.translate(oX,oY);
-        p2.scale(stretch[num[1][i]],stretch[num[1][i]]/windowScale);
-        p2.rotate(rotation[num[1][i]]);
+            p2.translate(oX,oY);
+            p2.scale(stretch[num[1][i]],stretch[num[1][i]]/windowScale);
+            p2.rotate(rotation[num[1][i]]);
 
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[1][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[1][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[1][i]);
+            p2.setBrush(spotColor);
+            p2.drawPath(**tempPath);
+            p2.setBrush(Qt::NoBrush);
+
+            p2.scale(1/stretch[num[1][i]],1/stretch[num[1][i]]);
+            p2.rotate(-rotation[num[1][i]]);
+            p2.translate(-oX,-oY);
+
         }
-        getSpotColor(num[1][i]);
-        p2.setBrush(spotColor);
-        p2.drawPath(**tempPath);
-        p2.setBrush(Qt::NoBrush);
-
-        p2.scale(1/stretch[num[1][i]],1/stretch[num[1][i]]);
-        p2.rotate(-rotation[num[1][i]]);
-        p2.translate(-oX,-oY);
-
-    }
-    p2.end();
-    pix2.save("../draw/image/2.png");
+        p2.end();
+        pix2.save("./image/2.png");
 
 
-    //第三幅图
-    judgeIntersection(num,2,&hasNum,midWidth-drawX/2,midHeight-drawY/2,drawX,drawY);
-    //qDebug("%d",hasNum);
-    QPixmap pix3(drawX,drawY);
-    QPainter p3(&pix3);
-    p3.setBrush(backGroundColor);
+        //第三幅图
+        judgeIntersection(num,2,&hasNum,midWidth-drawX/2,midHeight-drawY/2,drawX,drawY);
+        //qDebug("%d",hasNum);
+        QPixmap pix3(drawX,drawY);
+        QPainter p3(&pix3);
+        p3.setBrush(backGroundColor);
 
-    //p3.setPen(pen);
-    p3.setPen(Qt::NoPen);
-    p3.drawRect(0,0,drawX,drawY);
+        //p3.setPen(pen);
+        p3.setPen(Qt::NoPen);
+        p3.drawRect(0,0,drawX,drawY);
 
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[2][0],num[2][1]);
-    for(int i=0;i<hasNum;i++){
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[2][0],num[2][1]);
+        for(int i=0;i<hasNum;i++){
 
-        oX=spotOriginX[num[2][i]]-(midWidth-drawX/2);
-        oY=spotOriginY[num[2][i]]-(midHeight-drawY/2);
+            oX=spotOriginX[num[2][i]]-(midWidth-drawX/2);
+            oY=spotOriginY[num[2][i]]-(midHeight-drawY/2);
 
-        p3.translate(oX,oY);
-        p3.scale(stretch[num[2][i]],stretch[num[2][i]]);
-        p3.rotate(rotation[num[2][i]]);
+            p3.translate(oX,oY);
+            p3.scale(stretch[num[2][i]],stretch[num[2][i]]);
+            p3.rotate(rotation[num[2][i]]);
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[2][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[2][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[2][i]);
+            p3.setBrush(spotColor);
+            p3.drawPath(**tempPath);
+            p3.setBrush(Qt::NoBrush);
+
+            p3.scale(1/stretch[num[2][i]],1/stretch[num[2][i]]);
+            p3.rotate(-rotation[num[2][i]]);
+            p3.translate(-oX,-oY);
+
         }
-        getSpotColor(num[2][i]);
-        p3.setBrush(spotColor);
-        p3.drawPath(**tempPath);
-        p3.setBrush(Qt::NoBrush);
+        p3.end();
+        pix3.save("./image/3.png");
 
-        p3.scale(1/stretch[num[2][i]],1/stretch[num[2][i]]);
-        p3.rotate(-rotation[num[2][i]]);
-        p3.translate(-oX,-oY);
+        //第四幅图
+        judgeIntersection(num,3,&hasNum,midWidth+drawX/2,midHeight-drawY/2,drawZ,drawY);
+        //qDebug("%d",hasNum);
+        QPixmap pix4(drawZ,drawY);
+        QPainter p4(&pix4);
+        p4.setBrush(backGroundColor);
 
-    }
-    p3.end();
-    pix3.save("../draw/image/3.png");
+        //p4.setPen(pen);
+        p4.setPen(Qt::NoPen);
+        p4.drawRect(0,0,drawZ,drawY);
 
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[2][0],num[2][1]);
+        for(int i=0;i<hasNum;i++){
 
+            oX=spotOriginX[num[3][i]]-(midWidth+drawX/2);
+            oY=spotOriginY[num[3][i]]-(midHeight-drawY/2);
 
-
-
-    //第四幅图
-    judgeIntersection(num,3,&hasNum,midWidth+drawX/2,midHeight-drawY/2,drawZ,drawY);
-    //qDebug("%d",hasNum);
-    QPixmap pix4(drawZ,drawY);
-    QPainter p4(&pix4);
-    p4.setBrush(backGroundColor);
-
-    //p4.setPen(pen);
-    p4.setPen(Qt::NoPen);
-    p4.drawRect(0,0,drawZ,drawY);
-
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[2][0],num[2][1]);
-    for(int i=0;i<hasNum;i++){
-
-        oX=spotOriginX[num[3][i]]-(midWidth+drawX/2);
-        oY=spotOriginY[num[3][i]]-(midHeight-drawY/2);
-
-        p4.translate(oX,oY);
-        p4.scale(stretch[num[3][i]],stretch[num[3][i]]);
-        p4.rotate(rotation[num[3][i]]);
+            p4.translate(oX,oY);
+            p4.scale(stretch[num[3][i]],stretch[num[3][i]]);
+            p4.rotate(rotation[num[3][i]]);
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[3][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[3][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[3][i]);
+            p4.setBrush(spotColor);
+            p4.drawPath(**tempPath);
+            p4.setBrush(Qt::NoBrush);
+
+            p4.scale(1/stretch[num[3][i]],1/stretch[num[3][i]]);
+            p4.rotate(-rotation[num[3][i]]);
+            p4.translate(-oX,-oY);
+
         }
-        getSpotColor(num[3][i]);
-        p4.setBrush(spotColor);
-        p4.drawPath(**tempPath);
-        p4.setBrush(Qt::NoBrush);
-
-        p4.scale(1/stretch[num[3][i]],1/stretch[num[3][i]]);
-        p4.rotate(-rotation[num[3][i]]);
-        p4.translate(-oX,-oY);
-
-    }
-    p4.end();
-    pix4.save("../draw/image/4.png");
+        p4.end();
+        pix4.save("./image/4.png");
 
 
 
 
-    //第五幅图
-    judgeIntersection(num,4,&hasNum,midWidth-drawX/2,midHeight+drawY/2,drawX,drawZ);
-    //qDebug("%d",hasNum);
-    QPixmap pix5(drawX,drawZ);
-    QPainter p5(&pix5);
-    p5.setBrush(backGroundColor);
+        //第五幅图
+        judgeIntersection(num,4,&hasNum,midWidth-drawX/2,midHeight+drawY/2,drawX,drawZ);
+        //qDebug("%d",hasNum);
+        QPixmap pix5(drawX,drawZ);
+        QPainter p5(&pix5);
+        p5.setBrush(backGroundColor);
 
-    p5.setPen(pen);
-    p5.drawRect(0,0,drawX,drawZ);
+        p5.setPen(pen);
+        p5.drawRect(0,0,drawX,drawZ);
 
-    //qDebug("   %d",hasNum);
-    //qDebug("   %d  %d",num[2][0],num[2][1]);
-    for(int i=0;i<hasNum;i++){
+        //qDebug("   %d",hasNum);
+        //qDebug("   %d  %d",num[2][0],num[2][1]);
+        for(int i=0;i<hasNum;i++){
 
-        oX=spotOriginX[num[4][i]]-(midWidth-drawX/2);
-        oY=spotOriginY[num[4][i]]-(midHeight+drawY/2);
+            oX=spotOriginX[num[4][i]]-(midWidth-drawX/2);
+            oY=spotOriginY[num[4][i]]-(midHeight+drawY/2);
 
-        p5.translate(oX,oY);
-        p5.scale(stretch[num[4][i]],stretch[num[4][i]]);
-        p5.rotate(rotation[num[4][i]]);
+            p5.translate(oX,oY);
+            p5.scale(stretch[num[4][i]],stretch[num[4][i]]);
+            p5.rotate(rotation[num[4][i]]);
 
 
-        //找到path
-        tempPath=allPath.begin();
-        for(int j=1;j<num[4][i];j++){
-            tempPath++;
+            //找到path
+            tempPath=allPath.begin();
+            for(int j=1;j<num[4][i];j++){
+                tempPath++;
+            }
+            getSpotColor(num[4][i]);
+            p5.setBrush(spotColor);
+            p5.drawPath(**tempPath);
+            p5.setBrush(Qt::NoBrush);
+
+            p5.scale(1/stretch[num[4][i]],1/stretch[num[4][i]]);
+            p5.rotate(-rotation[num[4][i]]);
+            p5.translate(-oX,-oY);
+
         }
-        getSpotColor(num[4][i]);
-        p5.setBrush(spotColor);
-        p5.drawPath(**tempPath);
-        p5.setBrush(Qt::NoBrush);
-
-        p5.scale(1/stretch[num[4][i]],1/stretch[num[4][i]]);
-        p5.rotate(-rotation[num[4][i]]);
-        p5.translate(-oX,-oY);
-
-    }
-    p5.end();
-    pix5.save("../draw/image/5.png");
+        p5.end();
+        pix5.save("./image/5.png");
     }
     else{
-         QMessageBox msgBox(this);
-         //msgBox.setIconPixmap(QPixmap("../draw/icon/huabu.png"));
+        QMessageBox msgBox(this);
+        //msgBox.setIconPixmap(QPixmap("./icon/huabu.png"));
 
-         msgBox.setWindowTitle(tr("提示"));
-         msgBox.setText(tr("当前缩放比例必须为1        "));
-         msgBox.setMinimumSize(200,100);
+        msgBox.setWindowTitle(tr("提示"));
+        msgBox.setText(tr("当前缩放比例必须为1        "));
+        msgBox.setMinimumSize(200,100);
         //QMessageBox::about(this,tr("提示信息"),tr("更新成功"));
-         msgBox.exec();
+        msgBox.exec();
     }
 
 
@@ -6435,15 +6431,15 @@ void DrawWidget::mousePressEvent(QMouseEvent *event){
                 }
                 update();
                 return;
-              }
+            }
             else
-            //若不是选中状态，则继续画点
+                //若不是选中状态，则继续画点
                 mousePressNotDrawOk();
             if(!ctrlFlag){
                 ctrlSize=0;
                 spotSelectedCtrl.clear();
-                }
             }
+        }
         else{
             //若非画笔选中状态
             if(oPointSelected()||spotSelected()){
@@ -6460,7 +6456,7 @@ void DrawWidget::mousePressEvent(QMouseEvent *event){
                 if(!ctrlFlag){
                     ctrlSize=0;
                     spotSelectedCtrl.clear();
-                    }
+                }
             }
         }
         update();
@@ -6500,36 +6496,36 @@ void DrawWidget::mousePressNotDrawOk(){
     else{
         //如果第一个点和最后一个点相同,并且总点个数大于2,则绘制斑点
         if(!oPoint.empty()){
-                F=oPoint.begin();
-                cPath=new(QPainterPath);
-                cPath->addEllipse((**F).x()-keyPointSize/2,(**F).y()-keyPointSize/2,keyPointSize,keyPointSize);
-                if(cPath->contains(*currentPoint)&&oPoint.size()>2)
-                {
-                    spotNum[++drawOk]=pointNum;//把斑点含点个数保存起来
-                    //qDebug("&&&&&&%d   %d",drawOk,spotNum[drawOk-1]);
-                    pointNum=0;//清空未画完斑点计数器
-                    addSpotOrigin(drawOk);
-                    stretch[drawOk]=1;
-                    rotation[drawOk]=0;
-                    addSpotPoint();//把刚绘制完斑点的点保存起来
-                    caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
-                    eventStyle=1;
-                    //qDebug("sdfsdf");
-                    emit ChildWindowEvent();
-                    delete cPath;
-                    saveStation();
-                    return;
-                }
+            F=oPoint.begin();
+            cPath=new(QPainterPath);
+            cPath->addEllipse((**F).x()-keyPointSize/2,(**F).y()-keyPointSize/2,keyPointSize,keyPointSize);
+            if(cPath->contains(*currentPoint)&&oPoint.size()>2)
+            {
+                spotNum[++drawOk]=pointNum;//把斑点含点个数保存起来
+                //qDebug("&&&&&&%d   %d",drawOk,spotNum[drawOk-1]);
+                pointNum=0;//清空未画完斑点计数器
+                addSpotOrigin(drawOk);
+                stretch[drawOk]=1;
+                rotation[drawOk]=0;
+                addSpotPoint();//把刚绘制完斑点的点保存起来
+                caculateOneCurve();//计算最后一个斑点的数据，包括thePoint和cPath
+                eventStyle=1;
+                //qDebug("sdfsdf");
+                emit ChildWindowEvent();
                 delete cPath;
+                saveStation();
+                return;
+            }
+            delete cPath;
         }
 
         if(flag==0&&drawFlag==1){
-          tempPoint=new QPointF;
-          tempPoint->setX(currentPoint->x());
-          tempPoint->setY(currentPoint->y());
-          //qDebug("~~~~%f  %f",currentPoint->x(),currentPoint->y());
-          oPoint.push_back(tempPoint);//斑点没有绘制完成，加点
-          pointNum++;
+            tempPoint=new QPointF;
+            tempPoint->setX(currentPoint->x());
+            tempPoint->setY(currentPoint->y());
+            //qDebug("~~~~%f  %f",currentPoint->x(),currentPoint->y());
+            oPoint.push_back(tempPoint);//斑点没有绘制完成，加点
+            pointNum++;
         }
     }
 }
@@ -6604,8 +6600,8 @@ int DrawWidget::oPointMove(QMouseEvent *event){
     for(int i=1;i<oPointMoveFlag;i++){
         for(int j=1;j<spotNum[i]+1;j++){
             oP++;
-            }
         }
+    }
     for(int j=1;j<spotNum[oPointMoveFlag]+1;j++){
         oPointTemp.push_back(*oP);
         ++oP;
@@ -6614,12 +6610,12 @@ int DrawWidget::oPointMove(QMouseEvent *event){
 
     //把控制点放到计算list中
     oP1 = handlePointAll.begin();
-                        //thePoint.clear();
+    //thePoint.clear();
     for(int i=1;i<oPointMoveFlag;i++){
         for(int j=1;j<2*spotNum[i]+1;j++){
             oP1++;
-            }
         }
+    }
     //重新计算某个斑点控制点
     midPoint.clear();
     midM.clear();
@@ -6655,13 +6651,13 @@ int DrawWidget::oPointMove(QMouseEvent *event){
     oP--;
 
     for(;oP!=oPointTemp.end();++oPNext){
-                              path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
-                              midP++;
-                              midP++;
-                              midPNext=++midP;
-                              midP--;
-                              oP++;
-            }
+        path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
+        midP++;
+        midP++;
+        midPNext=++midP;
+        midP--;
+        oP++;
+    }
     oP=oPointTemp.begin();
     path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP).x(),(**oP).y());
 
@@ -6725,18 +6721,18 @@ int DrawWidget::oPointSelected(){
             cPath=new(QPainterPath);
             cPath->addEllipse((**temp1).x()-keyPointSize/2,(**temp1).y()-keyPointSize/2,keyPointSize,keyPointSize);
             if(cPath->contains(*currentPoint))//如果if为真,则点重合
-                {
-                    flag=2;
-                    markFlag=1;
-                    selectedPoint=new(QPointF);
-                    selectedPoint->setX((**temp1).x());
-                    selectedPoint->setY((**temp1).y());
-                    handleO.setX((**temp1).x());
-                    handleO.setY((**temp1).y());
-                    delete cPath;
-                    //addOPointEdit();
-                    return 1;
-                }
+            {
+                flag=2;
+                markFlag=1;
+                selectedPoint=new(QPointF);
+                selectedPoint->setX((**temp1).x());
+                selectedPoint->setY((**temp1).y());
+                handleO.setX((**temp1).x());
+                handleO.setY((**temp1).y());
+                delete cPath;
+                //addOPointEdit();
+                return 1;
+            }
             delete cPath;
         }
     }
@@ -6744,35 +6740,35 @@ int DrawWidget::oPointSelected(){
 
 
     if(drawOk){
-    //oPAll=oPointAll.begin();
-    int t=1;
-    int n=1;
-    for(;t<drawOk+1;t++){
-         //p.translate(spotOriginX[t],spotOriginY[t]);
-         n=1;
-        for(;n<spotNum[t]+1;n++){
-            //tempPoint.setX(currentPoint->x()/2);
-            //tempPoint.setY(currentPoint->x()/2);
-            cPath=new(QPainterPath);
-            float x,y;
-            //qDebug("   %f",stretch[t]);
-            //..x=(**temp).x()*cos(rotation[t]/180*PI)*stretch[t]-(**temp).y()*sin(rotation[t]/180*PI)*stretch[t]+spotOriginX[t]-keyPointSize/2*stretch[t];
-            //..y=(**temp).x()*sin(rotation[t]/180*PI)*stretch[t]+(**temp).y()*cos(rotation[t]/180*PI)*stretch[t]+spotOriginY[t]-keyPointSize/2*stretch[t];
-            x=(currentPoint->x()-spotOriginX[t])*cos(-rotation[t]/180*PI)/stretch[t]-(currentPoint->y()-spotOriginY[t])*sin(-rotation[t]/180*PI)/stretch[t];
-            y=(currentPoint->x()-spotOriginX[t])*sin(-rotation[t]/180*PI)/stretch[t]+(currentPoint->y()-spotOriginY[t])*cos(-rotation[t]/180*PI)/stretch[t];
-            QPointF tempPoint1;
-            tempPoint1.setX(x);
-            tempPoint1.setY(y);
-            //qDebug("%f  %f",sin(PI/2),cos(PI/2));
-            //qDebug("%f  %f",(*currentPoint).x(),(*currentPoint).y());
-            //qDebug("%f  %f",x,y);
-            //cPath->addEllipse(((**temp).x()-keyPointSize/2)/2+spotOriginX[t],((**temp).y()-keyPointSize/2)/2+spotOriginY[t],keyPointSize/2,keyPointSize/2);
-            cPath->addEllipse((**temp).x()-keyPointSize/2,(**temp).y()-keyPointSize/2,keyPointSize,keyPointSize);
+        //oPAll=oPointAll.begin();
+        int t=1;
+        int n=1;
+        for(;t<drawOk+1;t++){
+            //p.translate(spotOriginX[t],spotOriginY[t]);
+            n=1;
+            for(;n<spotNum[t]+1;n++){
+                //tempPoint.setX(currentPoint->x()/2);
+                //tempPoint.setY(currentPoint->x()/2);
+                cPath=new(QPainterPath);
+                float x,y;
+                //qDebug("   %f",stretch[t]);
+                //..x=(**temp).x()*cos(rotation[t]/180*PI)*stretch[t]-(**temp).y()*sin(rotation[t]/180*PI)*stretch[t]+spotOriginX[t]-keyPointSize/2*stretch[t];
+                //..y=(**temp).x()*sin(rotation[t]/180*PI)*stretch[t]+(**temp).y()*cos(rotation[t]/180*PI)*stretch[t]+spotOriginY[t]-keyPointSize/2*stretch[t];
+                x=(currentPoint->x()-spotOriginX[t])*cos(-rotation[t]/180*PI)/stretch[t]-(currentPoint->y()-spotOriginY[t])*sin(-rotation[t]/180*PI)/stretch[t];
+                y=(currentPoint->x()-spotOriginX[t])*sin(-rotation[t]/180*PI)/stretch[t]+(currentPoint->y()-spotOriginY[t])*cos(-rotation[t]/180*PI)/stretch[t];
+                QPointF tempPoint1;
+                tempPoint1.setX(x);
+                tempPoint1.setY(y);
+                //qDebug("%f  %f",sin(PI/2),cos(PI/2));
+                //qDebug("%f  %f",(*currentPoint).x(),(*currentPoint).y());
+                //qDebug("%f  %f",x,y);
+                //cPath->addEllipse(((**temp).x()-keyPointSize/2)/2+spotOriginX[t],((**temp).y()-keyPointSize/2)/2+spotOriginY[t],keyPointSize/2,keyPointSize/2);
+                cPath->addEllipse((**temp).x()-keyPointSize/2,(**temp).y()-keyPointSize/2,keyPointSize,keyPointSize);
 
-            //qDebug("bian~~~~~~~:  %f %f",x,y);
-            //qDebug("ooo~~~~~~~~:  %f %f",(**temp).x(),(**temp).y());
-            //qDebug("  ");
-            if(cPath->contains(tempPoint1))//如果if为真,则点重合
+                //qDebug("bian~~~~~~~:  %f %f",x,y);
+                //qDebug("ooo~~~~~~~~:  %f %f",(**temp).x(),(**temp).y());
+                //qDebug("  ");
+                if(cPath->contains(tempPoint1))//如果if为真,则点重合
                 {
                     flag=2;
                     markFlag=1;
@@ -6795,51 +6791,51 @@ int DrawWidget::oPointSelected(){
                     //addOPointEdit();
                     return 1;
                 }
-            delete cPath;
-            //1("%f  %f",(**temp).x(),(**temp).y());
-            temp++;
+                delete cPath;
+                //1("%f  %f",(**temp).x(),(**temp).y());
+                temp++;
+            }
+            //qDebug("%f  %f",sin(PI/2),cos(PI/2));
+            //qDebug("%f  %f",(*currentPoint).x(),(*currentPoint).y());
+            //qDebug("%f  %f",x,y);
+
+            //p.translate(-spotOriginX[t],-spotOriginY[t]);
         }
-        //qDebug("%f  %f",sin(PI/2),cos(PI/2));
-        //qDebug("%f  %f",(*currentPoint).x(),(*currentPoint).y());
-        //qDebug("%f  %f",x,y);
-
-        //p.translate(-spotOriginX[t],-spotOriginY[t]);
-    }
 
 
-//    for(;oPAll!=oPointAll.end();++oPAll){
-//       if(markFlag==1&&(**oPAll).x()==selectedPoint->x()&&(**oPAll).y()==selectedPoint->y()){
-//                      p.setBrush(QBrush(QColor(255,0,255),Qt::Dense4Pattern));
-//                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
-//                      p.setBrush(Qt::NoBrush);
-//                  }
-//       else{
-//                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
-//                  }
-//        }
+        //    for(;oPAll!=oPointAll.end();++oPAll){
+        //       if(markFlag==1&&(**oPAll).x()==selectedPoint->x()&&(**oPAll).y()==selectedPoint->y()){
+        //                      p.setBrush(QBrush(QColor(255,0,255),Qt::Dense4Pattern));
+        //                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
+        //                      p.setBrush(Qt::NoBrush);
+        //                  }
+        //       else{
+        //                      p.drawEllipse((**oPAll).x()-keyPointSize/2,(**oPAll).y()-keyPointSize/2,keyPointSize,keyPointSize);
+        //                  }
+        //        }
     }
 
 
 
 
-//    for(;temp!=oPointAll.end();temp++){
-//       cPath=new(QPainterPath);
-//       cPath->addEllipse((**temp).x()-keyPointSize/2,(**temp).y()-keyPointSize/2,keyPointSize,keyPointSize);
-//       if(cPath->contains(*currentPoint))//如果if为真,则点重合
-//           {
-//               flag=2;
-//               markFlag=1;
-//               selectedPoint=new(QPointF);
-//               selectedPoint->setX((**temp).x());
-//               selectedPoint->setY((**temp).y());
-//               handleO.setX((**temp).x());
-//               handleO.setY((**temp).y());
-//               delete cPath;
-//               //addOPointEdit();
-//               return 1;
-//           }
-//       delete cPath;
-//      }
+    //    for(;temp!=oPointAll.end();temp++){
+    //       cPath=new(QPainterPath);
+    //       cPath->addEllipse((**temp).x()-keyPointSize/2,(**temp).y()-keyPointSize/2,keyPointSize,keyPointSize);
+    //       if(cPath->contains(*currentPoint))//如果if为真,则点重合
+    //           {
+    //               flag=2;
+    //               markFlag=1;
+    //               selectedPoint=new(QPointF);
+    //               selectedPoint->setX((**temp).x());
+    //               selectedPoint->setY((**temp).y());
+    //               handleO.setX((**temp).x());
+    //               handleO.setY((**temp).y());
+    //               delete cPath;
+    //               //addOPointEdit();
+    //               return 1;
+    //           }
+    //       delete cPath;
+    //      }
 
     return 0;
 }
@@ -6855,37 +6851,37 @@ void DrawWidget::paintEvent(QPaintEvent *){
     //drawDigital(p);
 
     if(ifCanDraw){
-    p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
-    if(mousePressFlag){
-        //qDebug("sssssssssssssssssss");
-        p.drawRect(xBegin,yBegin,xEnd-xBegin,yEnd-yBegin);
-    }
+        p.setPen(QPen(Qt::blue,2,Qt::SolidLine));
+        if(mousePressFlag){
+            //qDebug("sssssssssssssssssss");
+            p.drawRect(xBegin,yBegin,xEnd-xBegin,yEnd-yBegin);
+        }
 
 
-    if(showOPoint)
-        drawOPoint(p);
+        if(showOPoint)
+            drawOPoint(p);
 
-    if(oPoint.size()>1){//绘制过程直线
+        if(oPoint.size()>1){//绘制过程直线
             drawProcessLine(p);
         }
 
-    if(drawOk){
+        if(drawOk){
 
-        drawSpot(p);
+            drawSpot(p);
 
-        if(showOPoint){
-            drawOPoint(p);
-            drawOrign(p);//绘制斑点中间那个点
-        }
-        if(radiusFlag){
+            if(showOPoint){
+                drawOPoint(p);
+                drawOrign(p);//绘制斑点中间那个点
+            }
+            if(radiusFlag){
                 drawMark(p);
             }
-    }
-    ////drawBlank(p);
+        }
+        ////drawBlank(p);
 
-    drawEdgeLine(p);
-    drawScaleLine(p);
-    ////qDebug("xian zai z shi:%f,%f",drawX,drawY);
+        drawEdgeLine(p);
+        drawScaleLine(p);
+        ////qDebug("xian zai z shi:%f,%f",drawX,drawY);
     }
 
 }
@@ -6964,103 +6960,103 @@ void DrawWidget::rightCut(){
 
 void DrawWidget::rightPaste(){
     if(cpyNum){
-    list<QPointF*>::iterator oP1= oPointAll.begin();
-    list<QPointF*>::iterator handleP= handlePointAll.begin();
+        list<QPointF*>::iterator oP1= oPointAll.begin();
+        list<QPointF*>::iterator handleP= handlePointAll.begin();
 
-    list<QPointF*>oPointTempAddSpecial;
-    list<QPointF*>thePointTempAdd;
+        list<QPointF*>oPointTempAddSpecial;
+        list<QPointF*>thePointTempAdd;
 
-    //找到移动斑点的原点所在区间
-    for(int i=1;i<cpyNum;i++){//spotSelectedNum
-        for(int j=1;j<spotNum[i]+1;j++){
+        //找到移动斑点的原点所在区间
+        for(int i=1;i<cpyNum;i++){//spotSelectedNum
+            for(int j=1;j<spotNum[i]+1;j++){
+                ++oP1;
+            }
+        }
+
+        QPointF *tempPoint;
+        //将移动斑点的原点压栈到计算链表
+        for(int j=1;j<spotNum[cpyNum]+1;j++){
+            tempPoint=new(QPointF);
+            tempPoint->setX((**oP1).x());
+            tempPoint->setY((**oP1).y());
+
+            oPointTempAddSpecial.push_back(tempPoint);
+            oPointAll.push_back(tempPoint);
             ++oP1;
         }
-    }
-
-    QPointF *tempPoint;
-    //将移动斑点的原点压栈到计算链表
-    for(int j=1;j<spotNum[cpyNum]+1;j++){
-        tempPoint=new(QPointF);
-        tempPoint->setX((**oP1).x());
-        tempPoint->setY((**oP1).y());
-
-        oPointTempAddSpecial.push_back(tempPoint);
-        oPointAll.push_back(tempPoint);
-        ++oP1;
-    }
 
 
-    //找到移动斑点的控制点所在区间
-    for(int i=1;i<cpyNum;i++){
-        for(int j=1;j<2*spotNum[i]+1;j++){
+        //找到移动斑点的控制点所在区间
+        for(int i=1;i<cpyNum;i++){
+            for(int j=1;j<2*spotNum[i]+1;j++){
+                ++handleP;
+            }
+        }
+
+        //将移动斑点的控制点压栈到计算链表
+        for(int j=1;j<2*spotNum[cpyNum]+1;j++){
+            tempPoint=new(QPointF);
+            tempPoint->setX((**handleP).x());
+            tempPoint->setY((**handleP).y());
+
+
+            thePointTempAdd.push_back(tempPoint);
+            handlePointAll.push_back(tempPoint);
             ++handleP;
         }
-    }
-
-    //将移动斑点的控制点压栈到计算链表
-    for(int j=1;j<2*spotNum[cpyNum]+1;j++){
-        tempPoint=new(QPointF);
-        tempPoint->setX((**handleP).x());
-        tempPoint->setY((**handleP).y());
-
-
-        thePointTempAdd.push_back(tempPoint);
-        handlePointAll.push_back(tempPoint);
-        ++handleP;
-    }
 
 
 
-    //计算移动斑点的路径
-    path=new(QPainterPath);
-    oP1 = oPointTempAddSpecial.begin();
-    list<QPointF*>::iterator midP =thePointTempAdd.begin();
+        //计算移动斑点的路径
+        path=new(QPainterPath);
+        oP1 = oPointTempAddSpecial.begin();
+        list<QPointF*>::iterator midP =thePointTempAdd.begin();
 
-    list<QPointF*>::iterator midPNext;
-    list<QPointF*>::iterator oPNext;
+        list<QPointF*>::iterator midPNext;
+        list<QPointF*>::iterator oPNext;
 
-    path->moveTo((**oP1).x(),(**oP1).y());
-    ++oP1;
+        path->moveTo((**oP1).x(),(**oP1).y());
+        ++oP1;
 
-    midPNext=++midP;
-    midP--;
-    oPNext=++oP1;
-    oP1--;
-
-
-    for(;oP1!=oPointTempAddSpecial.end();++oPNext){
-                              path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
-                              midP++;
-                              midP++;
-                              midPNext=++midP;
-                              midP--;
-                              oP1++;
-            }
-    oP1=oPointTempAddSpecial.begin();
-    path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
-    allPath.push_back(path);
+        midPNext=++midP;
+        midP--;
+        oPNext=++oP1;
+        oP1--;
 
 
-    spotNum[++drawOk]=spotNum[cpyNum];//把斑点含点个数保存起来
-    //qDebug("&&&&&&%d   %d",drawOk,spotNum[drawOk-1]);
-    stretch[drawOk]=stretch[cpyNum];
-    rotation[drawOk]=rotation[cpyNum];
-    eventStyle=1;
-    //qDebug("sdfsdf");
-    emit ChildWindowEvent();
+        for(;oP1!=oPointTempAddSpecial.end();++oPNext){
+            path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
+            midP++;
+            midP++;
+            midPNext=++midP;
+            midP--;
+            oP1++;
+        }
+        oP1=oPointTempAddSpecial.begin();
+        path->cubicTo((**midP).x(),(**midP).y(),(**midPNext).x(),(**midPNext).y(),(**oP1).x(),(**oP1).y());
+        allPath.push_back(path);
 
 
-    spotOriginX[drawOk]=rightX;
-    spotOriginY[drawOk]=rightY;
+        spotNum[++drawOk]=spotNum[cpyNum];//把斑点含点个数保存起来
+        //qDebug("&&&&&&%d   %d",drawOk,spotNum[drawOk-1]);
+        stretch[drawOk]=stretch[cpyNum];
+        rotation[drawOk]=rotation[cpyNum];
+        eventStyle=1;
+        //qDebug("sdfsdf");
+        emit ChildWindowEvent();
 
-    spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
-    spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
 
-    spotOriginPOX[drawOk]=spotOriginOX[drawOk];
-    spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+        spotOriginX[drawOk]=rightX;
+        spotOriginY[drawOk]=rightY;
 
-    update();
-    saveStation();
+        spotOriginOX[drawOk]=spotOriginX[drawOk]-midWidth;
+        spotOriginOY[drawOk]=spotOriginY[drawOk]-midHeight;
+
+        spotOriginPOX[drawOk]=spotOriginOX[drawOk];
+        spotOriginPOY[drawOk]=spotOriginOY[drawOk];
+
+        update();
+        saveStation();
     }
 }
 
@@ -7193,14 +7189,14 @@ int DrawWidget::saveSpotPoint(){
             getAutoCAD();
             return 1;
 
-             }
+        }
         else{
-             QMessageBox msgBox(this);
-             msgBox.setWindowTitle(tr("提示"));
-             msgBox.setText(tr("当前缩放比例必须为1        "));
-             msgBox.setMinimumSize(200,100);
-             msgBox.exec();
-             return 0;
+            QMessageBox msgBox(this);
+            msgBox.setWindowTitle(tr("提示"));
+            msgBox.setText(tr("当前缩放比例必须为1        "));
+            msgBox.setMinimumSize(200,100);
+            msgBox.exec();
+            return 0;
         }
 
     }
@@ -7236,9 +7232,9 @@ void DrawWidget::setCanvasXY(int x,int y,int tempFlag){
     drawCanvasFlag=tempFlag;
 }
 void DrawWidget::setCanvasXYZ(int x,int y,int z,int tempFlag){
-//    canvasX=x;
-//    canvasY=y;
-//    canvasZ=z;
+    //    canvasX=x;
+    //    canvasY=y;
+    //    canvasZ=z;
     AutoCADFlag=1;
     drawX=x;
     drawY=y;
@@ -7430,18 +7426,18 @@ void DrawWidget::setZeroPoint(int flag){
 void DrawWidget::spotMove(QMouseEvent *event){
     list<QPointF*>::iterator oP = oPointAll.begin();
     list<QPointF*>::iterator midP =handlePointAll.begin();
-   //QPointF offset;
+    //QPointF offset;
     QPointF offset1;
 
-//    offset.setX(event->x()-selectedPoint->x());
-//    offset.setY(event->y()-selectedPoint->y());
+    //    offset.setX(event->x()-selectedPoint->x());
+    //    offset.setY(event->y()-selectedPoint->y());
 
     offset1.setX(event->x()-selectedPoint->x());
     offset1.setY(event->y()-selectedPoint->y());
 
     if(spotOperation==1){
-//        spotOriginX[spotSelectedNum]+=offset.x();
-//        spotOriginY[spotSelectedNum]+=offset.y();
+        //        spotOriginX[spotSelectedNum]+=offset.x();
+        //        spotOriginY[spotSelectedNum]+=offset.y();
         spotOriginX[spotSelectedNum]+=offset1.x();
         spotOriginY[spotSelectedNum]+=offset1.y();
         //spotOriginXI[spotSelectedNum]+=offset.x()*windowScale;
@@ -7501,18 +7497,18 @@ int DrawWidget::spotSelected(){
 void DrawWidget::setHandlePoint(QMouseEvent *event){
     QPointF offset;
     float x,y,x1,y1;
-//    float x=event->x();
-//    x=x/windowScale;
-//    float y=event->y();
-//    y=y/windowScale;
-//    offset.setX(x-selectedPoint->x());
-//    offset.setY(y-selectedPoint->y());
-//    offset.setX((-midWidth+event->x()-widthChange)/windowScale-selectedPoint->x());
-//    offset.setY((-midHeight+event->y()-heightChange)/windowScale-selectedPoint->y());
-                          //offset.setX((event->x()-selectedPoint->x())*2);
-                          //offset.setY((event->y()-selectedPoint->y())*2);
-//    offset.setX(event->x()-widthChange-selectedPoint->x());
-//    offset.setY(event->y()-heightChange-selectedPoint->y());
+    //    float x=event->x();
+    //    x=x/windowScale;
+    //    float y=event->y();
+    //    y=y/windowScale;
+    //    offset.setX(x-selectedPoint->x());
+    //    offset.setY(y-selectedPoint->y());
+    //    offset.setX((-midWidth+event->x()-widthChange)/windowScale-selectedPoint->x());
+    //    offset.setY((-midHeight+event->y()-heightChange)/windowScale-selectedPoint->y());
+    //offset.setX((event->x()-selectedPoint->x())*2);
+    //offset.setY((event->y()-selectedPoint->y())*2);
+    //    offset.setX(event->x()-widthChange-selectedPoint->x());
+    //    offset.setY(event->y()-heightChange-selectedPoint->y());
     x=(event->x()-spotOriginX[spotSelectedNum])*cos(-rotation[spotSelectedNum]/180*PI)/stretch[spotSelectedNum]-(event->y()-spotOriginY[spotSelectedNum])*sin(-rotation[spotSelectedNum]/180*PI)/stretch[spotSelectedNum];
     y=(event->x()-spotOriginX[spotSelectedNum])*sin(-rotation[spotSelectedNum]/180*PI)/stretch[spotSelectedNum]+(event->y()-spotOriginY[spotSelectedNum])*cos(-rotation[spotSelectedNum]/180*PI)/stretch[spotSelectedNum];
     x1=selectedPoint->x()-spotOriginX[spotSelectedNum];
@@ -7526,8 +7522,8 @@ void DrawWidget::setHandlePoint(QMouseEvent *event){
             if(fabs((**oP).x()+spotOriginX[spotSelectedNum]-handleA.x())<0.001&&fabs((**oP).y()+spotOriginY[spotSelectedNum]-handleA.y())<0.001){
                 (**oP).setX((**oP).x()+offset.x());
                 (**oP).setY((**oP).y()+offset.y());//qDebug("11111111");
-//                (**oP).setX(event->x());
-//                (**oP).setY(event->y());
+                //                (**oP).setX(event->x());
+                //                (**oP).setY(event->y());
                 handleA.setX((**oP).x()+spotOriginX[spotSelectedNum]);
                 handleA.setY((**oP).y()+spotOriginY[spotSelectedNum]);
                 QPointF temp;
@@ -7556,8 +7552,8 @@ void DrawWidget::setHandlePoint(QMouseEvent *event){
         oP = handlePointAll.begin();
         for(;oP!=handlePointAll.end();oP++){
             if(fabs((**oP).x()+spotOriginX[spotSelectedNum]-handleB.x())<0.001&&fabs((**oP).y()+spotOriginY[spotSelectedNum]-handleB.y())<0.001){
-//                (**oP).setX(event->x());
-//                (**oP).setY(event->y());
+                //                (**oP).setX(event->x());
+                //                (**oP).setY(event->y());
                 (**oP).setX((**oP).x()+offset.x());//qDebug("22222222");
                 (**oP).setY((**oP).y()+offset.y());
                 //handleB.setX(x-widthChange);
@@ -7679,7 +7675,7 @@ void DrawWidget::wheelEvent(QWheelEvent *event){
 
         this->update();
         //return;
-        }
+    }
     else{
         windowScale/=1.4142135623;
         if(windowScale<0.09){
@@ -7729,8 +7725,8 @@ void DrawWidget::wheelEvent(QWheelEvent *event){
 
         }else{
             //qDebug("111111111");
-//            midWidth=width()/2;
-//            midHeight=height()/2;
+            //            midWidth=width()/2;
+            //            midHeight=height()/2;
             this->setGeometry(0,0,showArea->viewport()->width(),showArea->viewport()->height());
             //qDebug("kuang %d %d",showArea->viewport()->width(),showArea->viewport()->height());
             //qDebug("li    %d %d",width(),height());

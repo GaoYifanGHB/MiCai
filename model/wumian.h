@@ -27,7 +27,7 @@ protected:
     //void drawText(const char* str);
 
 private:
-    QString tex1;
+    char* tex1;
     char* tex2;
     char* tex3;
     char* tex4;

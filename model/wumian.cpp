@@ -14,11 +14,11 @@ void wumian::initializeGL(){
     glClearDepth(1.0);
     glEnable(GL_DEPTH_TEST);
 
-    tex1=QString("../draw/image/3.png");
-    tex2="../draw/image/4.png";
-    tex3="../draw/image/1.png";
-    tex4="../draw/image/5.png";
-    tex5="../draw/image/2.png";
+    tex1="./image/3.png";
+    tex2="./image/4.png";
+    tex3="./image/1.png";
+    tex4="./image/5.png";
+    tex5="./image/2.png";
 
 
 

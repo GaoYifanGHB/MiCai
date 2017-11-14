@@ -17,7 +17,7 @@ wumainWin::wumainWin(QWidget *parent) :
     openObj=new QToolButton(this);
     //openObj->setCheckable(true);
     openObj->setToolTip(tr("打开文件"));
-    openObj->setIcon(QPixmap("../draw/icon/openobj.png"));
+    openObj->setIcon(QPixmap("./icon/openobj.png"));
     openObj->setMinimumHeight(45);
     openObj->setMinimumWidth(45);
     ui->toolBar->addWidget(openObj);
@@ -25,19 +25,19 @@ wumainWin::wumainWin(QWidget *parent) :
     savePic=new QToolButton(this);
     //savePic->setCheckable(true);
     savePic->setToolTip(tr("保存图片"));
-    savePic->setIcon(QPixmap("../draw/icon/savepic.png"));
+    savePic->setIcon(QPixmap("./icon/savepic.png"));
     savePic->setMinimumHeight(45);
     savePic->setMinimumWidth(45);
     ui->toolBar->addWidget(savePic);
 
-//    changBack=new QToolButton(this);
-//    changBack->setToolTip(tr("选择背景"));
-//    changBack->setIcon(QPixmap("../draw/icon/changeBack.png"));
-//    changBack->setMinimumHeight(45);
-//    changBack->setMinimumWidth(45);
-//    ui->toolBar->addWidget(changBack);
-//    changBack->setEnabled(false);
-//    changBack->hide();
+    //    changBack=new QToolButton(this);
+    //    changBack->setToolTip(tr("选择背景"));
+    //    changBack->setIcon(QPixmap("./icon/changeBack.png"));
+    //    changBack->setMinimumHeight(45);
+    //    changBack->setMinimumWidth(45);
+    //    ui->toolBar->addWidget(changBack);
+    //    changBack->setEnabled(false);
+    //    changBack->hide();
 
     connect(openObj,SIGNAL(clicked()),this,SLOT(openS()));
     connect(savePic,SIGNAL(clicked()),this,SLOT(savePicS()));
@@ -55,10 +55,10 @@ void wumainWin::openS(){
                 QDir::currentPath(),
                 "Document files (*.obj );;All files(*.*)");
 
-        if (filename.isNull()){
-            QMessageBox::information(this, tr("提示"),tr("没有选中文件"));
-            return;
-        }
+    if (filename.isNull()){
+        QMessageBox::information(this, tr("提示"),tr("没有选中文件"));
+        return;
+    }
 
     QByteArray ba=filename.toLocal8Bit();
 
@@ -77,20 +77,20 @@ void wumainWin::savePicS(){
     QPixmap pixmap=QPixmap::grabWindow(QApplication::desktop()->winId(),QWidget::x(),QWidget::y(),this->width()+15,this->height()+35);
 
     QString fileName = QFileDialog::getSaveFileName(this,
-            tr("Open Config"),
-            "",
-            tr("Config Files (*.png)"));
+                                                    tr("Open Config"),
+                                                    "",
+                                                    tr("Config Files (*.png)"));
 
 
     if (!fileName.isNull())
-        {
+    {
 
-            QByteArray qb=fileName.toLocal8Bit();
-            //QPixmap pixmap = QPixmap::grabWidget(this->centralWidget());
+        QByteArray qb=fileName.toLocal8Bit();
+        //QPixmap pixmap = QPixmap::grabWidget(this->centralWidget());
 
-            pixmap.save(qb.data(), "png");
-            QMessageBox::information(this, tr("提示"),tr("图片保存成功"));
-        }
+        pixmap.save(qb.data(), "png");
+        QMessageBox::information(this, tr("提示"),tr("图片保存成功"));
+    }
     else
         QMessageBox::information(this, tr("提示"),tr("图片保存失败"));
 
@@ -107,15 +107,15 @@ void wumainWin::changBackS(){
                 QDir::currentPath(),
                 "Document files (*.jpg *.png);;All files(*.*)");
 
-        if (filename.isNull()){
-            QMessageBox::information(this, tr("提示"),tr("没有选中文件"));
-            return;
-        }
+    if (filename.isNull()){
+        QMessageBox::information(this, tr("提示"),tr("没有选中文件"));
+        return;
+    }
 
-        QByteArray b=filename.toLocal8Bit();
-        test->setBackFlag=true;
-        test->backGroundFile=b.data();
-        test->updateGL();
+    QByteArray b=filename.toLocal8Bit();
+    test->setBackFlag=true;
+    test->backGroundFile=b.data();
+    test->updateGL();
 
 
 }

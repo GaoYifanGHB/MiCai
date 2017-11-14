@@ -10,7 +10,7 @@ fiveView::fiveView(QWidget *parent):
 
 
   texflag=0;
-  texfile="../draw/image/3.png";
+  texfile="./image/3.png";
   k=2.0;
 
 }
@@ -88,7 +88,7 @@ void fiveView::loadFiveView(){
 
    // glScalef(1.0,1.5,1.0);
 
-    model_texture=bindTexture(QPixmap("../draw/image/3.png"),GL_TEXTURE_2D);//把图片绑定到model_texture
+    model_texture=bindTexture(QPixmap("./image/3.png"),GL_TEXTURE_2D);//把图片绑定到model_texture
     glBindTexture(GL_TEXTURE_2D,model_texture);//纹理绑定
     glmFacetNormals(model);////计算模型面的法向（假定多边形顶点顺序为逆时针）
     glmVertexNormals(model, 90);

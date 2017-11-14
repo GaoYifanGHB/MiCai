@@ -24,7 +24,7 @@ first_opengl::first_opengl(QWidget *parent) :
     Bbox[0] = -1.0;Bbox[1] = 1.0;Bbox[2] = -1.0;
     Bbox[3] = 1.0;Bbox[4] = -0.25; Bbox[5] = 0.41;
 
-    textureFile="../draw/image/3.png";
+    textureFile="./image/3.png";
     textureFlag=1;
     setBackFlag=false;
     //backGroundFile=NULL;

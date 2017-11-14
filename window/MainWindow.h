@@ -99,7 +99,6 @@ public:
     Dialog *colordg;
     //÷ÿ÷√≥ﬂ¥Á
     void updateSizeShow();
-
     ~MainWindow();
 
 private:
@@ -531,6 +530,7 @@ private slots:
     void spotSelected();
     /////
     void fiveOpenS();
+    void keyshotS();
     void rightCpy();
     void rightCut();
     void rightPaste();

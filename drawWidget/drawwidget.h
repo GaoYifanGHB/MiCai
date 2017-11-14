@@ -47,7 +47,7 @@ class DrawWidget : public QWidget
 public:
     //spotColorAll allColor;
     explicit DrawWidget(QWidget *parent = 0);
-
+    bool gyflag;
     void addAreaSpot();
     void addCtrlSpot();
     void addImagePath();
