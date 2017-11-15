@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'drawwidget.h'
 **
-** Created: Mon Nov 13 21:59:43 2017
+** Created: Tue Nov 14 21:03:50 2017
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.3)
 **
 ** WARNING! All changes made in this file will be lost!
